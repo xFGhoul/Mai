@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "mai"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "GPL 3.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+rich = "^10.10.0"
+tortoise-orm = {extras = ["asyncpg"], version = "^0.17.7"}
+PyYAML = "^5.4.1"
+spotify = "^0.10.2"
+python-anilist = "^1.0.4"
+animec = "^0.3.3"
+psutil = "^5.8.0"
+python-dateutil = "^2.8.2"
+"vacefron.py" = "^1.6.2"
+PycordUtils = "^0.0.2"
+aPRAW = "^0.6.9-alpha.0"
+aiofiles = "^0.7.0"
+fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
+osu-tools = "^0.2.13"
+genshinstats = "^1.4.9"
+Pycord18n = "^1.0.0"
+py-cord = "^1.7.3"
+
+[tool.poetry.dev-dependencies]
+python-inquirer = "^1.0.3"
+aerich = "^0.5.8"
+youtube_dl = "^2021.6.6"
+download = "^0.3.5"
+watchgod = "^0.7"
+inquirer = "^2.7.0"
+aioredis = "^2.0.0"
+update-checker = "^0.18.0"
+Pycord18n = "^1.0.0"
+black = "^21.9b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
