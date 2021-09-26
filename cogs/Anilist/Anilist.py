@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Anilist(commands.Cog):
+class Anilist(commands.Cog, name="Anilist", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Genshin(commands.Cog):
+class Genshin(commands.Cog, name="Genshin", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

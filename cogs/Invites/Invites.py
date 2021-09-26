@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Invites(commands.Cog):
+class Invites(commands.Cog, name="Invite Manager", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

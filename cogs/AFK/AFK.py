@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class AFK(commands.Cog):
+class AFK(commands.Cog, name="AFK", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

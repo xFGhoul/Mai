@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Giveaways(commands.Cog):
+class Giveaways(commands.Cog, name="Giveaways", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

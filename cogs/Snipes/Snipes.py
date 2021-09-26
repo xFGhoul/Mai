@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Snipes(commands.Cog):
+class Snipes(commands.Cog, name="Snipes", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

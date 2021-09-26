@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class ImageUtils(commands.Cog):
+class ImageUtils(commands.Cog, name="Image Utils", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

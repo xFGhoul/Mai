@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Leveling(commands.Cog):
+class Leveling(commands.Cog, name="Leveling", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

@@ -40,7 +40,7 @@ console.print(
     "[cyan1]CHECKING OPERATING SYSTEM FOR COMPATIBILITY IN DEVELOPMENT.[/cyan1]\n"
 )
 
-if sys.platform == "linux" or sys.platform == "linux2" or sys.platform == "darwin":
+if sys.platform != "win32":
     time.sleep(2)
     os.system("cls")
     print_error()

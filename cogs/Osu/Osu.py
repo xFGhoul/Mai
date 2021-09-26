@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Osu(commands.Cog):
+class Osu(commands.Cog, name="Osu!", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

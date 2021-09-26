@@ -206,6 +206,7 @@ async def on_guild_join(guild: discord.Guild):
     except IntegrityError:
         log.info(f"{guild.name} ({guild.id}) Has Reinvited Mai.")
 
+
 # DEVELOPER ONLY COMMANDS :)
 
 

@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Automod(commands.Cog):
+class Automod(commands.Cog, name="Auto Mod", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

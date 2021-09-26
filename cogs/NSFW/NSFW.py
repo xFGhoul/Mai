@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class NSFW(commands.Cog):
+class NSFW(commands.Cog, name="NSFW", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

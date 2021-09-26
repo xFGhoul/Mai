@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Captcha(commands.Cog):
+class Captcha(commands.Cog, name="Captcha", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

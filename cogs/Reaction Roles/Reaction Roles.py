@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class ReactionRoles(commands.Cog):
+class ReactionRoles(commands.Cog, name="Reaction Roles", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

@@ -5,7 +5,7 @@ from utils.logging import log
 from utils.constants import *
 
 
-class Emoji(commands.Cog):
+class Emoji(commands.Cog, name="Emoji", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 

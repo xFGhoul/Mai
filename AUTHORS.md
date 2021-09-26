@@ -6,5 +6,5 @@
 
 ## Contributors
 
-[Nerd](https://github.com/FrostByte266)
-[FalseDev](https://github.com/FalseDev)
+* [Nerd](https://github.com/FrostByte266)
+* [FalseDev](https://github.com/FalseDev)
