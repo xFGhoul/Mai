@@ -36,6 +36,24 @@ aioredis = "^2.0.0"
 update-checker = "^0.18.0"
 Pycord18n = "^1.0.0"
 black = "^21.9b0"
+pre-commit = "^2.15.0"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

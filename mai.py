@@ -20,7 +20,15 @@ from db.models import Guild
 
 from config.ext.config_parser import config
 
-from locales.languages import *
+from locales.languages import (
+    FRENCH,
+    ENGLISH,
+    JAPANESE,
+    GERMAN,
+    KOREAN,
+    TURKISH,
+    RUSSIAN,
+)
 from pycord18n.extension import I18nExtension, _
 
 from utils.console import console
@@ -42,7 +50,9 @@ class Mai(AutoShardedBot):
         # Tuple of all activities the bot will display as a status
         self.activities = itertools.cycle(
             (
-                discord.Activity(type=discord.ActivityType.watching, name="-help"),
+                discord.Activity(
+                    type=discord.ActivityType.watching, name="-help"
+                ),
                 lambda: discord.Activity(
                     type=discord.ActivityType.listening,
                     name=f"{len(bot.commands)} Commands | {len(bot.users)} Users | {len(bot.guilds)} Servers",
@@ -51,7 +61,8 @@ class Mai(AutoShardedBot):
         )
 
         self.i18n = I18nExtension(
-            [FRENCH, ENGLISH, JAPANESE, GERMAN, KOREAN, TURKISH, RUSSIAN], fallback="en"
+            [FRENCH, ENGLISH, JAPANESE, GERMAN, KOREAN, TURKISH, RUSSIAN],
+            fallback="en",
         )
 
         # Declaring intents and initalizing parent class
@@ -78,7 +89,7 @@ class Mai(AutoShardedBot):
     ) -> str:
         guild = message.guild
         if guild:
-            guild_model, _ = await Guild.get_or_create(discord_id=guild.id)
+            guild_model, _ = await Guild.c_get_or_create_by_discord_id(guild.id)
             return commands.when_mentioned_or(guild_model.prefix)(bot, message)
         else:
             return commands.when_mentioned_or("!")(bot, message)
@@ -133,10 +144,14 @@ class Mai(AutoShardedBot):
     @tasks.loop(seconds=1)
     async def cog_watcher_task(self) -> None:
         """Watches the cogs directory for changes and reloads files"""
-        async for change in watchgod.awatch("cogs", watcher_cls=watchgod.PythonWatcher):
+        async for change in watchgod.awatch(
+            "cogs", watcher_cls=watchgod.PythonWatcher
+        ):
             for change_type, changed_file_path in change:
                 try:
-                    extension_name = changed_file_path.replace(os.path.sep, ".")[:-3]
+                    extension_name = changed_file_path.replace(
+                        os.path.sep, "."
+                    )[:-3]
                     if len(extension_name) > 36 and extension_name[-33] == ".":
                         continue
                     if change_type == watchgod.Change.modified:
@@ -154,7 +169,10 @@ class Mai(AutoShardedBot):
                         log.info(
                             f"[bright_red][EXTENSION][/bright_red] [cyan1][AUTOUNLOADED] {extension_name}[/cyan1]"
                         )
-                except (commands.ExtensionFailed, commands.NoEntryPointError) as e:
+                except (
+                    commands.ExtensionFailed,
+                    commands.NoEntryPointError,
+                ) as e:
                     traceback.print_exception(type(e), e, e.__traceback__)
 
     @status.before_loop
@@ -290,7 +308,9 @@ async def cogs(ctx: commands.Context) -> None:
         cogs.append(f"`{cog}`")
 
     cogs_str = ", ".join(cogs)
-    embed = discord.Embed(title=f"All Cogs", description=cogs_str, colour=EMBED_COLOR)
+    embed = discord.Embed(
+        title=f"All Cogs", description=cogs_str, colour=EMBED_COLOR
+    )
     await ctx.send(embed=embed)
 
 

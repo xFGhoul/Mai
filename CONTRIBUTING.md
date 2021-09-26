@@ -42,6 +42,8 @@ Ready to contribute? Here's how to set up `Mai` for local development.
 
 2. Ensure [poetry](https://python-poetry.org/docs/) is installed.
 
+3. Start The Virtual ENV and Install Packages.
+
 ```sh
     poetry shell
 ```
@@ -50,18 +52,10 @@ Ready to contribute? Here's how to set up `Mai` for local development.
     poetry install
 ```
 
-3. Create a branch for local development:
+4. Create a branch for local development:
 
 ```sh
     git checkout -b name-of-your-bugfix-or-feature
-```
-
-   Now you can make your changes locally.
-
-4. When you're done making changes, make sure to format your changes with `black`
-
-```sh
-    black .
 ```
 
 5. Commit your changes and push your branch to GitHub:
