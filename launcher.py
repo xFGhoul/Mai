@@ -472,7 +472,7 @@ console.print("[blue3]> LAUNCHING MAIN BOT.[/blue3]\n")
 
 
 try:
-    time.sleep(599)
+    time.sleep(5)
     os.system("cls")
     subprocess.call(["python", "mai.py"])
 except Exception as e:
