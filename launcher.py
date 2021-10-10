@@ -1,7 +1,6 @@
 import os
 import datetime
 import platform
-import shutil
 import sys
 import time
 
@@ -16,8 +15,6 @@ from download import download
 
 from utils.console import console
 from utils.ASCII import *
-
-from timeit import default_timer as Timer
 
 
 def WaitAndExit(message):
@@ -168,6 +165,10 @@ if "--sysinfo" in sys.argv:
         "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
     )
 
+    time.sleep(2)
+
+
+time.sleep(2)
 
 # REDIS
 
@@ -234,15 +235,10 @@ if not redis_running:
         time.sleep(2)
         console.print("[blue3]> LAUNCHING REDIS[/blue3]\n")
         subprocess.Popen(
-            ["cd", f"{redis_path}"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.STDOUT,
-            shell=True,
-        )
-        subprocess.Popen(
             ["redis-server"],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.STDOUT,
+            cwd=redis_path,
             shell=True,
         )
         console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
@@ -263,15 +259,10 @@ if not redis_running:
         )
         console.print("[blue3]> LAUNCHING REDIS[/blue3]\n")
         subprocess.Popen(
-            ["cd", f"{redis_path}"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.STDOUT,
-            shell=True,
-        )
-        subprocess.Popen(
             ["redis-server"],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.STDOUT,
+            cwd=redis_path,
             shell=True,
         )
         console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
@@ -429,16 +420,11 @@ if not os.path.exists("aerich.ini"):
 
     console.print("[blue3]BUILDING DATABASE WITH CONFIG DATA.[/blue3]\n")
 
-    subprocess.Popen(
-        ["cd", "scripts"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.STDOUT,
-        shell=True,
-    )
     subprocess.call(
         ["build_database"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.STDOUT,
+        cwd="scripts",
         shell=True,
     )
     console.print("[blue3]> DATABASE BUILT WITH CONFIG DATA.[/blue3]")
@@ -474,6 +460,10 @@ console.print("[blue3]> LAUNCHING MAIN BOT.[/blue3]\n")
 try:
     time.sleep(5)
     os.system("cls")
-    subprocess.call(["python", "mai.py"])
+
+    from mai import Mai
+
+    bot = Mai()
+    bot._start()
 except Exception as e:
     WaitAndExit(f"BOT COULD NOT BE RUN {e}")
