@@ -10,7 +10,7 @@ from discord.ext.commands import Context
 from config.ext.config_parser import config
 
 
-# aioredis.util._converters[bool] = lambda x: b"1" if x else b"0"
+aioredis.util._converters[bool] = lambda x: b"1" if x else b"0"
 redis: aioredis.Redis
 
 

@@ -63,7 +63,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
     @commands.Cog.listener()
     async def on_ready(self):
         log.info(
-            f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} Ready.[/blue3]"
+            f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
 
     @commands.group(
@@ -81,9 +81,9 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         aliases=["set"],
         description="Link your osu account to your discord account.",
     )
-    async def osu_link(self, ctx: commands.Context, username: str):
+    async def osu_link(self, ctx: commands.Context, *, username: str):
 
-        guild = await Guild.c_get_or_none_by_discord_id(discord_id=ctx.guild.id)
+        guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
 
         if await OSU.exists(guild=guild, discord_id=ctx.author.id):
 
@@ -129,6 +129,17 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             await ctx.send(embed=embed)
             return
 
+        # NOTE: I run my own local version of osutools, so If you get an error from these two lines, change
+
+        # osutools/user.py
+        # seconds = int(user_info["total_seconds_played"])
+        # self.playtime = Playtime(seconds)
+
+        # CHANGES TO
+
+        # seconds = int(user_info['total_seconds_played'])
+        # self.playtime = seconds
+
         delta = datetime.timedelta(seconds=user_v1.playtime)
         playtime = humanize.precisedelta(
             delta, suppress=["days"], minimum_unit="hours", format="%0.0f"
@@ -148,7 +159,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             if user_v2.twitter is None:
                 twitter = "No Twitter."
             else:
-                twitter = user_v2.twitter
+                twitter = f"[{user_v2.twitter}]({user_v2.twitter})"
 
             if user_v2.discord is None:
                 osu_discord = "No Discord."
@@ -157,7 +168,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed.add_field(
                 name="Contact",
-                value=f"▸ **Discord:** {osu_discord} \n▸ **Twitter:** [{twitter}](https://twitter.com/{twitter})",
+                value=f"▸ **Discord:** {osu_discord} \n▸ **Twitter:** {twitter}",
                 inline=False,
             )
 
@@ -203,10 +214,12 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
     @commands.cooldown(1, 5, BucketType.user)
     @osu.command(name="avatar", description="Get The Avatar Of A User")
-    async def osu_avatar(self, ctx: commands.Context, username: Optional[str]):
+    async def osu_avatar(
+        self, ctx: commands.Context, *, username: Optional[str]
+    ):
 
         if username is None:
-            await self.fetch_db_username(ctx)
+            username = await self.fetch_db_username(ctx)
 
         user = osu_v1.fetch_user(username=username)
 

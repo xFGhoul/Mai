@@ -5,6 +5,7 @@ ERROR_COLOR = 0xFF0000
 
 # LINKS
 BOT_AVATAR_URL = "https://cdn.discordapp.com/avatars/770898395664875541/c04edaafef86e4efdff7208204e043a6.png?size=2048"
+BOT_INVITE_URL = "https://discord.com/api/oauth2/authorize?client_id=770898395664875541&permissions=536870911991&redirect_uri=http%3A%2F%2Flocalhost%3A727&scope=bot"
 SUPPORT_SERVER_INVITE = "https://discord.gg/AZQpDFFtqK"
 
 # Channel ID's

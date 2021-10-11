@@ -105,5 +105,6 @@ class MaiHelpCommand(commands.HelpCommand):
                 embed.add_field(
                     name=f"`{self.context.clean_prefix}{command.name}`",
                     value=command.description,
+                    inline=False,
                 )
         await self.dispatch_help(embed)

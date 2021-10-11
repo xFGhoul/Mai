@@ -12,7 +12,7 @@ class Genshin(commands.Cog, name="Genshin", description="XXX"):
     @commands.Cog.listener()
     async def on_ready(self):
         log.info(
-            f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} Ready.[/blue3]"
+            f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
 
 

@@ -16,6 +16,8 @@ from download import download
 from utils.console import console
 from utils.ASCII import *
 
+from config.ext.config_parser import config
+
 
 def WaitAndExit(message):
     time.sleep(2)
@@ -89,7 +91,9 @@ console.print(
     "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
 )
 
-if "--sysinfo" in sys.argv:
+run_extra_sys_info = config["RUN_LAUNCHER_WITH_EXTRA_SYS_INFO"]
+
+if run_extra_sys_info == True:
     cpu_info = cpuinfo.get_cpu_info()
 
     cpu_name = cpu_info["brand_raw"]
@@ -124,42 +128,6 @@ if "--sysinfo" in sys.argv:
     console.print(
         f"[blue3]Free[/blue3]: [purple]{humanize.naturalsize(vmem.free)}[/purple]"
     )
-
-    console.print(
-        "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
-    )
-
-    partitions = psutil.disk_partitions()
-
-    for partition in partitions:
-        console.print(
-            f"[blue3]Drive[/blue3]: [purple]{partition.device}[/purple]"
-        )
-        try:
-            partition_usage = psutil.disk_usage(partition.mountpoint)
-        except PermissionError:
-            continue
-        console.print(
-            f"[blue3]Total Size[/blue3]: [purple]{humanize.naturalsize(partition_usage.total)}[/purple]"
-        )
-        console.print(
-            f"[blue3]Used[/blue3]: [purple]{humanize.naturalsize(partition_usage.used)}[/purple]"
-        )
-        console.print(
-            f"[blue3]Free[/blue3]: [purple]{humanize.naturalsize(partition_usage.free)}[/purple]"
-        )
-        console.print(
-            f"[blue3]Percentage[/blue3]: [purple]{partition_usage.percent}%[/purple]\n\n"
-        )
-
-        disk_io = psutil.disk_io_counters()
-
-        console.print(
-            f"[blue3]Total Read[/blue3]: [purple]{humanize.naturalsize(disk_io.read_bytes)}[/purple]"
-        )
-        console.print(
-            f"[blue3]Total Write[/blue3]: [purple]{humanize.naturalsize(disk_io.write_bytes)}[/purple]\n"
-        )
 
     console.print(
         "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
@@ -366,6 +334,7 @@ if not os.path.exists("config/config.yaml"):
         "OSU_API_V2_CLIENT_ID": "",
         "OSU_API_V2_CLIENT_SECRET": "",
         "OSU_API_V2_CLIENT_CALLBACK_URL": "",
+        "RUN_LAUNCHER_WITH_EXTRA_SYS_INFO": "",
     }
 
     if (
@@ -476,10 +445,6 @@ console.print("[blue3]> LAUNCHING MAIN BOT.[/blue3]\n")
 try:
     time.sleep(5)
     os.system("cls")
-
-    from mai import Mai
-
-    bot = Mai()
-    bot._start()
+    subprocess.call(["python", "mai.py"])
 except Exception as e:
     WaitAndExit(f"BOT COULD NOT BE RUN {e}")
