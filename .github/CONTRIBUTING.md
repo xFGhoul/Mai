@@ -1,69 +1,79 @@
 # Contributing
 
-Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given.
+Thank you so much for your interest in contributing!. All types of contributions are encouraged and valued. See below for different ways to help, and details about how this project handles them!
 
-You can contribute in many ways:
+Please make sure to read the relevant section before making your contribution! It will make it a lot easier for us maintainers to make the most of it and smooth out the experience for all involved. 💚
 
-## Types of Contributions
+The [Project Team](#join-the-project-team) looks forward to your contributions.~
 
-### Report Bugs
+## How do I...
 
-Report bugs at <https://github.com/xFGhoul/Mai/issues>.
+* Ask or Say Something 🤔🐛😱
+  * [Request Support](#request-support)
+  * [Report an Error or Bug](#report-an-error-or-bug)
+  * [Request a Feature](#request-a-feature)
+* Make Something 🤓👩🏽‍💻📜🍳
+  * [Project Setup](#project-setup)
+  * [Contribute Documentation](#contribute-documentation)
+  * [Contribute Code](#contribute-code)
+* Manage Something ✅🙆🏼💃👔
+  * [Provide Support on Issues](#provide-support-on-issues)
+  * [Label Issues](#label-issues)
+  * [Clean Up Issues and PRs](#clean-up-issues-and-prs)
+  * [Review Pull Requests](#review-pull-requests)
+  * [Merge Pull Requests](#merge-pull-requests)
+  * [Tag a Release](#tag-a-release)
+  * [Join the Project Team](#join-the-project-team)
 
-### Fix Bugs
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
-wanted" is open to whoever wants to implement it.
+## Request Support
 
-### Implement Features
+* TODO
 
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
+## Report An Error or bug
 
-### Submit Feedback
+* TODO
 
-The best way to send feedback is to file an issue at <https://github.com/xFGhoul/Mai/issues>.
+## Request a Feature
 
-If you are proposing a feature:
+* TODO
 
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
+## Project Setup
 
-## Get Started
+* TODO
 
-Ready to contribute? Here's how to set up `Mai` for local development.
+## Contribute Documentation
 
-1. Clone your fork locally
+* TODO
+  
+## Contribute Code
 
-```sh
-    git clone https://github.com/xFGhoul/Mai.git
-```
+* TODO
 
-2. Ensure [poetry](https://python-poetry.org/docs/) is installed.
+## Provide Support On Issues
 
-3. Start The Virtual ENV and Install Packages.
+* TODO
 
-```sh
-    poetry shell
-```
+## Label Issues
 
-```sh
-    poetry install
-```
+* TODO
 
-4. Create a branch for local development:
+## Clean Up Issues And PRS
 
-```sh
-    git checkout -b name-of-your-bugfix-or-feature
-```
+* TODO
 
-5. Commit your changes and push your branch to GitHub:
+## Review Pull Requests
 
-```sh
-    git add .
-    git commit -m "Your detailed description of your changes."
-    git push origin name-of-your-bugfix-or-feature
-```
+* TODO
 
-6. Submit a pull request through the GitHub website.
+## Merge Pull Requests
+
+* TODO
+
+## Tag A Release
+
+* TODO
+
+## Join the Project Team
+
+* TODO
