@@ -110,12 +110,12 @@ class Mai(AutoShardedBot):
                 self.load_extension(file)
                 loaded_extensions.add(file)
                 log.info(
-                    f"[bright_green][EXTENSION][/bright_green] [cyan1]{file} LOADED[/cyan1]"
+                    f"[bright_green][EXTENSION][/bright_green] [blue3]{file} LOADED[/blue3]"
                 )
             except Exception as e:
                 failed_extensions.add(file)
                 log.info(
-                    f"[bright red][EXTENSION ERROR][/bright red] [cyan1]FAILED TO LOAD COG {file}[/cyan1]"
+                    f"[bright red][EXTENSION ERROR][/bright red] [blue3]FAILED TO LOAD COG {file}[/blue3]"
                 )
                 if not reraise_exceptions:
                     traceback.print_exception(type(e), e, e.__traceback__)
@@ -157,21 +157,21 @@ class Mai(AutoShardedBot):
                     if change_type == watchgod.Change.modified:
                         try:
                             self.unload_extension(extension_name)
-                        except commands.ExtensionNotLoaded:
+                        except discord.errors.ExtensionNotLoaded:
                             pass
                         finally:
                             self.load_extension(extension_name)
                             log.info(
-                                f"[bright_green][EXTENSION][/bright_green] [cyan1][AUTORELOADED] {extension_name}[/cyan1]"
+                                f"[bright_green][EXTENSION][/bright_green] [blue3][AUTORELOADED] {extension_name}[/blue3]"
                             )
                     else:
                         self.unload_extension(extension_name)
                         log.info(
-                            f"[bright_red][EXTENSION][/bright_red] [cyan1][AUTOUNLOADED] {extension_name}[/cyan1]"
+                            f"[bright_red][EXTENSION][/bright_red] [blue3][AUTOUNLOADED] {extension_name}[/blue3]"
                         )
                 except (
-                    commands.ExtensionFailed,
-                    commands.NoEntryPointError,
+                    discord.errors.ExtensionFailed,
+                    discord.errors.NoEntryPointError,
                 ) as e:
                     traceback.print_exception(type(e), e, e.__traceback__)
 
@@ -186,10 +186,10 @@ class Mai(AutoShardedBot):
         # await self.i18n.init_bot(bot, self.get_locale(commands.Context)) #FIXME 'cahced_property' has no attribute 'id'. most likely due to how the pycordi18n uses pre_invoke, looking into it.
 
         console.print(
-            "[cyan1]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/cyan1]"
+            "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
         )
         console.print(
-            """[cyan1]
+            """[blue3]
 
     ███╗   ███╗ █████╗ ██╗    ██████╗  ██████╗ ████████╗      ██╗ ██████╗ 
     ████╗ ████║██╔══██╗██║    ██╔══██╗██╔═══██╗╚══██╔══╝     ██╔╝ ╚════██╗
@@ -199,15 +199,15 @@ class Mai(AutoShardedBot):
     ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝         ╚═╝ ╚═════╝ 
                                                                             
                                                                                
-[/cyan1]"""
+[/blue3]"""
         )
 
         console.print(
-            f"[cyan1]Signed into Discord as {self.user} (ID: {self.user.id}[/cyan1])\n"
+            f"[blue3]Signed into Discord as {self.user} (ID: {self.user.id}[/blue3])\n"
         )
-        console.print(f"[cyan1]Discord Version: {discord.__version__}[/cyan1]")
+        console.print(f"[blue3]Discord Version: {discord.__version__}[/blue3]")
         console.print(
-            "[cyan1]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/cyan1]"
+            "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
         )
         self.status.start()
         self.cog_watcher_task.start()
@@ -220,9 +220,12 @@ bot = Mai()
 @bot.event
 async def on_guild_join(guild: discord.Guild):
     try:
-        await Guild.create(discord_id=guild.id, language="en")
+        await Guild.create(discord_id=guild.id, language="en", prefix="-")
+        log.info(
+            f"[blue3][GUILD] JOINED GUILD {guild.name}) (ID: {guild.id}) [/blue3]"
+        )
     except IntegrityError:
-        log.info(f"{guild.name} ({guild.id}) Has Reinvited Mai.")
+        log.info(f"[blue3]{guild.name} ({guild.id}) Has Reinvited Mai.[/blue3]")
 
 
 # DEVELOPER ONLY COMMANDS :)
@@ -232,6 +235,13 @@ async def on_guild_join(guild: discord.Guild):
 @commands.is_owner()
 async def load(ctx: commands.Context, extention: str) -> None:
     """Loads an extension, owners only"""
+
+    # Check If Jishaku or jsk was provided:
+    if extention == "Jishaku" or "jishaku" or "jsk":
+        bot.load_extension("jishaku")
+        await ctx.send("Loaded Jishaku.")
+        return
+
     bot.load_extension(f"cogs.{extention}")
     embed = discord.Embed(
         color=SUCCESS_COLOR,

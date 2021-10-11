@@ -361,7 +361,11 @@ if not os.path.exists("config/config.yaml"):
         "DISCORD_ID": "",
         "DATABASE_URI": "",
         "REDIS_URI": "",
-        "OSU_API_KEY": "",
+        "OSU_API_V1_KEY": "",
+        "OSU_API_V2_KEY": "",
+        "OSU_API_V2_CLIENT_ID": "",
+        "OSU_API_V2_CLIENT_SECRET": "",
+        "OSU_API_V2_CLIENT_CALLBACK_URL": "",
     }
 
     if (

@@ -9,12 +9,14 @@ from discord.ext.commands import Context
 
 from config.ext.config_parser import config
 
-aioredis.util._converters[bool] = lambda x: b"1" if x else b"0"
+
+# aioredis.util._converters[bool] = lambda x: b"1" if x else b"0"
 redis: aioredis.Redis
 
 
 async def connect_redis():
     global redis
+
     redis = aioredis.Redis(
         await aioredis.create_connection(config["REDIS_URI"])
     )
@@ -133,3 +135,10 @@ class Guild(Model):
     @classmethod
     async def from_context(cls, ctx: Context):
         return await cls.from_id(ctx.guild.id)
+
+
+class OSU(Model):
+    id = fields.BigIntField(pk=True)
+    username = fields.TextField(default=None, unqiue=False)
+    discord_id = fields.BigIntField()
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="OSU")

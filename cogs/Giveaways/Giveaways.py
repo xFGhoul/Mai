@@ -12,7 +12,7 @@ class Giveaways(commands.Cog, name="Giveaways", description="XXX"):
     @commands.Cog.listener()
     async def on_ready(self):
         log.info(
-            f"[bright_green][EXTENSION][/bright_green][cyan1] {type(self).__name__} Ready.[/cyan1]"
+            f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} Ready.[/blue3]"
         )
 
 

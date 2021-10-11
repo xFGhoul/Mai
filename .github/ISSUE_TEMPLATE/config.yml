@@ -1,0 +1,17 @@
+contact_links:
+  - name: 📚 Documentation
+    url: https://app.gitbook.com/s/8NVYuPJu2hkjkBD2S9kk/
+    about: Before Making An Issue, Make Sure To Check The Documentation
+
+  - name: 📚 Developer Documentation
+    url: https://ghoul.gitbook.io/mai-developer-documentation/ 
+    about: Make Sure To Check The Developer Documentation If You Are A Looking Foward To Becoming A Contributor
+
+  - name: 🤔 Support Question
+    url: https://discord.gg/AZQpDFFtqK
+    about: Ask Questions At Our Discord If The Documentation Was Not Of Any Help
+
+  
+
+
+

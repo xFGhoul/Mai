@@ -16,7 +16,7 @@ from utils.constants import (
 
 class MaiHelpCommand(commands.HelpCommand):
     def command_not_found(self, string: str) -> str:
-        return f"{ERROR_EMOJI} The command `{self.clean_prefix}{string}` was not found!, If you would like this command to be added suggest it in our [support server]({SUPPORT_SERVER_INVITE})"
+        return f"{ERROR_EMOJI} The command `{self.context.clean_prefix}{string}` was not found!, If you would like this command to be added suggest it in our [support server]({SUPPORT_SERVER_INVITE})"
 
     def subcommand_not_found(
         self, command: commands.Command, string: str
@@ -46,15 +46,13 @@ class MaiHelpCommand(commands.HelpCommand):
         for cog in self.context.bot.cogs.values():
             embed.add_field(
                 name=cog.qualified_name,
-                value=f"`{self.clean_prefix}help {cog.qualified_name}`",
+                value=f"`{self.context.clean_prefix}help {cog.qualified_name}`",
                 inline=True,
             )
         await self.dispatch_help(embed)
 
     async def send_command_help(self, command: commands.Command) -> None:
-        embed = Embed(
-            title=f"Help For Command: `{command.name}`", color=EMBED_COLOR
-        )
+        embed = Embed(title=f"Help For: `{command.name}`", color=EMBED_COLOR)
         embed.add_field(
             name=f"{QUESTION_EMOJI} What does this command do?",
             value=command.description,
@@ -105,7 +103,7 @@ class MaiHelpCommand(commands.HelpCommand):
         for command in cog.walk_commands():
             if command.parent is None:
                 embed.add_field(
-                    name=f"`{self.clean_prefix}{command.name}`",
+                    name=f"`{self.context.clean_prefix}{command.name}`",
                     value=command.description,
                 )
         await self.dispatch_help(embed)
