@@ -63,6 +63,9 @@ class MaiHelpCommand(commands.HelpCommand):
             value=f"`{self.get_command_signature(command)}`",
             inline=False,
         )
+        embed.add_field(
+            name="Examples", value=f"`{command.brief}`", inline=False
+        )
         await self.dispatch_help(embed)
 
     async def send_group_help(self, group: commands.Group) -> None:

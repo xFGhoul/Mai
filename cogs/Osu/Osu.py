@@ -80,6 +80,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         name="link",
         aliases=["set"],
         description="Link your osu account to your discord account.",
+        brief=f"-osu link Whitecat\n-osu set Whitecat",
     )
     async def osu_link(self, ctx: commands.Context, *, username: str):
 
@@ -107,7 +108,11 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             await ctx.send(embed=embed)
 
     @commands.cooldown(1, 5, BucketType.user)
-    @osu.command(name="stats", description="Get Basic Stats About A Player")
+    @osu.command(
+        name="stats",
+        description="Get Basic Stats About A Player",
+        brief="-osu stats Whitecat`\n`-osu stats Whitecat -d yes",
+    )
     async def osu_stats(
         self,
         ctx: commands.Context,
@@ -213,7 +218,12 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         await ctx.send(embed=embed)
 
     @commands.cooldown(1, 5, BucketType.user)
-    @osu.command(name="avatar", description="Get The Avatar Of A User")
+    @osu.command(
+        name="avatar",
+        aliases=["av"],
+        description="Get The Avatar Of A User",
+        brief=f"-osu avatar\n-osu avatar Whitecat\n-osu av Whitecat",
+    )
     async def osu_avatar(
         self, ctx: commands.Context, *, username: Optional[str]
     ):
