@@ -424,11 +424,23 @@ if not os.path.exists("aerich.ini"):
 
     console.print("[blue3]BUILDING DATABASE WITH CONFIG DATA.[/blue3]\n")
 
+    term_question = [
+        List(
+            "terminal",
+            message="Which Terminal Are You On?",
+            choices=["cmd/powershell", "bash"],
+        )
+    ]
+    term_question_prompt = prompt(term_question)
+    terminal = term_question_prompt["terminal"]
+
+    cd_path = "scripts/win32" if terminal == "cmd/powershell" else "linux"
+
     subprocess.call(
         ["build_database"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.STDOUT,
-        cwd="scripts",
+        cwd=cd_path,
         shell=True,
     )
     console.print("[blue3]> DATABASE BUILT WITH CONFIG DATA.[/blue3]")
