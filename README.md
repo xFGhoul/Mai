@@ -34,21 +34,44 @@
 
 ## Features
 
-* TODO
-
+* AFK
+* Anilit
+* Auto Responses
+* Auto Moderation
+* Captcha
+* Economy
+* Emoji Management
+* Genshin Impmact
+* Giveaways
+* Image Generation
+* Invite Manager
+* Leveling
+* Logging
+* MyAnimeList
+* Moderation
+* music
+* NSFW
+* osu!
+* Polls
+* Reaction Roles
+* Sniping
+* Suggestions
+* Tickets
+* Youtube/Twitch/Reddit Uploading
+* Warns
+* Welcomes
 ## Setting Up A Development Environment
 
-* See The [CONTRIBUTING.MD](https://github.com/xFGhoul/Mai/blob/dev/CONTRIBUTING.md) Guide For More Info.
+* See The [CONTRIBUTING.MD](https://github.com/xFGhoul/Mai/blob/dev/.github/CONTRIBUTING.md) Guide For More Info.
+## Roadmap
 
-### Roadmap
+[Project Board](https://github.com/xFGhoul/Mai/projects/1)
 
-See the [Project Board](https://github.com/xFGhoul/Mai/projects/1) for more information.
-
-### LICENSE
+## LICENSE
 
 Distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html). See [LICENSE](https://github.com/xFGhoul/Mai/blob/dev/LICENSE) for more information.
 
-### Credits
+## Credits
 
 * [Nerd](https://github.com/FrostByte266) ([Discord](discord.com/users/Nerd#4271))
 * [FalseDev](https://github.com/FalseDev) ([Discord](dicord.com/users/FalseDev#7435))
