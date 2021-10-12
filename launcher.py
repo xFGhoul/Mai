@@ -405,8 +405,14 @@ if not os.path.exists("aerich.ini"):
 
     cd_path = "scripts/win32" if terminal == "cmd/powershell" else "linux"
 
+    build_database_command = (
+        "build_database"
+        if terminal == "cmd/powershell"
+        else "./build_database.sh"
+    )
+
     subprocess.call(
-        ["build_database"],
+        [build_database_command],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.STDOUT,
         cwd=cd_path,
