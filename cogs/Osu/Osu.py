@@ -68,6 +68,8 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             playstyle = "keyboard"
         elif user_playstyle == 3:
             playstyle = "mouse, keyboard"
+        elif user_playstyle == 4:
+            playstyle = "tablet"
         elif user_playstyle == 5:
             playstyle = "mouse, tablet"
         elif user_playstyle == 6:
