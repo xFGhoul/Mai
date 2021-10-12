@@ -257,13 +257,13 @@ async def load_error(ctx: commands.Context, error) -> None:
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Can Only Be Used By The Bot's Owners.",
         )
-    elif isinstance(error, commands.ExtensionAlreadyLoaded):
+    elif isinstance(error, discord.errors.ExtensionAlreadyLoaded):
         embed = discord.Embed(
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Extension Is Already Loaded.",
         )
         await ctx.send(embed=embed)
-    elif isinstance(error, commands.ExtensionNotFound):
+    elif isinstance(error, discord.errors.ExtensionNotFound):
         embed = discord.Embed(
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Extension Does Not Exist.",
@@ -293,13 +293,13 @@ async def unload_error(ctx: commands.Context, error) -> None:
             description=f"{ERROR_EMOJI} This Can Only Be Used By The Bot's Owners.",
         )
         await ctx.send(embed=embed)
-    elif isinstance(error, commands.ExtensionNotLoaded):
+    elif isinstance(error, discord.errors.ExtensionNotLoaded):
         embed = discord.Embed(
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Extension Is Not Loaded.",
         )
         await ctx.send(embed=embed)
-    elif isinstance(error, commands.ExtensionNotFound):
+    elif isinstance(error, discord.errors.ExtensionNotFound):
         embed = discord.Embed(
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Extension Does Not Exist.",
@@ -355,13 +355,13 @@ async def reload_error(ctx: commands.Context, error):
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Can Only Be Used By The Bot's Owners.",
         )
-    elif isinstance(error, commands.ExtensionNotLoaded):
+    elif isinstance(error, discord.errors.ExtensionNotLoaded):
         embed = discord.Embed(
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Extension Is Not Loaded.",
         )
         await ctx.send(embed=embed)
-    elif isinstance(error, commands.ExtensionNotFound):
+    elif isinstance(error, discord.errors.ExtensionNotFound):
         embed = discord.Embed(
             color=ERROR_COLOR,
             description=f"{ERROR_EMOJI} This Extension Does Not Exist.",
