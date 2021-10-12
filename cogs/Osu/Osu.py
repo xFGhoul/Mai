@@ -60,6 +60,37 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         else:
             return score
 
+    async def parse_playstyle(self, user_playstyle: int):
+
+        if user_playstyle == 1:
+            playstyle = "mouse"
+        elif user_playstyle == 2:
+            playstyle = "keyboard"
+        elif user_playstyle == 3:
+            playstyle = "mouse, keyboard"
+        elif user_playstyle == 5:
+            playstyle = "mouse, tablet"
+        elif user_playstyle == 6:
+            playstyle = "keyboard, tablet"
+        elif user_playstyle == 7:
+            playstyle = "mouse, keyboard, tablet"
+        elif user_playstyle == 8:
+            playstyle = "tablet"
+        elif user_playstyle == 9:
+            playstyle = "mouse, touch"
+        elif user_playstyle == 10:
+            playstyle = "keyboard, touch"
+        elif user_playstyle == 11:
+            playstyle = "mouse, keyboard, touch"
+        elif user_playstyle == 12:
+            playstyle = "tablet, touch"
+        elif user_playstyle == 15:
+            playstyle = "mouse, keyboard, tablet, touch"
+        else:
+            playstyle = "None."
+
+        return playstyle
+
     @commands.Cog.listener()
     async def on_ready(self):
         log.info(
@@ -116,7 +147,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
     async def osu_stats(
         self,
         ctx: commands.Context,
-        username: Optional[str],
+        username: str,
         *,
         StatsFlags: StatsFlags,
     ):
@@ -152,7 +183,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         # DISCLAIMER: This Embed Style Has Been Recreated/Copied From https://github.com/AznStevy/owo-bot/, All Credits Goes To Him.
 
-        if StatsFlags.d:
+        if StatsFlags.d == None:
 
             user_v2 = osu_v2.user(username)
 
@@ -179,7 +210,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed.add_field(
                 name="Extra Info",
-                value=f"▸ **Previously Known As:** {' , '.join(user_v2.previous_usernames)}  \n▸ **Playstyle:**: {user_v2.playstyle} \n▸ **Followers:** {humanize.intcomma(user_v2.follower_count)} \n▸ **Ranked/Approved Beatmaps:** {humanize.intcomma(user_v2.ranked_and_approved_beatmapset_count)} \n▸ **Replays Watched By Others:** {humanize.intcomma(user_v2.statistics.replays_watched_by_others)}",
+                value=f"▸ **Previously Known As:** {' , '.join(user_v2.previous_usernames)}  \n▸ **Playstyle:**: {await self.parse_playstyle(user_v2.playstyle)} \n▸ **Followers:** {humanize.intcomma(user_v2.follower_count)} \n▸ **Ranked/Approved Beatmaps:** {humanize.intcomma(user_v2.ranked_and_approved_beatmapset_count)} \n▸ **Replays Watched By Others:** {humanize.intcomma(user_v2.statistics.replays_watched_by_others)}",
                 inline=False,
             )
 
