@@ -183,7 +183,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         # DISCLAIMER: This Embed Style Has Been Recreated/Copied From https://github.com/AznStevy/owo-bot/, All Credits Goes To Him.
 
-        if StatsFlags.d == None:
+        if StatsFlags.d:
 
             user_v2 = osu_v2.user(username)
 
