@@ -1,22 +1,22 @@
-import os
 import datetime
+import os
 import platform
+import subprocess
 import sys
 import time
 
-import yaml
-import humanize
 import cpuinfo
+import humanize
 import psutil
-import subprocess
+import yaml
 
-from inquirer import *
 from download import download
+from halo import Halo
+from inquirer import *
 
-from utils.console import console
+from config.ext.config_parser import ini
 from utils.ASCII import *
-
-from config.ext.config_parser import config
+from utils.console import console
 
 
 def WaitAndExit(message):
@@ -43,17 +43,17 @@ os.system(f"cls && title {WINDOW_TITLE}")
 
 logo = """[blue3]
 
-                                    ███╗   ███╗ █████╗ ██╗      ██╗██████╗ 
+                                    ███╗   ███╗ █████╗ ██╗      ██╗██████╗
                                     ████╗ ████║██╔══██╗██║     ██╔╝╚════██╗
                                     ██╔████╔██║███████║██║    ██╔╝  █████╔╝
                                     ██║╚██╔╝██║██╔══██║██║    ╚██╗  ╚═══██╗
                                     ██║ ╚═╝ ██║██║  ██║██║     ╚██╗██████╔╝
-                                    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝      ╚═╝╚═════╝     
+                                    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝      ╚═╝╚═════╝
 
 [/blue3]"""
 
 
-console.print(logo)
+console.print(logo, justify="full")
 
 console.print(
     f"\n[blue3]WELCOME TO THE MAI LAUNCHER[/blue3] [purple]{os.getlogin()}[/purple]\n\n"
@@ -91,7 +91,7 @@ console.print(
     "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
 )
 
-run_extra_sys_info = config["RUN_LAUNCHER_WITH_EXTRA_SYS_INFO"]
+run_extra_sys_info = ini["mai"]["RunLauncherWithExtraSystemInfo"]
 
 if run_extra_sys_info == True:
     cpu_info = cpuinfo.get_cpu_info()
@@ -138,6 +138,76 @@ if run_extra_sys_info == True:
 
 time.sleep(2)
 
+console.print(
+    """[blue3]
+
+                                 ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
+                                ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
+                                ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
+                                ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
+                                ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
+                                 ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
+
+[/blue3]""",
+    justify="full",
+)
+
+
+console.print(
+    "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
+)
+
+if not os.path.exists("config/config.yaml"):
+    console.print("[red]> COFNIG FILE NOT FOUND.[/red]\n")
+
+    time.sleep(2)
+
+    console.print("[blue3]> STARTING CONFIG GENERATOR[/blue3]\n")
+
+    conf = {
+        "DISCORD_TOKEN": "",
+        "DISCORD_ID": "",
+        "DATABASE_URI": "",
+        "DEFAULT_REDIS_PATH": "",
+        "REDIS_URI": "",
+        "OSU_API_V1_KEY": "",
+        "OSU_API_V2_CLIENT_ID": "",
+        "OSU_API_V2_CLIENT_SECRET": "",
+        "OSU_API_V2_CLIENT_CALLBACK_URL": "",
+    }
+
+    if (
+        str(
+            console.input(
+                "[blue3]Would You Like To Enter Config Values Now?[/blue3] ",
+                markup=True,
+            )
+        ).lower()
+        == "y"
+        or "yes"
+        or "Y"
+        or "Yes"
+    ):
+        for key in conf.keys():
+            conf[key] = console.input(
+                f"\n[blue3]Please enter the desired value for key '{key}': [/blue3]",
+                markup=True,
+            )
+
+    with open("config/config.yaml", "w+") as f:
+        console.print("[blue3]> DUMPING CONFIG DATA TO CONFIG.YAML[/blue3]")
+        yaml.dump(conf, f, yaml.Dumper)
+        console.print("[blue3]> CONFIG DATA DUMPED.[/blue3]")
+        time.sleep(2)
+else:
+    console.print(
+        "[blue3]> Config File: [purple]config/config.yaml[/purple][/blue3]"
+    )
+
+console.print(
+    "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
+)
+
 # REDIS
 
 console.print(
@@ -149,8 +219,9 @@ console.print(
                                         ██╔══██╗██╔══╝  ██║  ██║██║╚════██║
                                         ██║  ██║███████╗██████╔╝██║███████║
                                         ╚═╝  ╚═╝╚══════╝╚═════╝ ╚═╝╚══════╝
-                                        
-[/blue3]"""
+
+[/blue3]""",
+    justify="full",
 )
 
 console.print(
@@ -161,80 +232,114 @@ redis_running = "redis-server.exe" in (p.name() for p in psutil.process_iter())
 
 if not redis_running:
 
+    from config.ext.config_parser import config
+
+    possible_redis_path = config["DEFAULT_REDIS_PATH"]
+
     console.print("[red]> REDIS NOT FOUND.[/red]\n")
 
-    question = [
-        Confirm(
-            "install_redis",
-            message="Install(And Run) Redis or Find It At A Custom Path",
-            default=False,
-        )
-    ]
+    if possible_redis_path is None:
 
-    answer = prompt(question)
-
-    if answer == True:
-        custom_redis_path = [
-            Text(
-                "custom_path",
-                message="Supply An Absolute Path For Redis Installation",
+        question_1 = [
+            List(
+                "install_redis",
+                message="How Should I Handle Redis?",
+                choices=["Custom Path", "Install(And Run) Redis"],
             )
         ]
-        redis_path_prompt = prompt(custom_redis_path)
-        redis_path = redis_path_prompt["custom_path"]
-        console.print(
-            f"\n[blue3]Selected Path[/blue3]: [purple]{redis_path}[/purple]\n\n"
-        )
-        redis_for_win_url = "https://github.com/microsoftarchive/redis/releases/download/win-3.2.100/Redis-x64-3.2.100.zip"
-        console.print(
-            f"[blue3]Download URL[/blue3]: [purple]{redis_for_win_url}[/purple]"
-        )
-        download(
-            redis_for_win_url,
-            path=redis_path,
-            kind="zip",
-            progressbar=True,
-            replace=True,
-            verbose=False,
-        )
-        console.print(
-            f"\n[blue3]> REDIS HAS BEEN INSTALLED AND EXTRACTED TO[/blue3] [red]{redis_path}[/red].\n"
-        )
-        time.sleep(2)
-        console.print("[blue3]> LAUNCHING REDIS[/blue3]\n")
-        subprocess.Popen(
-            ["redis-server"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.STDOUT,
-            cwd=redis_path,
-            shell=True,
-        )
-        console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
-        time.sleep(2)
-    else:
-        custom_redis_path = [
-            Text("custom_path", message="Supply An Absolute Path For Redis")
-        ]
-        redis_path_prompt = prompt(custom_redis_path)
-        redis_path = redis_path_prompt["custom_path"]
-        if os.path.exists(redis_path):
-            pass
-        else:
-            WaitAndExit("> Please Return A Valid Path Next Time.")
 
+        answer = prompt(question_1)
+
+        install_redis = answer["install_redis"]
+
+        if install_redis == "Custom Path":
+
+            redis_path = console.input(
+                "[blue3]> Supply An Absolute Path For Redis: [/blue3]",
+                markup=True,
+            )
+
+            if os.path.exists(redis_path):
+                console.print(
+                    f"[blue3]> VALIDATED [red]{redis_path}[/red], STARTING...[/blue3]\n\n"
+                )
+            else:
+                WaitAndExit("> Please Return A Valid Path Next Time.")
+
+            console.print(
+                f"\n[blue3]Selected Path[/blue3]: [purple]{redis_path}[/purple]\n\n"
+            )
+            console.print("[blue3]> LAUNCHING REDIS[/blue3]\n")
+            subprocess.Popen(
+                ["redis-server"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.STDOUT,
+                cwd=redis_path,
+                shell=True,
+            )
+            console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
+
+            time.sleep(2)
+
+        elif install_redis == "Install(And Run) Redis":
+
+            redis_path = console.input(
+                "[blue3]> Supply An Absolute Path For Redis: [/blue3]",
+                markup=True,
+            )
+
+            console.print(
+                f"\n[blue3]Selected Path[/blue3]: [purple]{redis_path}[/purple]\n\n"
+            )
+            redis_for_win_url = "https://github.com/microsoftarchive/redis/releases/download/win-3.2.100/Redis-x64-3.2.100.zip"
+            console.print(
+                f"[blue3]Download URL[/blue3]: [purple]{redis_for_win_url}[/purple]\n\n"
+            )
+            spinner = Halo(
+                text="Downloading Redis",
+                color="cyan",
+                text_color="cyan",
+                spinner="dots",
+            )
+            spinner.start()
+            download(
+                redis_for_win_url,
+                path=redis_path,
+                kind="zip",
+                progressbar=False,
+                replace=True,
+                verbose=False,
+            )
+            spinner.stop()
+            console.print(
+                f"\n[blue3]> REDIS HAS BEEN INSTALLED AND EXTRACTED TO[/blue3] [red]{redis_path}[/red].\n"
+            )
+            time.sleep(2)
+
+            console.print("[blue3]> LAUNCHING REDIS[/blue3]\n")
+            subprocess.Popen(
+                ["redis-server"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.STDOUT,
+                cwd=redis_path,
+                shell=True,
+            )
+            console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
+            time.sleep(2)
+        else:
+            WaitAndExit("> An Unexpected Error Occured.")
+    else:
         console.print(
-            f"\n[blue3]Selected Path[/blue3]: [purple]{redis_path}[/purple]\n\n"
+            "[blue3]> FOUND DEFAULT_REDIS_PATH FROM CONFIG.YAML[/blue3]"
         )
-        console.print("[blue3]> LAUNCHING REDIS[/blue3]\n")
         subprocess.Popen(
             ["redis-server"],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.STDOUT,
-            cwd=redis_path,
+            cwd=possible_redis_path,
             shell=True,
         )
-        console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
-        time.sleep(2)
+        console.print("[blue3]> RUNNING REDIS FROM DEFAULT_REDIS_PATH[/blue3]")
 else:
     console.print(
         f"[blue3]Redis Port:[/blue3] [purple]redis://localhost:6379[/purple]"
@@ -254,13 +359,15 @@ console.print(
 
                                 ██████╗  ██████╗ ███████╗████████╗██████╗ ██╗   ██╗
                                 ██╔══██╗██╔═══██╗██╔════╝╚══██╔══╝██╔══██╗╚██╗ ██╔╝
-                                ██████╔╝██║   ██║█████╗     ██║   ██████╔╝ ╚████╔╝ 
-                                ██╔═══╝ ██║   ██║██╔══╝     ██║   ██╔══██╗  ╚██╔╝  
-                                ██║     ╚██████╔╝███████╗   ██║   ██║  ██║   ██║   
-                                ╚═╝      ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   
-                                                                            
-[/blue3]"""
+                                ██████╔╝██║   ██║█████╗     ██║   ██████╔╝ ╚████╔╝
+                                ██╔═══╝ ██║   ██║██╔══╝     ██║   ██╔══██╗  ╚██╔╝
+                                ██║     ╚██████╔╝███████╗   ██║   ██║  ██║   ██║
+                                ╚═╝      ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝
+
+[/blue3]""",
+    justify="full",
 )
+
 
 console.print(
     "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
@@ -303,84 +410,15 @@ console.print(
 console.print(
     """[blue3]
 
-                                 ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ 
-                                ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝ 
-                                ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
-                                ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
-                                ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
-                                 ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝ 
-                                                                    
-[/blue3]"""
-)
-
-console.print(
-    "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
-)
-
-if not os.path.exists("config/config.yaml"):
-    console.print("[red]> COFNIG FILE NOT FOUND.[/red]\n")
-
-    time.sleep(2)
-
-    console.print("[blue3]> STARTING CONFIG GENERATOR[/blue3]\n")
-
-    conf = {
-        "DISCORD_TOKEN": "",
-        "DISCORD_ID": "",
-        "DATABASE_URI": "",
-        "REDIS_URI": "",
-        "OSU_API_V1_KEY": "",
-        "OSU_API_V2_KEY": "",
-        "OSU_API_V2_CLIENT_ID": "",
-        "OSU_API_V2_CLIENT_SECRET": "",
-        "OSU_API_V2_CLIENT_CALLBACK_URL": "",
-        "RUN_LAUNCHER_WITH_EXTRA_SYS_INFO": "",
-    }
-
-    if (
-        str(
-            console.input(
-                "[blue3]Would You Like To Enter Config Values Now?[/blue3] ",
-                markup=True,
-            )
-        ).lower()
-        == "y"
-        or "yes"
-        or "Y"
-        or "Yes"
-    ):
-        for key in conf.keys():
-            conf[key] = console.input(
-                f"\n[blue3]Please enter the desired value for key '{key}': [/blue3]",
-                markup=True,
-            )
-
-    with open("config/config.yaml", "w+") as f:
-        console.print("[blue3]> DUMPING CONFIG DATA TO CONFIG.YAML[/blue3]")
-        yaml.dump(conf, f, yaml.Dumper)
-        console.print("[blue3]> CONFIG DATA DUMPED.[/blue3]")
-        time.sleep(2)
-else:
-    console.print(
-        "[blue3]> Config File: [purple]config/config.yaml[/purple][/blue3]"
-    )
-
-
-console.print(
-    "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
-)
-
-console.print(
-    """[blue3]
-
                         ██████╗  █████╗ ████████╗ █████╗ ██████╗  █████╗ ███████╗███████╗
                         ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝
-                        ██║  ██║███████║   ██║   ███████║██████╔╝███████║███████╗█████╗  
-                        ██║  ██║██╔══██║   ██║   ██╔══██║██╔══██╗██╔══██║╚════██║██╔══╝  
+                        ██║  ██║███████║   ██║   ███████║██████╔╝███████║███████╗█████╗
+                        ██║  ██║██╔══██║   ██║   ██╔══██║██╔══██╗██╔══██║╚════██║██╔══╝
                         ██████╔╝██║  ██║   ██║   ██║  ██║██████╔╝██║  ██║███████║███████╗
                         ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝
-                                                                 
-[/blue3]"""
+
+[/blue3]""",
+    justify="full",
 )
 
 console.print(
@@ -429,14 +467,15 @@ console.print(
 
 console.print(
     """[blue3]
-                                    ███╗   ██╗██╗ ██████╗███████╗    ██╗    
-                                    ████╗  ██║██║██╔════╝██╔════╝    ██║    
-                                    ██╔██╗ ██║██║██║     █████╗      ██║    
-                                    ██║╚██╗██║██║██║     ██╔══╝      ╚═╝    
-                                    ██║ ╚████║██║╚██████╗███████╗    ██╗    
-                                    ╚═╝  ╚═══╝╚═╝ ╚═════╝╚══════╝    ╚═╝    
-                                        
-[/blue3]"""
+                                    ███╗   ██╗██╗ ██████╗███████╗    ██╗
+                                    ████╗  ██║██║██╔════╝██╔════╝    ██║
+                                    ██╔██╗ ██║██║██║     █████╗      ██║
+                                    ██║╚██╗██║██║██║     ██╔══╝      ╚═╝
+                                    ██║ ╚████║██║╚██████╗███████╗    ██╗
+                                    ╚═╝  ╚═══╝╚═╝ ╚═════╝╚══════╝    ╚═╝
+
+[/blue3]""",
+    justify="full",
 )
 
 console.print(

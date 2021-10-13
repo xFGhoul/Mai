@@ -1,9 +1,14 @@
-import yaml
+import configparser
 import os
+
+import yaml
 
 from utils.logging import log
 
+ROOT_DIR = os.path.abspath(os.curdir)
+
 CONFIG_PATH = "config/config.yaml"
+INI_CONFIG_PATH = os.path.join(ROOT_DIR, "mai.ini")
 
 if not os.path.exists(CONFIG_PATH):
     log.error(
@@ -13,3 +18,6 @@ if not os.path.exists(CONFIG_PATH):
 
 with open(CONFIG_PATH) as f:
     config = yaml.load(f, yaml.Loader)
+
+ini = configparser.ConfigParser()
+ini.read(INI_CONFIG_PATH)

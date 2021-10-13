@@ -2,7 +2,6 @@ import json
 
 from pycord18n.language import Language
 
-
 FRENCH = Language(
     "French", "fr", json.load(open("locales/fr_FR/fr.json", encoding="UTF-8"))
 )

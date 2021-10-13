@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
 
-from utils.logging import log
 from utils.constants import *
+from utils.logging import log
 
 
 class Genshin(commands.Cog, name="Genshin", description="XXX"):

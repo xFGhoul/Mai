@@ -15,8 +15,6 @@ body:
           required: true
         - label: I have checked if the issue is not labeled as 'to do' or 'done' in the [Mai Project](https://github.com/xFGhoul/Mai/projects/1).
           required: true
-        - label: I have read the [User Documentation](https://mai-bot.gitbook.io/mai-documentation/).
-          required: true
   - type: textarea
     attributes:
       label: Current Behavior

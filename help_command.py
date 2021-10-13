@@ -1,15 +1,15 @@
-from typing import Mapping, Optional, List
+from typing import List, Mapping, Optional
 
 from discord import Embed
 from discord.ext import commands
 
 from utils.constants import (
-    EMBED_COLOR,
-    ERROR_EMOJI,
-    ERROR_COLOR,
-    CHECKMARK_EMOJI,
-    QUESTION_EMOJI,
     BOT_AVATAR_URL,
+    CHECKMARK_EMOJI,
+    EMBED_COLOR,
+    ERROR_COLOR,
+    ERROR_EMOJI,
+    QUESTION_EMOJI,
     SUPPORT_SERVER_INVITE,
 )
 

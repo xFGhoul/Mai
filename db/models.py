@@ -1,14 +1,12 @@
 import asyncio
-import aioredis
 
+import aioredis
+from discord import Guild as GuildModel
+from discord.ext.commands import Context
 from tortoise import fields
 from tortoise.models import Model
 
-from discord import Guild as GuildModel
-from discord.ext.commands import Context
-
 from config.ext.config_parser import config
-
 
 aioredis.util._converters[bool] = lambda x: b"1" if x else b"0"
 redis: aioredis.Redis

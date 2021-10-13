@@ -4,44 +4,51 @@ import itertools
 import os
 import traceback
 
-from typing import Tuple
-from glob import glob
 
-from discord.flags import MemberCacheFlags
-from discord import Intents, AllowedMentions
+from glob import glob
+from typing import Tuple
+
+
+from discord import AllowedMentions, Intents
 from discord.ext import commands, tasks
 from discord.ext.commands import AutoShardedBot
+from discord.flags import MemberCacheFlags
+
+from pycord18n.extension import I18nExtension, _
+
+
+from rich.traceback import install
+
 
 from tortoise import Tortoise
 from tortoise.exceptions import IntegrityError
 
-from db.tortoise.config import default
-from db.models import Guild
-
 from config.ext.config_parser import config
 
-from locales.languages import (
-    FRENCH,
-    ENGLISH,
-    JAPANESE,
-    GERMAN,
-    KOREAN,
-    TURKISH,
-    RUSSIAN,
-)
-from pycord18n.extension import I18nExtension, _
-
-from utils.console import console
-from utils.logging import log
-from utils.constants import (
-    EMBED_COLOR,
-    SUCCESS_COLOR,
-    CHECKMARK_EMOJI,
-    ERROR_EMOJI,
-    ERROR_COLOR,
-)
+from db.models import Guild
+from db.tortoise.config import default
 
 from help_command import MaiHelpCommand
+
+from locales.languages import (
+    ENGLISH,
+    FRENCH,
+    GERMAN,
+    JAPANESE,
+    KOREAN,
+    RUSSIAN,
+    TURKISH,
+)
+
+from utils.console import console
+from utils.constants import (
+    CHECKMARK_EMOJI,
+    EMBED_COLOR,
+    ERROR_COLOR,
+    ERROR_EMOJI,
+    SUCCESS_COLOR,
+)
+from utils.logging import log
 
 
 class Mai(AutoShardedBot):
@@ -191,15 +198,16 @@ class Mai(AutoShardedBot):
         console.print(
             """[blue3]
 
-    ███╗   ███╗ █████╗ ██╗    ██████╗  ██████╗ ████████╗      ██╗ ██████╗ 
+    ███╗   ███╗ █████╗ ██╗    ██████╗  ██████╗ ████████╗      ██╗ ██████╗
     ████╗ ████║██╔══██╗██║    ██╔══██╗██╔═══██╗╚══██╔══╝     ██╔╝ ╚════██╗
     ██╔████╔██║███████║██║    ██████╔╝██║   ██║   ██║       ██╔╝   █████╔╝
     ██║╚██╔╝██║██╔══██║██║    ██╔══██╗██║   ██║   ██║       ╚██╗   ╚═══██╗
     ██║ ╚═╝ ██║██║  ██║██║    ██████╔╝╚██████╔╝   ██║        ╚██╗ ██████╔╝
-    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝         ╚═╝ ╚═════╝ 
-                                                                            
-                                                                               
-[/blue3]"""
+    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝    ╚═╝         ╚═╝ ╚═════╝
+
+
+[/blue3]""",
+            justify="full",
         )
 
         console.print(
@@ -375,5 +383,6 @@ if __name__ == "__main__":
     # Makes sure the bot only runs if this is run as main file
     try:
         bot._start()
+        install(show_locals=True)
     except Exception as e:
         log.exception(e)

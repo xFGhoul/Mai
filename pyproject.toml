@@ -26,6 +26,8 @@ humanize = "^3.11.0"
 py-cord = {git = "https://github.com/Pycord-Development/pycord.git"}
 py-cpuinfo = "^8.0.0"
 ossapi = "^2.1.0"
+halo = "^0.0.31"
+mkdocs-material = "^7.3.3"
 
 [tool.poetry.dev-dependencies]
 python-inquirer = "^1.0.3"

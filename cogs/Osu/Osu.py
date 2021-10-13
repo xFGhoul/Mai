@@ -1,21 +1,22 @@
 import discord
-import datetime
 import humanize
 import osutools
+import datetime
 
-from ossapi import *
+from typing import Optional
 
 from discord.ext import commands
 from discord.ext.commands import BucketType
 
-from utils.logging import log
-from utils.constants import *
 
-from typing import Optional
-
-from db.models import Guild, OSU
+from ossapi import OssapiV2
 
 from config.ext.config_parser import config
+
+from db.models import OSU, Guild
+
+from utils.constants import *
+from utils.logging import log
 
 osu_v1 = osutools.OsuClientV1(config["OSU_API_V1_KEY"])
 

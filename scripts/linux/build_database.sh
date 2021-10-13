@@ -34,4 +34,4 @@ echo INITIALIZED DATABASE.
 echo -------------------------------------
 
 sleep 5
-exit 
+exit
