@@ -99,7 +99,9 @@ class Mai(AutoShardedBot):
             guild_model, _ = await Guild.c_get_or_create_by_discord_id(guild.id)
             return commands.when_mentioned_or(guild_model.prefix)(bot, message)
         else:
-            return commands.when_mentioned_or("!")(bot, message)
+            return commands.when_mentioned_or(config["DEFAULT_PREFIX"])(
+                bot, message
+            )
 
     async def get_locale(self, ctx: commands.Context) -> None:
         pass  # FIXME Overriding get_locale for pycordi18n but it's broken so just pass for now.
@@ -247,7 +249,11 @@ async def load(ctx: commands.Context, extention: str) -> None:
     # Check If Jishaku or jsk was provided:
     if extention == "Jishaku" or "jishaku" or "jsk":
         bot.load_extension("jishaku")
-        await ctx.send("Loaded Jishaku.")
+        embed = discord.Embed(
+            color=SUCCESS_COLOR,
+            description=f"{CHECKMARK_EMOJI} Jishaku Has Loaded.",
+        )
+        await ctx.send(embed=embed)
         return
 
     bot.load_extension(f"cogs.{extention}")

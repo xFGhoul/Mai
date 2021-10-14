@@ -174,6 +174,8 @@ if not os.path.exists("config/config.yaml"):
         "OSU_API_V2_CLIENT_ID": "",
         "OSU_API_V2_CLIENT_SECRET": "",
         "OSU_API_V2_CLIENT_CALLBACK_URL": "",
+        "DEFAULT_PREFIX": "",
+        "BOT_VERSION": "",
     }
 
     if (
