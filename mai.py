@@ -40,15 +40,15 @@ from locales.languages import (
     TURKISH,
 )
 
-from utils.console import console
-from utils.constants import (
+from helpers.console import console
+from helpers.constants import (
     CHECKMARK_EMOJI,
     EMBED_COLOR,
     ERROR_COLOR,
     ERROR_EMOJI,
     SUCCESS_COLOR,
 )
-from utils.logging import log
+from helpers.logging import log
 
 
 class Mai(AutoShardedBot):

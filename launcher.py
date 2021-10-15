@@ -15,8 +15,8 @@ from halo import Halo
 from inquirer import *
 
 from config.ext.config_parser import ini
-from utils.ASCII import *
-from utils.console import console
+from helpers.ASCII import *
+from helpers.console import console
 
 
 def WaitAndExit(message):
@@ -133,10 +133,10 @@ if run_extra_sys_info == True:
         "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
     )
 
-    time.sleep(2)
+    time.sleep(1)
 
 
-time.sleep(2)
+time.sleep(1)
 
 console.print(
     """[blue3]
@@ -160,7 +160,7 @@ console.print(
 if not os.path.exists("config/config.yaml"):
     console.print("[red]> COFNIG FILE NOT FOUND.[/red]\n")
 
-    time.sleep(2)
+    time.sleep(1)
 
     console.print("[blue3]> STARTING CONFIG GENERATOR[/blue3]\n")
 
@@ -200,7 +200,7 @@ if not os.path.exists("config/config.yaml"):
         console.print("[blue3]> DUMPING CONFIG DATA TO CONFIG.YAML[/blue3]")
         yaml.dump(conf, f, yaml.Dumper)
         console.print("[blue3]> CONFIG DATA DUMPED.[/blue3]")
-        time.sleep(2)
+        time.sleep(1)
 else:
     console.print(
         "[blue3]> Config File: [purple]config/config.yaml[/purple][/blue3]"
@@ -281,7 +281,7 @@ if not redis_running:
             )
             console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
 
-            time.sleep(2)
+            time.sleep(1)
 
         elif install_redis == "Install(And Run) Redis":
 
@@ -316,7 +316,7 @@ if not redis_running:
             console.print(
                 f"\n[blue3]> REDIS HAS BEEN INSTALLED AND EXTRACTED TO[/blue3] [red]{redis_path}[/red].\n"
             )
-            time.sleep(2)
+            time.sleep(1)
 
             console.print("[blue3]> LAUNCHING REDIS[/blue3]\n")
             subprocess.Popen(
@@ -327,7 +327,7 @@ if not redis_running:
                 shell=True,
             )
             console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
-            time.sleep(2)
+            time.sleep(1)
         else:
             WaitAndExit("> An Unexpected Error Occured.")
     else:
@@ -377,7 +377,7 @@ console.print(
 
 
 if not os.path.exists("poetry.lock"):
-    time.sleep(2)
+    time.sleep(1)
 
     console.print(
         "[red]> POETRY.LOCK NOT FOUND, ASSUMING NO POETRY PACKAGES HAVE BEEN INSTALLED, INSTALLING POETRY...[/red]\n"
@@ -429,7 +429,7 @@ console.print(
 
 if not os.path.exists("aerich.ini"):
     console.print("[red]> DATABASE DATA NOT FOUND[/red]\n")
-    time.sleep(2)
+    time.sleep(1)
 
     console.print("[blue3]BUILDING DATABASE WITH CONFIG DATA.[/blue3]\n")
 
@@ -490,7 +490,7 @@ console.print("[blue3]> LAUNCHING MAIN BOT.[/blue3]\n")
 
 
 try:
-    time.sleep(5)
+    time.sleep(3)
     os.system("cls")
     subprocess.call(["python", "mai.py"])
 except Exception as e:

@@ -13,7 +13,9 @@ logging.basicConfig(
             show_path=False,
             show_time=True,
             markup=True,
-        )
+        ),
     ],
 )
+
+
 log = logging.getLogger("rich")

@@ -3,7 +3,7 @@ from typing import List, Mapping, Optional
 from discord import Embed
 from discord.ext import commands
 
-from utils.constants import (
+from helpers.constants import (
     BOT_AVATAR_URL,
     CHECKMARK_EMOJI,
     EMBED_COLOR,
@@ -55,7 +55,9 @@ class MaiHelpCommand(commands.HelpCommand):
         embed = Embed(title=f"Help For: `{command.name}`", color=EMBED_COLOR)
         embed.add_field(
             name=f"{QUESTION_EMOJI} What does this command do?",
-            value=command.description,
+            value=command.description
+            if command.description is not None
+            else "No Description",
             inline=False,
         )
         embed.add_field(
@@ -63,9 +65,12 @@ class MaiHelpCommand(commands.HelpCommand):
             value=f"`{self.get_command_signature(command)}`",
             inline=False,
         )
-        embed.add_field(
-            name="Examples", value=f"`{command.brief}`", inline=False
+        examples = (
+            f"`{command.brief}`"
+            if command.brief is not None
+            else "No Examples."
         )
+        embed.add_field(name="Examples", value=examples, inline=False)
         await self.dispatch_help(embed)
 
     async def send_group_help(self, group: commands.Group) -> None:
@@ -74,7 +79,9 @@ class MaiHelpCommand(commands.HelpCommand):
         )
         embed.add_field(
             name=f"{QUESTION_EMOJI} What does this command do?",
-            value=group.description,
+            value=group.description
+            if group.description is not None
+            else "No Description",
             inline=False,
         )
         embed.add_field(
@@ -82,6 +89,7 @@ class MaiHelpCommand(commands.HelpCommand):
             value=f"`{self.get_command_signature(group)}`",
             inline=False,
         )
+
         subcommand_help = [
             f"**`{self.get_command_signature(command)}`**\n{command.description}"
             for command in group.commands
@@ -100,14 +108,18 @@ class MaiHelpCommand(commands.HelpCommand):
         )
         embed.add_field(
             name=f"{QUESTION_EMOJI} What does this category do?",
-            value=cog.description,
+            value=cog.description
+            if cog.description is not None
+            else "No Description",
             inline=False,
         )
         for command in cog.walk_commands():
             if command.parent is None:
                 embed.add_field(
                     name=f"`{self.context.clean_prefix}{command.name}`",
-                    value=command.description,
+                    value=command.description
+                    if command.description is not None
+                    else "No Command Description",
                     inline=False,
                 )
         await self.dispatch_help(embed)

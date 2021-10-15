@@ -15,8 +15,8 @@ from config.ext.config_parser import config
 
 from db.models import OSU, Guild
 
-from utils.constants import *
-from utils.logging import log
+from helpers.constants import *
+from helpers.logging import log
 
 osu_v1 = osutools.OsuClientV1(config["OSU_API_V1_KEY"])
 
@@ -36,7 +36,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         self.bot = bot
 
     async def fetch_db_username(self, ctx: commands.Context) -> str:
-        guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
+        guild = await Guild.c_get_or_none_by_discord_id(ctx.guild.id)
         osu_model = (
             await OSU.get_or_create(guild=guild, discord_id=ctx.author.id)
         )[0]
@@ -118,7 +118,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
     )
     async def osu_link(self, ctx: commands.Context, *, username: str):
 
-        guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
+        guild = await Guild.c_get_or_none_by_discord_id(ctx.guild.id)
 
         if await OSU.exists(guild=guild, discord_id=ctx.author.id):
 
@@ -150,7 +150,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
     async def osu_stats(
         self,
         ctx: commands.Context,
-        username: str,
+        username: Optional[str],
         *,
         StatsFlags: StatsFlags,
     ):
@@ -170,6 +170,8 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         # NOTE: I run my own local version of osutools, so If you get an error from these two lines, change
 
+        # ----------------------------------------------------
+
         # osutools/user.py
         # seconds = int(user_info["total_seconds_played"])
         # self.playtime = Playtime(seconds)
@@ -178,6 +180,8 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         # seconds = int(user_info['total_seconds_played'])
         # self.playtime = seconds
+
+        # ----------------------------------------------------
 
         delta = datetime.timedelta(seconds=user_v1.playtime)
         playtime = humanize.precisedelta(

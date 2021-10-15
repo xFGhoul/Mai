@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
 
-from utils.constants import *
-from utils.logging import log
+from helpers.constants import *
+from helpers.logging import log
 
 
 class Snipes(commands.Cog, name="Snipes", description="XXX"):

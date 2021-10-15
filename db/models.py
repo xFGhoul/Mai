@@ -117,9 +117,18 @@ def cached_model(*, key: str):
 
 @cached_model(key="discord_id")
 class Guild(Model):
+    # Core Components Of The Model
     discord_id = fields.BigIntField(pk=True)
     language = fields.TextField(default="en")
     prefix = fields.TextField(default="-")
+
+    # Some Checks (soon™)
+    is_bot_blacklisted = fields.BooleanField(default=False)
+    blacklisted_reason = fields.TextField()
+    is_premium = fields.BooleanField(default=False)
+
+    # Some Fields When Doing Global Checks (soon™)
+    blacklisted_channels = fields.BigIntField()
 
     @classmethod
     async def from_id(cls, guild_id):

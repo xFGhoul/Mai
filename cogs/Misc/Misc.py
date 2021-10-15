@@ -6,8 +6,8 @@ import discord
 from discord.ext import commands
 
 from db.models import Guild
-from utils.constants import *
-from utils.logging import log
+from helpers.constants import *
+from helpers.logging import log
 
 from config.ext.config_parser import config
 

@@ -3,7 +3,7 @@ import os
 
 import yaml
 
-from utils.logging import log
+from helpers.logging import log
 
 ROOT_DIR = os.path.abspath(os.curdir)
 
