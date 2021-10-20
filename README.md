@@ -52,6 +52,7 @@
 * Youtube/Twitch/Reddit Uploading
 * Warns
 * Welcomes
+
 ## Setting Up A Development Environment
 
 * See The [CONTRIBUTING.MD](https://github.com/xFGhoul/Mai/blob/dev/.github/CONTRIBUTING.md) Guide For More Info.
