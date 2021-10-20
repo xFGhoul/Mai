@@ -22,9 +22,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           issue-lock-inactive-days: "30"
-          issue-lock-reason: "Inactive"
           pr-lock-inactive-days: "1"
-          pr-lock-reason: "Inactive"
           add-issue-labels: 'outdated'
           issue-comment: >
             This issue has been automatically locked since there
