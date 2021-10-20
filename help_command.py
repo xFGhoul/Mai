@@ -1,3 +1,6 @@
+import humanize
+import datetime
+
 from typing import List, Mapping, Optional
 
 from discord import Embed
@@ -65,12 +68,18 @@ class MaiHelpCommand(commands.HelpCommand):
             value=f"`{self.get_command_signature(command)}`",
             inline=False,
         )
+
         examples = (
             f"`{command.brief}`"
             if command.brief is not None
             else "No Examples."
         )
+
         embed.add_field(name="Examples", value=examples, inline=False)
+
+        delta = datetime.timedelta(seconds=command._buckets._cooldown.per)
+        cooldown = humanize.precisedelta(delta, format="%0.0f")
+        embed.add_field(name="Cooldown", value=f"`{cooldown}`", inline=False)
         await self.dispatch_help(embed)
 
     async def send_group_help(self, group: commands.Group) -> None:

@@ -1,4 +1,5 @@
 import discord
+import re
 import humanize
 import osutools
 import datetime
@@ -9,7 +10,10 @@ from discord.ext import commands
 from discord.ext.commands import BucketType
 
 
-from ossapi import OssapiV2
+from ossapi.ossapiv2 import OssapiV2
+from ossapi.enums import RankStatus
+
+from osutools.oppai import Oppai
 
 from config.ext.config_parser import config
 
@@ -17,6 +21,7 @@ from db.models import OSU, Guild
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.utils import shorten_url
 
 osu_v1 = osutools.OsuClientV1(config["OSU_API_V1_KEY"])
 
@@ -36,7 +41,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         self.bot = bot
 
     async def fetch_db_username(self, ctx: commands.Context) -> str:
-        guild = await Guild.c_get_or_none_by_discord_id(ctx.guild.id)
+        guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
         osu_model = (
             await OSU.get_or_create(guild=guild, discord_id=ctx.author.id)
         )[0]
@@ -94,11 +99,48 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         return playstyle
 
+    async def parse_rank_status(self, type):
+        if type == RankStatus.RANKED:
+            rank = "Ranked"
+        elif type == RankStatus.APPROVED:
+            rank = "Approved"
+        elif type == RankStatus.GRAVEYARD:
+            rank = "Graveyard"
+        elif type == RankStatus.LOVED:
+            rank = "Loved"
+        elif type == RankStatus.QUALIFIED:
+            rank = "Qualified"
+        elif type == RankStatus.PENDING:
+            rank = "Pending"
+        elif type == RankStatus.WIP:
+            rank = "Work In Progress"
+        else:
+            rank = "None."
+
+        return rank
+
     @commands.Cog.listener()
     async def on_ready(self):
         log.info(
             f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
+
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+
+        guild = (await Guild.get_or_create(discord_id=message.guild.id))[0]
+
+        osu = (await OSU.get_or_create(guild=guild))[0]
+
+        beatmap_regex = re.compile(r"https://osu\.ppy\.sh/b/?\(d+)$")
+        beatmap_regex_match = beatmap_regex.search(message.content)
+        if beatmap_regex_match and osu.passive:
+
+            regex_beatmap_id = beatmap_regex_match.group(1)
+
+            beatmap_id = int(regex_beatmap_id)
+
+            pass
 
     @commands.group(
         invoke_without_subcommand=True, description="Manage Osu Commands"
@@ -114,11 +156,11 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         name="link",
         aliases=["set"],
         description="Link your osu account to your discord account.",
-        brief=f"-osu link Whitecat\n-osu set Whitecat",
+        brief=f"osu link Whitecat\nosu set Whitecat",
     )
     async def osu_link(self, ctx: commands.Context, *, username: str):
 
-        guild = await Guild.c_get_or_none_by_discord_id(ctx.guild.id)
+        guild = (await Guild.get_or_create(ctx.guild.id))[0]
 
         if await OSU.exists(guild=guild, discord_id=ctx.author.id):
 
@@ -145,7 +187,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
     @osu.command(
         name="stats",
         description="Get Basic Stats About A Player",
-        brief="-osu stats Whitecat`\n`-osu stats Whitecat -d yes",
+        brief="osu stats Whitecat`\n`osu stats Whitecat -d yes",
     )
     async def osu_stats(
         self,
@@ -196,7 +238,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed = discord.Embed(
                 color=EMBED_COLOR,
-                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n▸ **Level:** {user_v1.level}%\n▸ **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n▸ **Ranks:** {SSHD_EMOJI}`{user_v1.ssh_count}`{SS_EMOJI}`{user_v1.ss_count}`{S_EMOJI}`{user_v1.s_count}`{A_EMOJI}`{user_v1.a_count}`\n▸ **Ranked Score:** {humanize.intcomma(user_v1.ranked_score)}\n▸ **Total Score:** {humanize.intcomma(user_v1.total_score)}\n▸ **Total Hits:** {humanize.intcomma(user_v1.num_300 + user_v1.num_100 + user_v1.num_50)}\n▸ **Max Combo:** {humanize.intcomma(user_v2.statistics.maximum_combo)}",
+                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n▸ **Level:** {int(round(user_v1.level ,2))}%\n▸ **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n▸ **Ranks:** {SSHD_EMOJI}`{user_v1.ssh_count}`{SS_EMOJI}`{user_v1.ss_count}`{S_EMOJI}`{user_v1.s_count}`{A_EMOJI}`{user_v1.a_count}`\n▸ **Ranked Score:** {humanize.intcomma(user_v1.ranked_score)}\n▸ **Total Score:** {humanize.intcomma(user_v1.total_score)}\n▸ **Total Hits:** {humanize.intcomma(user_v1.num_300 + user_v1.num_100 + user_v1.num_50)}\n▸ **Max Combo:** {humanize.intcomma(user_v2.statistics.maximum_combo)}",
             )
 
             if user_v2.twitter is None:
@@ -239,7 +281,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         else:
             embed = discord.Embed(
                 color=EMBED_COLOR,
-                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n▸ **Level:** {user_v1.level}%\n▸ **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n▸ **Ranks:** {SSHD_EMOJI}`{user_v1.ssh_count}`{SS_EMOJI}`{user_v1.ss_count}`{S_EMOJI}`{user_v1.s_count}`{A_EMOJI}`{user_v1.a_count}`",
+                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n▸ **Level:** {int(round(user_v1.level ,2))}%\n▸ **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n▸ **Ranks:** {SSHD_EMOJI}`{user_v1.ssh_count}`{SS_EMOJI}`{user_v1.ss_count}`{S_EMOJI}`{user_v1.s_count}`{A_EMOJI}`{user_v1.a_count}`",
             )
             embed.set_author(
                 name=f"Osu Standard Profile for {user_v1.username}",
@@ -257,10 +299,51 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
     @commands.cooldown(1, 5, BucketType.user)
     @osu.command(
+        name="recent",
+        aliases=["rs"],
+        description="Get A user's most recent play",
+        brief="osu recent Whitecat\n-osu recent\n-osu rs",
+    )
+    async def recent(self, ctx: commands.Context, *, username: Optional[str]):
+
+        if username is None:
+            username = await self.fetch_db_username(ctx)
+
+        user = osu_v1.fetch_user(username=username)
+
+        user_recents = user.fetch_recent(limit=1)
+
+        recent = user_recents[0]
+
+        map = osu_v1.fetch_map(recent.map_id)
+
+        pp = Oppai.calculate_pp_from_url(
+            map.download_url, mods=recent.mods.value, accuracy=100.0
+        )
+
+        embed = discord.Embed(
+            color=EMBED_COLOR,
+            description=f"▸ {await self.parse_score(recent.rank)} **▸ {round(map.get_pp(score=recent, mods=recent.mods.value), 2)}PP** ({round(pp, 2)}PP for 100.00% FC) ▸ ",
+        )
+
+        embed.set_author(
+            name=f"{map}",
+            url=f"https://osu.ppy.sh/b/{recent.map_id}",
+            icon_url=user.avatar_url,
+        )
+        embed.set_thumbnail(url=map.thumbnail)
+        embed.set_footer(
+            text=f"On osu! Bancho | User ID: {user.id}",
+            icon_url=OSU_LOGO_IMAGE,
+        )
+        await ctx.send(embed=embed)
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(
         name="avatar",
         aliases=["av"],
         description="Get The Avatar Of A User",
-        brief=f"-osu avatar\n-osu avatar Whitecat\n-osu av Whitecat",
+        brief=f"osu avatar\n-osu avatar Whitecat\n-osu av Whitecat",
     )
     async def osu_avatar(
         self, ctx: commands.Context, *, username: Optional[str]
@@ -280,6 +363,58 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         embed.set_image(url=user.avatar_url)
 
         await ctx.send(embed=embed)
+
+    @commands.cooldown(1, 10, BucketType.user)
+    @osu.command(
+        name="skin",
+        description="Set Your Favorite Skin",
+        brief="osu skin https://skins.osuck.net/index.php?newsid=1648",
+    )
+    async def skin(self, ctx: commands.Context, skin: str):
+        url = await shorten_url(str(skin))
+
+        guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
+
+        if await OSU.exists(guild=guild, discord_id=ctx.author.id):
+
+            await OSU.filter(guild=guild, discord_id=ctx.author.id).update(
+                skin=url
+            )
+
+            embed = discord.Embed(
+                color=EMBED_COLOR,
+                description=f"{CHECKMARK_EMOJI} **Successfully Updated Skin**.",
+            )
+            embed.set_author(
+                name=ctx.author.name, icon_url=ctx.author.avatar.url
+            )
+            embed.add_field(name="Shareable URL", value=f"[URL]({url})")
+
+            await ctx.send(embed=embed)
+
+    @commands.cooldown(1, 10, BucketType.user)
+    @osu.command(
+        name="passive",
+        description="Set How Mai Reacts",
+        brief="osu passive True",
+    )
+    async def passive(self, ctx: commands.Context, passive: bool):
+
+        guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
+
+        if await OSU.exists(guild=guild):
+
+            await OSU.filter(guild=guild).update(passive=passive)
+
+            embed = discord.Embed(
+                color=EMBED_COLOR,
+                description=f"{CHECKMARK_EMOJI} **Passive set to {passive}**.",
+            )
+            embed.set_author(
+                name=ctx.author.name, icon_url=ctx.author.avatar.url
+            )
+
+            await ctx.send(embed=embed)
 
 
 def setup(bot):

@@ -1,8 +1,10 @@
 import asyncio
-
 import aioredis
+
 from discord import Guild as GuildModel
 from discord.ext.commands import Context
+
+
 from tortoise import fields
 from tortoise.models import Model
 
@@ -124,11 +126,11 @@ class Guild(Model):
 
     # Some Checks (soon™)
     is_bot_blacklisted = fields.BooleanField(default=False)
-    blacklisted_reason = fields.TextField()
+    blacklisted_reason = fields.TextField(default="Violating TOS", unique=False)
     is_premium = fields.BooleanField(default=False)
 
     # Some Fields When Doing Global Checks (soon™)
-    blacklisted_channels = fields.BigIntField()
+    blacklisted_channels = fields.BigIntField(null=True)
 
     @classmethod
     async def from_id(cls, guild_id):
@@ -147,5 +149,7 @@ class Guild(Model):
 class OSU(Model):
     id = fields.BigIntField(pk=True)
     username = fields.TextField(default=None, unqiue=False)
+    skin = fields.TextField(default="Default Skin", unique=False)
+    passive = fields.BooleanField(default=True)
     discord_id = fields.BigIntField()
     guild = fields.ForeignKeyField("Mai.Guild", related_name="OSU")

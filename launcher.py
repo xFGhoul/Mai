@@ -15,7 +15,7 @@ from halo import Halo
 from inquirer import *
 
 from config.ext.config_parser import ini
-from helpers.ASCII import *
+from helpers.ASCII import print_error, print_line
 from helpers.console import console
 
 
@@ -174,6 +174,7 @@ if not os.path.exists("config/config.yaml"):
         "OSU_API_V2_CLIENT_ID": "",
         "OSU_API_V2_CLIENT_SECRET": "",
         "OSU_API_V2_CLIENT_CALLBACK_URL": "",
+        "BITLY_API_TOKEN": "",
         "DEFAULT_PREFIX": "",
         "BOT_VERSION": "",
     }

@@ -919,7 +919,7 @@ test = ["ipaddress", "mock", "unittest2", "enum34", "pywin32", "wmi"]
 
 [[package]]
 name = "py-cord"
-version = "2.0.0a3889+g41a291b4"
+version = "2.0.0a4083+g3767e599"
 description = "A Python wrapper for the Discord API"
 category = "main"
 optional = false
@@ -930,7 +930,7 @@ develop = false
 aiohttp = ">=3.6.0,<3.8.0"
 
 [package.extras]
-docs = ["sphinx (==4.0.2)", "sphinxcontrib-trio (==1.1.2)", "sphinxcontrib-websupport"]
+docs = ["sphinx (==4.2.0)", "sphinxcontrib-trio (==1.1.2)", "sphinxcontrib-websupport"]
 speed = ["orjson (>=3.5.4)"]
 voice = ["PyNaCl (>=1.3.0,<1.5)"]
 
@@ -938,7 +938,7 @@ voice = ["PyNaCl (>=1.3.0,<1.5)"]
 type = "git"
 url = "https://github.com/Pycord-Development/pycord.git"
 reference = "master"
-resolved_reference = "41a291b467128f45805e4a0d947a5f3e0457f37b"
+resolved_reference = "3767e59965d7e2a9cd7c3ed4de3e5224677ba8bd"
 
 [[package]]
 name = "py-cpuinfo"
@@ -1049,6 +1049,21 @@ description = "Forked from pypika and streamline just for tortoise-orm"
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
+
+[[package]]
+name = "pyshorteners"
+version = "1.0.1"
+description = "A Python lib to wrap and consume the most used shorteners APIs"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+requests = "*"
+
+[package.extras]
+dev = ["pre-commit"]
+docs = ["sphinx"]
 
 [[package]]
 name = "python-anilist"
@@ -1469,7 +1484,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "80f08d03058cacbca7e12b0fd1a7048e449a9f26798a4dab0b24ed14eb85e4db"
+content-hash = "14bd6f21820f3b068354d8fda516d285b1288ccd247752db4bd8a7624f04a82a"
 
 [metadata.files]
 aerich = [
@@ -2185,6 +2200,9 @@ pyparsing = [
 pypika-tortoise = [
     {file = "pypika-tortoise-0.1.1.tar.gz", hash = "sha256:6831d0a56e5e0ecefac3307dd9bdb3e5073fdac5d617401601d3a6713e059f3c"},
     {file = "pypika_tortoise-0.1.1-py3-none-any.whl", hash = "sha256:860020094e01058ea80602c90d4a843d0a42cffefcf4f3cb1a7f2c18b880c638"},
+]
+pyshorteners = [
+    {file = "pyshorteners-1.0.1.tar.gz", hash = "sha256:22045c997c4283124768c165623a267cf9ba2a7d416101e2e5fccfc244d34544"},
 ]
 python-anilist = [
     {file = "python-anilist-1.0.5.tar.gz", hash = "sha256:2b6fcb7b381ee0da775191cda16c23a83e49c61e295fe3bb3405f89d5e74a14d"},

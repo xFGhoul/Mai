@@ -20,7 +20,6 @@
     <ul>
     <li><a href="#features">Features</a></li>
     <li><a href="setting-up-a-development-environment">Setting Up A Development Environment</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#credits">Credits</a></li>
   </ol>
@@ -30,7 +29,6 @@
 
 * AFK
 * Anilit
-* Auto Responses
 * Auto Moderation
 * Captcha
 * Economy
@@ -57,9 +55,6 @@
 ## Setting Up A Development Environment
 
 * See The [CONTRIBUTING.MD](https://github.com/xFGhoul/Mai/blob/dev/.github/CONTRIBUTING.md) Guide For More Info.
-## Roadmap
-
-[Project Board](https://github.com/xFGhoul/Mai/projects/1)
 
 ## LICENSE
 
