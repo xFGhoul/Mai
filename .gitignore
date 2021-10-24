@@ -10,10 +10,7 @@ config/config.yaml
 .markdownlint.json
 
 # VS Code
-.vscode/
-
-# VS Code Extensions
-.markdownlint.json
+.vscode/settings.json
 
 # Documentation
 docs/site

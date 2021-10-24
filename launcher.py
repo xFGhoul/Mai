@@ -32,12 +32,12 @@ def WaitAndExit(message):
 # First System Check
 
 if sys.platform != "win32":
-    WaitAndExit("THIS BOT CAN ONLY BE USED ON WINDOWS")
+    WaitAndExit("THIS LAUNCHER CAN ONLY BE USED ON WINDOWS")
 
 
 # Setting Up Some Constants
 
-WINDOW_TITLE = "Mai Launcher"
+WINDOW_TITLE = "[Mai] - Launcher"
 
 os.system(f"cls && title {WINDOW_TITLE}")
 
@@ -493,6 +493,7 @@ console.print("[blue3]> LAUNCHING MAIN BOT.[/blue3]\n")
 try:
     time.sleep(3)
     os.system("cls")
+    os.system("title [Mai] - Bot")
     subprocess.call(["python", "mai.py"])
 except Exception as e:
     WaitAndExit(f"BOT COULD NOT BE RUN {e}")

@@ -1,0 +1,13 @@
+{
+	"recommendations": [
+		"vtrois.gitmoji-vscode",
+        "eamodio.gitlens",
+        "magicstack.magicpython",
+        "shd101wyy.markdown-preview-enhanced",
+        "davidanson.vscode-markdownlint",
+        "yzhang.markdown-all-in-one",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "visualstudioexptteam.vscodeintellicode"
+	]
+}

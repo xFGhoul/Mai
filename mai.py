@@ -137,7 +137,7 @@ class Mai(AutoShardedBot):
         self.run(config["DISCORD_TOKEN"], reconnect=True)
 
     @tasks.loop(seconds=10)
-    async def status(self):
+    async def status(self) -> None:
         """Cycles through all status every 10 seconds"""
         new_activity = next(self.activities)
         # The commands one is callable so the command counts actually change
@@ -246,7 +246,7 @@ async def on_guild_join(guild: discord.Guild):
 async def load(ctx: commands.Context, extention: str) -> None:
     """Loads an extension, owners only"""
 
-    # Check If Jishaku or jsk was provided:
+    # Check If Jishaku was provided:
     if extention == "Jishaku" or "jishaku" or "jsk":
         bot.load_extension("jishaku")
         embed = discord.Embed(
@@ -363,7 +363,7 @@ async def reload(ctx: commands.Context, extension) -> None:
 
 
 @reload.error
-async def reload_error(ctx: commands.Context, error):
+async def reload_error(ctx: commands.Context, error) -> None:
     if isinstance(error, commands.NotOwner):
         embed = discord.Embed(
             color=ERROR_COLOR,

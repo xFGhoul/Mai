@@ -153,3 +153,54 @@ class OSU(Model):
     passive = fields.BooleanField(default=True)
     discord_id = fields.BigIntField()
     guild = fields.ForeignKeyField("Mai.Guild", related_name="OSU")
+
+
+class ServerLogging(Model):
+    id = fields.BigIntField(pk=True)
+    # Main Fields
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="Logging")
+    channel_id = fields.BigIntField(default=None, null=True)
+    enabled = fields.BooleanField(default=True)
+
+    # Optional Fields
+    log_actions_by_bots = fields.BooleanField(default=True)
+    ignored_logging_channels = fields.BigIntField(null=True)
+
+    # Logging Types
+
+    # Message Events
+    message_edited = fields.BooleanField(default=True)
+    messaged_deleted = fields.BooleanField(default=True)
+
+    # Member Events
+    nickname_changed = fields.BooleanField(default=True)
+    member_updated = fields.BooleanField(default=True)
+
+    member_banned = fields.BooleanField(default=True)
+    member_unbanned = fields.BooleanField(default=True)
+
+    member_joined = fields.BooleanField(default=True)
+    member_left = fields.BooleanField(default=True)
+
+    # Role Events
+    role_created = fields.BooleanField(default=True)
+    role_updated = fields.BooleanField(default=True)
+    role_deleted = fields.BooleanField(default=True)
+
+    member_roles_changed = fields.BooleanField(default=True)
+
+    # Voice Events
+    member_joined_voice_channel = fields.BooleanField(default=True)
+    member_left_voice_channel = fields.BooleanField(default=True)
+
+    # Server Events
+
+    server_edited = fields.BooleanField(default=True)
+
+    server_emojis_updated = fields.BooleanField(default=True)
+
+    # Channel Events
+
+    channel_created = fields.BooleanField(default=True)
+    channel_updated = fields.BooleanField(default=True)
+    channel_deleted = fields.BooleanField(default=True)

@@ -14,44 +14,9 @@
   </p>
 </p>
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-    <ul>
-    <li><a href="#features">Features</a></li>
-    <li><a href="setting-up-a-development-environment">Setting Up A Development Environment</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#credits">Credits</a></li>
-  </ol>
-</details>
+## Using The Bot
 
-## Features
-
-* AFK
-* Anilit
-* Auto Moderation
-* Captcha
-* Economy
-* Emoji Management
-* Genshin Impmact
-* Giveaways
-* Image Generation
-* Invite Manager
-* Leveling
-* Logging
-* MyAnimeList
-* Moderation
-* music
-* NSFW
-* osu!
-* Polls
-* Reaction Roles
-* Sniping
-* Suggestions
-* Tickets
-* Youtube/Twitch/Reddit Uploading
-* Warns
-* Welcomes
+All The Information You Need Is [Here](https://xfghoul.github.io/Mai/)
 
 ## Setting Up A Development Environment
 

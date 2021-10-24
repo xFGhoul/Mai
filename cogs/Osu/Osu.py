@@ -11,7 +11,7 @@ from discord.ext.commands import BucketType
 
 
 from ossapi.ossapiv2 import OssapiV2
-from ossapi.enums import RankStatus
+from ossapi.enums import RankStatus, Grade
 
 from osutools.oppai import Oppai
 
@@ -22,6 +22,8 @@ from db.models import OSU, Guild
 from helpers.constants import *
 from helpers.logging import log
 from helpers.utils import shorten_url
+
+from tortoise.exceptions import TransactionManagementError
 
 osu_v1 = osutools.OsuClientV1(config["OSU_API_V1_KEY"])
 
@@ -34,6 +36,17 @@ osu_v2 = OssapiV2(
 
 class StatsFlags(commands.FlagConverter, delimiter=" ", prefix="-"):
     d: Optional[str]  # Detailed
+
+
+class RecommendFlags(commands.FlagConverter, delimiter=" ", prefix="-"):
+    stars: Optional[float]  # 5.0
+    time: Optional[float]  # 1m | 50s | 1h
+    ar: Optional[float]  # Approach Rate
+    od: Optional[float]  # Overall Difficulty
+    hp: Optional[float]  # 3
+    cs: Optional[float]  # Circle Size
+    pp: Optional[float]  # 100
+    mods: Optional[str]  # DTHDHRFL
 
 
 class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
@@ -49,19 +62,19 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         return username
 
     async def parse_score(self, score: str):
-        if score == "B":
+        if score == Grade.B:
             return B_EMOJI
-        elif score == "F":
+        elif score == Grade.F:
             return F_EMOJI
-        elif score == "C":
+        elif score == Grade.C:
             return C_EMOJI
-        elif score == "A":
+        elif score == Grade.A:
             return A_EMOJI
-        elif score == "S":
+        elif score == Grade.S:
             return S_EMOJI
-        elif score == "SH":
+        elif score == Grade.SH:
             return SHD_EMOJI
-        elif score == "XH":
+        elif score == Grade.SSH:
             return SSHD_EMOJI
         else:
             return score
@@ -130,9 +143,12 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         guild = (await Guild.get_or_create(discord_id=message.guild.id))[0]
 
-        osu = (await OSU.get_or_create(guild=guild))[0]
+        try:
+            osu = (await OSU.get_or_create(guild=guild))[0]
+        except TransactionManagementError:
+            pass
 
-        beatmap_regex = re.compile(r"https://osu\.ppy\.sh/b/?\(d+)$")
+        beatmap_regex = re.compile(r"https://osu\.ppy\.sh/b/?(\d+)$")
         beatmap_regex_match = beatmap_regex.search(message.content)
         if beatmap_regex_match and osu.passive:
 
@@ -140,7 +156,38 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             beatmap_id = int(regex_beatmap_id)
 
-            pass
+            await message.channel.send(beatmap_id)
+
+        user_regex = re.compile(r"https://osu\.ppy\.sh/users/?(\d+)$")
+        user_regex_match = user_regex.search(message.content)
+        if user_regex_match and osu.passive:
+
+            user_id = user_regex_match.group(1)
+
+            user = osu_v1.fetch_user(user_id=user_id)
+
+            delta = datetime.timedelta(seconds=user.playtime)
+            playtime = humanize.precisedelta(
+                delta, suppress=["days"], minimum_unit="hours", format="%0.0f"
+            )
+
+            embed = discord.Embed(
+                color=EMBED_COLOR,
+                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user.rank)} ({user.country}#{humanize.intcomma(user.country_rank)})\n▸ **Level:** {int(round(user.level ,2))}%\n▸ **PP:** {humanize.intcomma(user.pp)} **Acc:** {round(user.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user.play_count)} ({playtime})\n▸ **Ranks:** {SSHD_EMOJI}`{user.ssh_count}`{SS_EMOJI}`{user.ss_count}`{S_EMOJI}`{user.s_count}`{A_EMOJI}`{user.a_count}`",
+            )
+            embed.set_author(
+                name=f"Osu Standard Profile for {user.username}",
+                url=f"https://osu.ppy.sh/users/{user.id}",
+                icon_url=f"https://osu.ppy.sh/images/flags/{user.country}.png",
+            )
+            embed.set_thumbnail(url=user.avatar_url)
+
+            embed.set_footer(
+                text=f"On osu! Bancho | User ID: {user.id}",
+                icon_url=OSU_LOGO_IMAGE,
+            )
+
+            await message.channel.send(embed=embed)
 
     @commands.group(
         invoke_without_subcommand=True, description="Manage Osu Commands"
@@ -170,7 +217,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed = discord.Embed(
                 color=EMBED_COLOR,
-                description=f"{CHECKMARK_EMOJI} **Successfully updated username to `{username}`.**",
+                description=f"{CHECKMARK_EMOJI} **Successfully Updated Username To:** `{username}`",
             )
             await ctx.send(embed=embed)
         else:
@@ -179,7 +226,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             )
             embed = discord.Embed(
                 color=EMBED_COLOR,
-                description=f"{CHECKMARK_EMOJI} **Successfully created username `{username}`.**",
+                description=f"{CHECKMARK_EMOJI} **Successfully Created Username:** `{username}`",
             )
             await ctx.send(embed=embed)
 
@@ -218,7 +265,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         # seconds = int(user_info["total_seconds_played"])
         # self.playtime = Playtime(seconds)
 
-        # CHANGES TO
+        # TO ⬇
 
         # seconds = int(user_info['total_seconds_played'])
         # self.playtime = seconds
@@ -309,34 +356,105 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         if username is None:
             username = await self.fetch_db_username(ctx)
 
-        user = osu_v1.fetch_user(username=username)
+        user = osu_v2.user(user=username)
 
-        user_recents = user.fetch_recent(limit=1)
+        user_recents_v2 = osu_v2.user_scores(user.id, type_="recent")
 
-        recent = user_recents[0]
+        user_recent = user_recents_v2[0]
 
-        map = osu_v1.fetch_map(recent.map_id)
+        print(user_recent)
 
-        pp = Oppai.calculate_pp_from_url(
-            map.download_url, mods=recent.mods.value, accuracy=100.0
-        )
+        pp = round(user_recent.pp, 2) if user_recent.pp is not None else "0"
 
         embed = discord.Embed(
             color=EMBED_COLOR,
-            description=f"▸ {await self.parse_score(recent.rank)} **▸ {round(map.get_pp(score=recent, mods=recent.mods.value), 2)}PP** ({round(pp, 2)}PP for 100.00% FC) ▸ ",
+            description=f"▸ {await self.parse_score(user_recent.rank)} **▸ {pp} PP** ▸ {round(user_recent.accuracy, 2)}%\n▸ {humanize.intcomma(user_recent.score)} ▸ TEST/{user_recent.max_combo}",
         )
 
         embed.set_author(
-            name=f"{map}",
-            url=f"https://osu.ppy.sh/b/{recent.map_id}",
+            name=f"{user_recent.beatmapset.title} [{user_recent.beatmap.version}] + {user_recent.mods} [{user_recent.beatmap.difficulty_rating}{STAR_ICON}]",
+            url=f"https://osu.ppy.sh/b/{user_recent.beatmapset.id}",
             icon_url=user.avatar_url,
         )
-        embed.set_thumbnail(url=map.thumbnail)
+        embed.set_thumbnail(
+            url=f"https://b.ppy.sh/thumb/{user_recent.beatmapset.id}l.jpg"
+        )
         embed.set_footer(
             text=f"On osu! Bancho | User ID: {user.id}",
             icon_url=OSU_LOGO_IMAGE,
         )
         await ctx.send(embed=embed)
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(
+        name="recommend",
+        aliases=["r"],
+        description="Recommend A Map Based On A Few Variables",
+    )
+    async def recommend(
+        self,
+        ctx: commands.Context,
+        username: Optional[str],
+        *,
+        RecommendFlags: RecommendFlags,
+    ):
+        pass
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(
+        name="scores", description="Get scores of a player on a beatmap"
+    )
+    async def scores(
+        self,
+        ctx: commands.Context,
+        username: Optional[str],
+        beatmap: Optional[str],
+    ):
+        pass
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(name="compare", aliases=["c"], description="Compare 2 Players")
+    async def compare(
+        self,
+        ctx: commands.Context,
+        username: Optional[str],
+        username2: Optional[str],
+    ):
+        pass
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(
+        name="top", aliases=["t"], description="Get The Top 5 Plays Of Any User"
+    )
+    async def top(self, ctx: commands.Context, *, username: Optional[str]):
+        pass
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(
+        name="map", aliases=["m"], description="Display Stats About A Map"
+    )
+    async def map(self, ctx: commands.Context, *, beatmap: Optional[str]):
+        pass
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(name="whatif", description="Get The Top 5 Plays Of Any User")
+    async def whatif(
+        self, ctx: commands.Context, username: Optional[str], pp: Optional[int]
+    ):
+        pass
+
+    @commands.cooldown(1, 5, BucketType.user)
+    @osu.command(
+        name="fix",
+        description="Display A User's PP After Unchoking Their Score On A Map",
+    )
+    async def fix(
+        self,
+        ctx: commands.Context,
+        username: Optional[str],
+        beatmap: Optional[str],
+    ):
+        pass
 
     @commands.cooldown(1, 5, BucketType.user)
     @osu.command(
@@ -370,12 +488,33 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         description="Set Your Favorite Skin",
         brief="osu skin https://skins.osuck.net/index.php?newsid=1648",
     )
-    async def skin(self, ctx: commands.Context, skin: str):
-        url = await shorten_url(str(skin))
+    async def skin(self, ctx: commands.Context, skin: Optional[str]):
 
         guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
 
+        if skin is None:
+            osu = (
+                await OSU.get_or_create(guild=guild, discord_id=ctx.author.id)
+            )[0]
+            skin = osu.skin
+
+            embed = discord.Embed(
+                color=EMBED_COLOR, description=f"**Your Current Skin:** {skin}"
+            )
+            await ctx.send(embed=embed)
+            return
+
+        if not skin.startswith("https://skins.osuck.net/"):
+            embed = discord.Embed(
+                color=ERROR_COLOR,
+                description=f"{ERROR_EMOJI} `skin` **REQUIRES A `https://skins.osuck.net/` URL.**",
+            )
+            await ctx.send(embed=embed)
+            return
+
         if await OSU.exists(guild=guild, discord_id=ctx.author.id):
+
+            url = await shorten_url(str(skin))
 
             await OSU.filter(guild=guild, discord_id=ctx.author.id).update(
                 skin=url
@@ -395,12 +534,25 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
     @commands.cooldown(1, 10, BucketType.user)
     @osu.command(
         name="passive",
-        description="Set How Mai Reacts",
+        description="Toggle Passive Mode",
         brief="osu passive True",
     )
-    async def passive(self, ctx: commands.Context, passive: bool):
+    async def passive(self, ctx: commands.Context, passive: Optional[bool]):
 
         guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
+
+        if passive is None:
+            osu = (
+                await OSU.get_or_create(guild=guild, discord_id=ctx.author.id)
+            )[0]
+            passive = osu.passive
+
+            embed = discord.Embed(
+                color=EMBED_COLOR,
+                description=f"**Passive Enabled:** `{passive}`",
+            )
+            await ctx.send(embed=embed)
+            return
 
         if await OSU.exists(guild=guild):
 

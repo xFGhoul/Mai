@@ -50,7 +50,7 @@ class MaiHelpCommand(commands.HelpCommand):
             embed.add_field(
                 name=cog.qualified_name,
                 value=f"`{self.context.clean_prefix}help {cog.qualified_name}`",
-                inline=True,
+                inline=False,
             )
         await self.dispatch_help(embed)
 
@@ -70,9 +70,7 @@ class MaiHelpCommand(commands.HelpCommand):
         )
 
         examples = (
-            f"`{command.brief}`"
-            if command.brief is not None
-            else "No Examples."
+            f"{command.brief}" if command.brief is not None else "No Examples."
         )
 
         embed.add_field(name="Examples", value=examples, inline=False)
