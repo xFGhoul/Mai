@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-    <a href="https://github.com/TabiBot/Tabi">
+    <a href="https://github.com/xFGhoul/Mai">
     <img src="https://cdn.discordapp.com/avatars/770898395664875541/c04edaafef86e4efdff7208204e043a6.png?size=2048" alt="Logo" width="80" height="80">
     </a>
   <h3 align="center">Mai</h3>
