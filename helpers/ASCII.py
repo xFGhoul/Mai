@@ -1,7 +1,7 @@
 from .console import console
 
 
-def print_error():
+def error():
     console.print(
         """[red]
 
@@ -17,7 +17,7 @@ def print_error():
     )
 
 
-def print_line():
+def line():
     console.print(
         "[red]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/red]"
     )

@@ -17,7 +17,7 @@ class Invite(discord.ui.View):
         super().__init__()
 
         self.add_item(
-            discord.ui.Button(label="Invite the Bot!", url=BOT_INVITE_URL)
+            discord.ui.Button(label="Invite the Bot!", url=Links.BOT_INVITE_URL)
         )
 
 
@@ -26,7 +26,9 @@ class SupportServer(discord.ui.View):
         super().__init__()
 
         self.add_item(
-            discord.ui.Button(label="Support Server", url=SUPPORT_SERVER_INVITE)
+            discord.ui.Button(
+                label="Support Server", url=Links.SUPPORT_SERVER_INVITE
+            )
         )
 
 
@@ -37,7 +39,7 @@ class Source(discord.ui.View):
         self.add_item(
             discord.ui.Button(
                 label="View The Source Code",
-                url=BOT_SOURCE_CODE_URL,
+                url=Links.BOT_SOURCE_CODE_URL,
             )
         )
 
@@ -86,11 +88,12 @@ class Misc(
     async def ping(self, ctx: commands.Context):
         before = time.monotonic()
         loading_embed = discord.Embed(
-            color=EMBED_COLOR, description=f"{LOADING_CIRCLE_EMOJI} Pinging..."
+            color=Colors.EMBED_COLOR,
+            description=f"{Emoji.LOADING_CIRCLE} Pinging...",
         )
         message = await ctx.send(embed=loading_embed)
         ping = (time.monotonic() - before) * 1000
-        pEmbed = discord.Embed(title="Stats:", color=EMBED_COLOR)
+        pEmbed = discord.Embed(title="Stats:", color=Colors.EMBED_COLOR)
         pEmbed.add_field(name="Latency", value=f"{int(ping)}ms")
         pEmbed.add_field(
             name="API", value=f"{round(self.bot.latency * 1000)}ms"
@@ -100,8 +103,10 @@ class Misc(
         db_time_end = time.time()
         db_time = db_time_end - db_time_start
         pEmbed.add_field(name="Database", value=f"{round(db_time * 1000)}ms")
-        pEmbed.set_thumbnail(url=BOT_AVATAR_URL)
-        pEmbed.set_footer(text="Developer: Ghoul#6066", icon_url=BOT_AVATAR_URL)
+        pEmbed.set_thumbnail(url=Links.BOT_AVATAR_URL)
+        pEmbed.set_footer(
+            text="Developer: Ghoul#6066", icon_url=Links.BOT_AVATAR_URL
+        )
         await message.edit(content=None, embed=pEmbed)
 
     @commands.command(name="info", description="Get bot stats")
@@ -110,80 +115,80 @@ class Misc(
     async def stats(self, ctx: commands.Context):
 
         loading_embed = discord.Embed(
-            color=EMBED_COLOR,
-            description=f"{LOADING_CIRCLE_EMOJI} Fetching Stats...",
+            color=Colors.EMBED_COLOR,
+            description=f"{Emoji.LOADING_CIRCLE} Fetching Stats...",
         )
         message = await ctx.send(embed=loading_embed)
 
-        embed = discord.Embed(title="Mai Information", color=EMBED_COLOR)
+        embed = discord.Embed(title="Mai Information", color=Colors.EMBED_COLOR)
 
         developers = "Developers: `Ghoul#6066`, `sham#4810`"
 
         embed.add_field(
-            name=f"{OWNER_EMOJI} Developers",
+            name=f"{Emoji.OWNER} Developers",
             value=f"{developers}",
             inline=False,
         )
 
-        servers = f"{INFORMATION_EMOJI} Servers: `{len(self.bot.guilds)}`"
-        users = f"{MENTION_EMOJI} Users: `{len(self.bot.users)}`"
+        servers = f"{Emoji.INFORMATION} Servers: `{len(self.bot.guilds)}`"
+        users = f"{Emoji.MENTION} Users: `{len(self.bot.users)}`"
 
         voice_channel_list = [
             len(guild.voice_channels) for guild in self.bot.guilds
         ]
         voice_channels = (
-            f"{VOICE_CHANNEL_EMOJI} Voice Channels: `{sum(voice_channel_list)}`"
+            f"{Emoji.VOICE_CHANNEL} Voice Channels: `{sum(voice_channel_list)}`"
         )
 
         text_channels_list = [
             len(guild.text_channels) for guild in self.bot.guilds
         ]
         text_channels = (
-            f"{CHANNEL_EMOJI} Text Channels: `{sum(text_channels_list)}`"
+            f"{Emoji.CHANNEL} Text Channels: `{sum(text_channels_list)}`"
         )
 
         stage_channel_list = [
             len(guild.stage_channels) for guild in self.bot.guilds
         ]
         stage_channels = (
-            f"{STAGE_EMOJI} Stage Channels: `{sum(stage_channel_list)}`"
+            f"{Emoji.STAGE_CHANNEL} Stage Channels: `{sum(stage_channel_list)}`"
         )
 
-        commands = f"{SLASH_COMMAND} Commands: `{len(self.bot.commands)}`"
+        commands = f"{Emoji.SLASH_COMMAND} Commands: `{len(self.bot.commands)}`"
 
         embed.add_field(
-            name=f"{STATS_EMOJI} Statistics",
+            name=f"{Emoji.STATS} Statistics",
             value=f"{servers}\n{users}\n{voice_channels}\n{text_channels}\n{stage_channels}\n{commands}",
             inline=False,
         )
 
         virtual_mem = psutil.virtual_memory()
 
-        os = f"{WINDOWS_10_EMOJI} OS: `Windows`"
-        cpu = f"{CPU_EMOJI} CPU: `{psutil.cpu_percent()}%`"
-        ram = f"{RAM_EMOJI} RAM: `{virtual_mem.percent}%`"
+        os = f"{Emoji.WINDOWS_10} OS: `Windows`"
+        cpu = f"{Emoji.CPU} CPU: `{psutil.cpu_percent()}%`"
+        ram = f"{Emoji.RAM} RAM: `{virtual_mem.percent}%`"
 
         embed.add_field(
-            name=f"{PC_EMOJI} PC", value=f"{os}\n{cpu}\n{ram}", inline=False
+            name=f"{Emoji.PC} PC", value=f"{os}\n{cpu}\n{ram}", inline=False
         )
 
-        python = f"{PYTHON_EMOJI} Python: `{platform.python_version()}`"
-        pycord = f"{PYCORD_EMOJI} Pycord: `{discord.__version__}`"
+        python = f"{Emoji.PYTHON} Python: `{platform.python_version()}`"
+        pycord = f"{Emoji.PYCORD} Pycord: `{discord.__version__}`"
         mai_version = config["BOT_VERSION"]
-        mai = f"{MAI_EMOJI} Mai: `{mai_version}`"
+        mai = f"{Emoji.MAI} Mai: `{mai_version}`"
 
         embed.add_field(
-            name=f"{STATS_EMOJI} Versions",
+            name=f"{Emoji.STATS} Versions",
             value=f"{python}\n{pycord}\n{mai}",
             inline=False,
         )
 
-        bot_invite = f"[Bot Invite]({BOT_INVITE_URL})"
-        source_code = f"[Source Code]({BOT_SOURCE_CODE_URL})"
-        support_server = f"[Support Server]({SUPPORT_SERVER_INVITE})"
-        documentation = f"[Documentation]({BOT_DOCUMENTATION_URL})"
+        bot_invite = f"[Bot Invite]({Links.BOT_INVITE_URL})"
+        source_code = f"[Source Code]({Links.BOT_SOURCE_CODE_URL})"
+        support_server = f"[Support Server]({Links.SUPPORT_SERVER_INVITE})"
+        documentation = f"[Documentation]({Links.BOT_DOCUMENTATION_URL})"
         embed.add_field(
-            name=f"{LINK_EMOJI} Links",
+            name=f"{Emoji.LINK} Links",
             value=f"{bot_invite}\n{support_server}\n{source_code}\n{documentation}",
             inline=False,
         )

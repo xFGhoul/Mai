@@ -14,16 +14,18 @@ from download import download
 from halo import Halo
 from inquirer import *
 
+
+from helpers import ASCII
+
 from config.ext.config_parser import ini
-from helpers.ASCII import print_error, print_line
 from helpers.console import console
 
 
 def WaitAndExit(message):
     time.sleep(2)
     os.system("cls" if sys.platform == "win32" else "clear")
-    print_error()
-    print_line()
+    ASCII.error()
+    ASCII.line()
     console.print(f"[red]{message}[/red]")
     time.sleep(5)
     raise SystemExit
@@ -39,7 +41,9 @@ if sys.platform != "win32":
 
 WINDOW_TITLE = "[Mai] - Launcher"
 
-os.system(f"cls && title {WINDOW_TITLE}")
+clear_console = "cls" if sys.platform == "win32" else "clear"
+
+os.system(f"{clear_console} && title {WINDOW_TITLE}")
 
 logo = """[blue3]
 
@@ -492,7 +496,7 @@ console.print("[blue3]> LAUNCHING MAIN BOT.[/blue3]\n")
 
 try:
     time.sleep(3)
-    os.system("cls")
+    os.system(f"{clear_console}")
     os.system("title [Mai] - Bot")
     subprocess.call(["python", "mai.py"])
 except Exception as e:

@@ -51,8 +51,8 @@ class Developer(
 
         if guild.is_bot_blacklisted:
             embed = discord.Embed(
-                color=ERROR_COLOR,
-                description=f"{ERROR_EMOJI} Guild Already Blacklisted. refer to `-help blacklist remove`",
+                color=Colors.ERROR_COLOR,
+                description=f"{Emoji.ERROR} Guild Already Blacklisted. refer to `-help blacklist remove`",
             )
             await ctx.send(embed=embed)
             return
@@ -62,11 +62,11 @@ class Developer(
             await guild.refresh_from_db(fields=["is_bot_blacklisted"])
             await Guild.create(blacklisted_reason=reason)
             embed = discord.Embed(
-                color=EMBED_COLOR,
-                description=f"`{CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted` for `{reason}`",
+                color=Colors.EMBED_COLOR,
+                description=f"`{Emoji.CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted` for `{reason}`",
             )
             await ctx.send(embed=embed)
-            await ctx.message.add_reaction(CHECKMARK_EMOJI)
+            await ctx.message.add_reaction(Emoji.CHECKMARK_EMOJI)
 
     @blacklist.command(
         name="remove",
@@ -86,8 +86,8 @@ class Developer(
 
         if not guild.blacklisted:
             embed = discord.Embed(
-                color=ERROR_COLOR,
-                description=f"{ERROR_EMOJI} Guild Not Blacklisted. refer to `-help blacklist add`",
+                color=Colors.ERROR_COLOR,
+                description=f"{Emoji.ERROR} Guild Not Blacklisted. refer to `-help blacklist add`",
             )
             await ctx.send(embed=embed)
             return
@@ -96,11 +96,11 @@ class Developer(
             await guild.save(update_fields=["blacklisted"])
             await guild.refresh_from_db(fields=["blacklisted"])
             embed = discord.Embed(
-                color=EMBED_COLOR,
-                description=f"`{CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted`",
+                color=Colors.EMBED_COLOR,
+                description=f"`{Emoji.CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted`",
             )
             await ctx.send(embed=embed)
-            await ctx.message.add_reaction(CHECKMARK_EMOJI)
+            await ctx.message.add_reaction(Emoji.CHECKMARK_EMOJI)
 
     @blacklist.command(
         name="list", description="List All Blacklisted Server ID's"
@@ -117,7 +117,8 @@ class Developer(
             else "`No Blacklisted Servers`"
         )
         embed = discord.Embed(
-            color=EMBED_COLOR, description=f"**Guild ID's:** {blacklisted_ids}"
+            color=Colors.EMBED_COLOR,
+            description=f"**Guild ID's:** {blacklisted_ids}",
         )
         await ctx.send(embed=embed)
 

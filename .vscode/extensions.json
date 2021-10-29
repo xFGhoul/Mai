@@ -8,6 +8,8 @@
         "yzhang.markdown-all-in-one",
         "ms-python.vscode-pylance",
         "ms-python.python",
-        "visualstudioexptteam.vscodeintellicode"
+        "visualstudioexptteam.vscodeintellicode",
+        "njpwerner.autodocstring",
+        "redhat.vscode-yaml"
 	]
 }

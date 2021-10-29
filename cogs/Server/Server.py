@@ -34,7 +34,7 @@ class Server(
             guild = await Guild.c_get_or_none_by_discord_id(ctx.guild.id)
             prefix = guild.prefix
             embed = discord.Embed(
-                color=EMBED_COLOR,
+                color=Colors.EMBED_COLOR,
                 description=f"{ctx.author.mention}, My current prefix is `{prefix}` or {self.bot.user.mention}",
             )
             await ctx.send(embed=embed)
@@ -49,8 +49,8 @@ class Server(
 
         if prefix == None:
             embed = discord.Embed(
-                color=ERROR_COLOR,
-                description=f"{ERROR_EMOJI} Please Provide a Prefix.",
+                color=Colors.ERROR_COLOR,
+                description=f"{Emoji.ERROR} Please Provide a Prefix.",
             )
             await ctx.send(embed=embed, delete_after=15)
             return
@@ -59,7 +59,7 @@ class Server(
 
         if prefix == guild.prefix:
             embed = discord.Embed(
-                color=EMBED_COLOR,
+                color=Colors.EMBED_COLOR,
                 description=f"My prefix for `{ctx.guild.name}` is already `{prefix}`!",
             )
             await ctx.send(embed=embed)
@@ -70,7 +70,7 @@ class Server(
             await guild.c_save(update_fields=["prefix"])
 
             embed = discord.Embed(
-                color=EMBED_COLOR,
+                color=Colors.EMBED_COLOR,
                 description=f"I set your guild's prefix to `{guild.prefix}`",
             )
             await ctx.send(embed=embed)
@@ -79,7 +79,7 @@ class Server(
                 discord_id=ctx.guild.id, prefix=prefix, language="en"
             )
             embed = discord.Embed(
-                color=EMBED_COLOR,
+                color=Colors.EMBED_COLOR,
                 description=f"I set your guild's prefix to `{guild.prefix}`",
             )
             await ctx.send(embed=embed)
@@ -97,7 +97,7 @@ class Server(
             guild.prefix = "-"
             await guild.c_save(update_fields=["prefix"])
             embed = discord.Embed(
-                color=EMBED_COLOR,
+                color=Colors.EMBED_COLOR,
                 description=f"I resetted this guild's prefix to `{guild.prefix}`",
             )
             await ctx.send(embed=embed)
@@ -106,7 +106,8 @@ class Server(
                 discord_id=ctx.guild.id, prefix="-", language="en"
             )
             embed = discord.Embed(
-                color=EMBED_COLOR, description="Prefix Resetted to default."
+                color=Colors.EMBED_COLOR,
+                description="Prefix Resetted to default.",
             )
             await ctx.send(embed=embed)
 

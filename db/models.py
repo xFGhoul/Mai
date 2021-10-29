@@ -170,7 +170,7 @@ class ServerLogging(Model):
 
     # Message Events
     message_edited = fields.BooleanField(default=True)
-    messaged_deleted = fields.BooleanField(default=True)
+    message_deleted = fields.BooleanField(default=True)
 
     # Member Events
     nickname_changed = fields.BooleanField(default=True)

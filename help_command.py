@@ -6,25 +6,17 @@ from typing import List, Mapping, Optional
 from discord import Embed
 from discord.ext import commands
 
-from helpers.constants import (
-    BOT_AVATAR_URL,
-    CHECKMARK_EMOJI,
-    EMBED_COLOR,
-    ERROR_COLOR,
-    ERROR_EMOJI,
-    QUESTION_EMOJI,
-    SUPPORT_SERVER_INVITE,
-)
+from helpers.constants import *
 
 
 class MaiHelpCommand(commands.HelpCommand):
     def command_not_found(self, string: str) -> str:
-        return f"{ERROR_EMOJI} The command `{self.context.clean_prefix}{string}` was not found!, If you would like this command to be added suggest it in our [support server]({SUPPORT_SERVER_INVITE})"
+        return f"{Emoji.ERROR} The command `{self.context.clean_prefix}{string}` was not found!, If you would like this command to be added suggest it in our [support server]({Links.SUPPORT_SERVER_INVITE})"
 
     def subcommand_not_found(
         self, command: commands.Command, string: str
     ) -> str:
-        return f"{ERROR_EMOJI} I don't have the command `{command.qualified_name} {string}`, If you would like this command to be added suggest it in our [support server]({SUPPORT_SERVER_INVITE})"
+        return f"{Emoji.ERROR} I don't have the command `{command.qualified_name} {string}`, If you would like this command to be added suggest it in our [support server]({Links.SUPPORT_SERVER_INVITE})"
 
     async def dispatch_help(self, help_embed: Embed) -> None:
         dest = self.get_destination()
@@ -32,7 +24,7 @@ class MaiHelpCommand(commands.HelpCommand):
 
     async def send_error_message(self, error: str) -> None:
         embed = Embed(
-            title="Error :\\", description=f"{error}", color=ERROR_COLOR
+            title="Error :\\", description=f"{error}", color=Colors.ERROR_COLOR
         )
         await self.dispatch_help(embed)
 
@@ -42,10 +34,10 @@ class MaiHelpCommand(commands.HelpCommand):
         bot = self.context.bot
         embed = Embed(
             title=f"{bot.user.name} Help",
-            description=f"**{CHECKMARK_EMOJI} Here is a full list of my commands!**",
-            color=EMBED_COLOR,
+            description=f"**{Emoji.CHECKMARK} Here is a full list of my commands!**",
+            color=Colors.EMBED_COLOR,
         )
-        embed.set_thumbnail(url=BOT_AVATAR_URL)
+        embed.set_thumbnail(url=Links.BOT_AVATAR_URL)
         for cog in self.context.bot.cogs.values():
             embed.add_field(
                 name=cog.qualified_name,
@@ -55,9 +47,11 @@ class MaiHelpCommand(commands.HelpCommand):
         await self.dispatch_help(embed)
 
     async def send_command_help(self, command: commands.Command) -> None:
-        embed = Embed(title=f"Help For: `{command.name}`", color=EMBED_COLOR)
+        embed = Embed(
+            title=f"Help For: `{command.name}`", color=Colors.EMBED_COLOR
+        )
         embed.add_field(
-            name=f"{QUESTION_EMOJI} What does this command do?",
+            name=f"{Emoji.QUESTION} What does this command do?",
             value=command.description
             if command.description is not None
             else "No Description",
@@ -75,17 +69,23 @@ class MaiHelpCommand(commands.HelpCommand):
 
         embed.add_field(name="Examples", value=examples, inline=False)
 
-        delta = datetime.timedelta(seconds=command._buckets._cooldown.per)
-        cooldown = humanize.precisedelta(delta, format="%0.0f")
-        embed.add_field(name="Cooldown", value=f"`{cooldown}`", inline=False)
+        if command._buckets._cooldown is None:
+            embed.add_field(name="Cooldown", value=f"`0`", inline=False)
+        else:
+            delta = datetime.timedelta(seconds=command._buckets._cooldown.per)
+            cooldown = humanize.precisedelta(delta, format="%0.0f")
+            embed.add_field(
+                name="Cooldown", value=f"`{cooldown}`", inline=False
+            )
+
         await self.dispatch_help(embed)
 
     async def send_group_help(self, group: commands.Group) -> None:
         embed = Embed(
-            title=f"Help For Command: `{group.name}`", color=EMBED_COLOR
+            title=f"Help For Command: `{group.name}`", color=Colors.EMBED_COLOR
         )
         embed.add_field(
-            name=f"{QUESTION_EMOJI} What does this command do?",
+            name=f"{Emoji.QUESTION} What does this command do?",
             value=group.description
             if group.description is not None
             else "No Description",
@@ -111,10 +111,11 @@ class MaiHelpCommand(commands.HelpCommand):
 
     async def send_cog_help(self, cog: commands.Cog) -> None:
         embed = Embed(
-            title=f"Help For Module: `{cog.qualified_name}`", color=EMBED_COLOR
+            title=f"Help For Module: `{cog.qualified_name}`",
+            color=Colors.EMBED_COLOR,
         )
         embed.add_field(
-            name=f"{QUESTION_EMOJI} What does this category do?",
+            name=f"{Emoji.QUESTION} What does this category do?",
             value=cog.description
             if cog.description is not None
             else "No Description",

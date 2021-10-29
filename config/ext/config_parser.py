@@ -6,9 +6,10 @@ import yaml
 from helpers.logging import log
 
 ROOT_DIR = os.path.abspath(os.curdir)
+INI_FILE = "mai.ini"
 
 CONFIG_PATH = "config/config.yaml"
-INI_CONFIG_PATH = os.path.join(ROOT_DIR, "mai.ini")
+INI_CONFIG_PATH = os.path.join(ROOT_DIR, INI_FILE)
 
 if not os.path.exists(CONFIG_PATH):
     log.error(
