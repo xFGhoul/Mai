@@ -39,3 +39,8 @@ repos:
      rev: v2.7.2
      hooks:
       - id: pyupgrade
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+    -   id: python-no-eval

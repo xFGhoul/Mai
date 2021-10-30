@@ -9,6 +9,8 @@ from helpers.logging import log
 
 from db.models import Guild
 
+from config.ext.config_parser import config
+
 
 class Server(
     commands.Cog,
@@ -94,7 +96,7 @@ class Server(
 
         guild = await Guild.c_get_or_none_by_discord_id(ctx.guild.id)
         if guild is not None:
-            guild.prefix = "-"
+            guild.prefix = config["DEFAULT_PREFIX"]
             await guild.c_save(update_fields=["prefix"])
             embed = discord.Embed(
                 color=Colors.EMBED_COLOR,

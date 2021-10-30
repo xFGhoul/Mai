@@ -55,6 +55,18 @@ class Logging(
         return entry
 
     async def get_logs_channel(self, guild: Union[discord.Guild, int]):
+        """Get The Logging Channel Of A Guild
+
+        Parameters
+        ----------
+        guild : Union[discord.Guild, int]
+            The Guild To Find The Channel For
+
+        Returns
+        -------
+        [discord.TextChannel]
+            The Logging Channel
+        """
         guild_id = guild.id if type(guild) is discord.Guild else int(guild)
 
         guild_model = (await Guild.get_or_create(discord_id=guild_id))[0]
@@ -78,6 +90,18 @@ class Logging(
             return
 
     async def get_logging_model(self, guild_id: int):
+        """Get The Guild's Logging Model
+
+        Parameters
+        ----------
+        guild_id : int
+            ID of the Guild
+
+        Returns
+        -------
+        [ServerLogging]
+            The Specified Guild Model
+        """
         guild = await Guild.get_or_none(discord_id=guild_id)
 
         logging = await ServerLogging.get(guild=guild)
