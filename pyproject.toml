@@ -2,29 +2,26 @@
 name = "mai"
 version = "0.0.1"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Ghoul <you@example.com>"]
 license = "GPL 3.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 PyYAML = "^5.4.1"
-spotify = "^0.10.2"
+Pycord18n = "^1.0.0"
 python-anilist = "^1.0.4"
 animec = "^0.3.3"
-psutil = "^5.8.0"
-python-dateutil = "^2.8.2"
-PycordUtils = "^0.0.2"
 aPRAW = "^0.6.9-alpha.0"
-fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
+spotify = "^0.10.2"
 osu-tools = "^0.2.13"
 genshinstats = "^1.4.9"
-Pycord18n = "^1.0.0"
 humanize = "^3.11.0"
 py-cord = {git = "https://github.com/Pycord-Development/pycord.git"}
 
 [tool.poetry.dev-dependencies]
 python-inquirer = "^1.0.3"
 aerich = "^0.5.8"
+psutil = "^5.8.0"
 youtube_dl = "^2021.6.6"
 download = "^0.3.5"
 watchgod = "^0.7"
@@ -34,14 +31,16 @@ update-checker = "^0.18.0"
 Pycord18n = "^1.0.0"
 black = "^21.9b0"
 pre-commit = "^2.15.0"
-pygit2 = "^1.7.0"
 mkdocs-material = "^7.3.3"
+python-dateutil = "^2.8.2"
+PycordUtils = "^0.0.2"
 pyshorteners = "^1.0.1"
 halo = "^0.0.31"
 py-cpuinfo = "^8.0.0"
 aiofiles = "^0.7.0"
 rich = "^10.10.0"
 tortoise-orm = {extras = ["asyncpg"], version = "^0.17.7"}
+fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
 
 [tool.black]
 line-length = 79

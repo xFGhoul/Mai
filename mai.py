@@ -28,7 +28,7 @@ from tortoise.exceptions import IntegrityError
 from config.ext.config_parser import config
 
 from db.models import Guild
-from db.tortoise.config import default
+from db.tortoise.config import tortoise_config
 
 from help_command import MaiHelpCommand
 
@@ -187,7 +187,7 @@ class Mai(AutoShardedBot):
 
     async def on_ready(self) -> None:
         """Called when we have successfully connected to a gateway"""
-        await Tortoise.init(default.TORTOISE_CONFIG)
+        await Tortoise.init(tortoise_config.TORTOISE_CONFIG)
         # await self.i18n.init_bot(bot, self.get_locale(commands.Context)) #FIXME 'cahced_property' has no attribute 'id'. most likely due to how the pycordi18n uses pre_invoke, looking into it.
 
         console.print(
@@ -386,5 +386,5 @@ if __name__ == "__main__":
     try:
         bot._start()
         install(show_locals=True)
-    except Exception as e:
-        log.exception(e)
+    except (KeyboardInterrupt):
+        log.error("[red]Bot Start Interrupted By User.[/red]")

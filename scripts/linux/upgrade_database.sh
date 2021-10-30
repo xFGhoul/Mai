@@ -8,13 +8,11 @@ cd ..
 
 echo -------------------------------------
 
-echo UPGRADING DATABASE...
 
 aerich migrate
 
 aerich upgrade
 
-echo DATABASE UPGRADED.
 
 echo -------------------------------------
 

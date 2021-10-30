@@ -28,7 +28,7 @@ echo -------------------------------------
 
 echo INITALIZING TORTOISE_CONFIG
 
-aerich init -t db.tortoise.config.default.TORTOISE_CONFIG
+aerich init -t db.tortoise.config.tortoise_config.TORTOISE_CONFIG
 
 echo INITALIZED TORTOISE_CONFIG
 

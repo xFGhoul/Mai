@@ -8,9 +8,7 @@ cd ..
 
 echo -------------------------------------
 
-aerich init -t db.tortoise.config.default.TORTOISE_CONFIG
-
-echo INITIALIZED TORTOISE_CONFIG
+aerich init -t db.tortoise.config.tortoise_config.TORTOISE_CONFIG
 
 echo .
 
@@ -18,13 +16,9 @@ echo -------------------------------------
 
 fart.exe aerich.ini ./migrations migrations
 
-echo MONKEYPATCHED AERICH ERROR
-
 echo -------------------------------------
 
 aerich init-db
-
-echo Initizalized Database.
 
 echo -------------------------------------
 
