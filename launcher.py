@@ -12,7 +12,7 @@ import yaml
 
 from download import download
 from halo import Halo
-from inquirer import *
+from InquirerPy import inquirer
 
 
 from helpers import ASCII
@@ -247,17 +247,10 @@ if not redis_running:
 
     if possible_redis_path is None:
 
-        question_1 = [
-            List(
-                "install_redis",
-                message="How Should I Handle Redis?",
-                choices=["Custom Path", "Install(And Run) Redis"],
-            )
-        ]
-
-        answer = prompt(question_1)
-
-        install_redis = answer["install_redis"]
+        install_redis = inquirer.select(
+            message="How Should I Handle Redis?",
+            choices=["Custom Path", "Install(And Run) Redis"],
+        ).execute()
 
         if install_redis == "Custom Path":
 
@@ -438,21 +431,15 @@ if not os.path.exists("aerich.ini"):
 
     console.print("[blue3]BUILDING DATABASE WITH CONFIG DATA.[/blue3]\n")
 
-    term_question = [
-        List(
-            "terminal",
-            message="Which Terminal Are You On?",
-            choices=["cmd/powershell", "bash"],
-        )
-    ]
-    term_question_prompt = prompt(term_question)
-    terminal = term_question_prompt["terminal"]
+    terminal = inquirer.select(
+        message="Which Terminal Are You On?", choices=["CMD/Powershell", "Bash"]
+    ).execute()
 
-    cd_path = "scripts/win32" if terminal == "cmd/powershell" else "linux"
+    cd_path = "scripts/win32" if terminal == "CMD/Powershell" else "linux"
 
     build_database_command = (
         "build_database"
-        if terminal == "cmd/powershell"
+        if terminal == "CMD/Powershell"
         else "./build_database.sh"
     )
 

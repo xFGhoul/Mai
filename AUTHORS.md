@@ -3,8 +3,8 @@
 ## Development Lead
 
 * [Ghoul](https://github.com/xFGhoul)
+* [Nerd](https://github.com/FrostByte266)
 
 ## Contributors
 
-* [Nerd](https://github.com/FrostByte266)
 * [FalseDev](https://github.com/FalseDev)
