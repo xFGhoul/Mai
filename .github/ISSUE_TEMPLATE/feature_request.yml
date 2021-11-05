@@ -13,8 +13,6 @@ body:
           required: true
         - label: I have searched for [existing issues](https://github.com/xFGhoul/Mai/issues) that already include this feature request, without success.
           required: true
-        - label: I have checked if the issue is not labeled as 'to do' or 'done' in the [Mai Project](https://github.com/xFGhoul/Mai/projects/1).
-          required: true
   - type: textarea
     attributes:
       label: Describe the Feature Request

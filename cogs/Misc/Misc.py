@@ -122,7 +122,9 @@ class Misc(
 
         embed = discord.Embed(title="Mai Information", color=Colors.EMBED_COLOR)
 
-        developers = "Developers: `Ghoul#6066`, `sham#4810`"
+        embed.set_thumbnail(url=Links.BOT_AVATAR_URL)
+
+        developers = "Developers: `Ghoul#6066`, `Nerd#4271`"
 
         embed.add_field(
             name=f"{Emoji.OWNER} Developers",

@@ -42,7 +42,7 @@ class MaiHelpCommand(commands.HelpCommand):
             embed.add_field(
                 name=cog.qualified_name,
                 value=f"`{self.context.clean_prefix}help {cog.qualified_name}`",
-                inline=False,
+                inline=True,
             )
         await self.dispatch_help(embed)
 

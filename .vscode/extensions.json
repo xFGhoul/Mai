@@ -10,6 +10,8 @@
         "ms-python.python",
         "visualstudioexptteam.vscodeintellicode",
         "njpwerner.autodocstring",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "aaron-bond.better-comments",
+        "kisstkondoros.vscode-gutter-preview"
 	]
 }
