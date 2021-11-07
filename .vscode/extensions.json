@@ -12,6 +12,19 @@
         "njpwerner.autodocstring",
         "redhat.vscode-yaml",
         "aaron-bond.better-comments",
-        "kisstkondoros.vscode-gutter-preview"
+        "kisstkondoros.vscode-gutter-preview",
+        "dsznajder.es7-react-js-snippets",
+        "burkeholland.simple-react-snippets",
+        "infeng.vscode-react-typescript",
+        "rbbit.typescript-hero",
+        "eg2.vscode-npm-script",
+        "christian-kohler.npm-intellisense",
+        "esbenp.prettier-vscode",
+        "kohler.path-intellisense",
+        "editorconfig.editorconfig",
+        "zignd.html-css-class-completion",
+        "steoates.autoimport",
+        "jasonnutter.search-node-modules",
+        "github.vscode-pull-request-github"
 	]
 }

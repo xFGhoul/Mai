@@ -1,5 +1,5 @@
 import discord
-import traceback
+import humanize
 
 from typing import Optional, Union
 from datetime import datetime
@@ -253,7 +253,12 @@ class Logging(
         description="Set Which Events Should Be Logged",
         brief="`logging set message_edited True`\n`logging set message_edited on`\n\n**All Possible Sets**\n`message_edited`\n`message_deleted`\n`nickname_changed`\n`member_updated`\n`member_banned`\n`member_unbanned`\n`member_joined`\n`member_left`\n`role_created`\n`role_updated`\n`role_deleted`\n`member_roles_changed`\n`member_joined_voice_channel`\n`member_left_voice_channel`\n`server_edit`\n`server_emojis_updated`\n`channel_created`\n`channel_updated`\n`channel_deleted`",
     )
-    async def set(self, ctx: commands.Context, log: str, toggle: bool):
+    async def set(
+        self,
+        ctx: commands.Context,
+        log: Optional[str],
+        toggle: Optional[Union[str, bool]],
+    ):
 
         VALID_TYPES = {
             "message_edited",
@@ -550,30 +555,236 @@ class Logging(
                     return
 
             if before.nick != after.nick:
-                try:
-                    embed = discord.Embed(
-                        color=Colors.EMBED_COLOR,
-                        timestamp=datetime.utcnow(),
-                        description=f":pencil: {after.mention} **Nickname Edited.**",
-                    )
-                    embed.set_author(name=after.name, icon_url=after.avatar.url)
-                    embed.set_thumbnail(url=after.avatar.url)
-                    embed.add_field(
-                        name="Old Nickname", value=f"`{before.nick}`"
-                    )
-                    embed.add_field(
-                        name="New Nickname", value=f"`{after.nick}`"
-                    )
-                    embed.set_footer(text=f"ID: {after.id}")
-                    log_channel = await self.get_logs_channel()
-                    await log_channel.send(embed=embed)
-                except Exception as error:
-                    traceback.print_exception(
-                        type(error), error, error.__traceback__
-                    )
+                embed = discord.Embed(
+                    color=Colors.EMBED_COLOR,
+                    timestamp=datetime.utcnow(),
+                    description=f":pencil: {after.mention} **Nickname Edited.**",
+                )
+                embed.set_author(name=after.name, icon_url=after.avatar.url)
+                embed.set_thumbnail(url=after.avatar.url)
+                embed.add_field(name="Old Nickname", value=f"`{before.nick}`")
+                embed.add_field(name="New Nickname", value=f"`{after.nick}`")
+                embed.set_footer(text=f"ID: {after.id}")
+                log_channel = await self.get_logs_channel()
+                await log_channel.send(embed=embed)
+            if len(before.roles) < len(after.roles):
+                log_channel = await self.get_logs_channel(before.guild.id)
+                embed = discord.Embed(
+                    color=Colors.EMBED_COLOR,
+                    timestamp=datetime.utcnow(),
+                    description=f"{Emoji.MEMBERS} {before.mention} **Roles Updated**",
+                )
+                embed.set_author(name=after.name, icon_url=after.avatar.url)
+                embed.set_thumbnail(url=after.avatar.url)
 
+                mentions = [role.mention for role in before.roles]
+                OldRoles = mentions[1:]
+
+                newRole = next(
+                    role for role in after.roles if role not in before.roles
+                )
+
+                embed.add_field(name="Old Roles", value=f"{OldRoles}")
+                embed.add_field(name="New Role", value=newRole.mention)
         else:
             return
+
+    @commands.Cog.listener()
+    async def on_member_ban(self, guild: discord.Guild, user: discord.User):
+        logging = await self.get_logging_model(guild.id)
+
+        if logging.member_banned is True and logging.enabled != False:
+
+            if user.bot:
+                if logging.log_actions_by_bots == False:
+                    pass
+                else:
+                    return
+
+            embed = discord.Embed(
+                color=Colors.EMBED_COLOR, description=f"{user.mention} {user}"
+            )
+            embed.set_author(name="Member Banned", url=user.avatar.url)
+            embed.set_thumbnail(url=user.avatar.url)
+            embed.set_footer(text=f"ID: {user.id}", icon_url=guild.icon.url)
+
+            log_channel = await self.get_logs_channel(guild.id)
+
+            await log_channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_unban(self, guild: discord.Guild, user: discord.User):
+        logging = await self.get_logging_model(guild.id)
+
+        if logging.member_unbanned is True and logging.enabled != False:
+
+            if user.bot:
+                if logging.log_actions_by_bots == False:
+                    pass
+                else:
+                    return
+
+            embed = discord.Embed(
+                color=Colors.EMBED_COLOR, description=f"{user.mention} {user}"
+            )
+            embed.set_author(name="Member UnBanned", url=user.avatar.url)
+            embed.set_thumbnail(url=user.avatar.url)
+            embed.set_footer(text=f"ID: {user.id}", icon_url=guild.icon.url)
+
+            log_channel = await self.get_logs_channel(guild.id)
+
+            await log_channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_guild_role_create(self, role: discord.Role):
+
+        logging = await self.get_logging_model(role.guild.id)
+
+        if logging.role_created is True and logging.enabled != False:
+
+            embed = discord.Embed(
+                color=Colors.EMBED_COLOR,
+                description=f"Role: **{role.name}** Created\n\n▸ **Name:** {role.mention}\n▸ **Color:** {role.color}\n▸ **Hoisted:** {role.hoist}\n▸ **Mentionable:** {role.mentionable}",
+            )
+            embed.set_thumbnail(url=role.guild.icon.url)
+            embed.set_author(name=role.guild.name, icon_url=role.guild.icon.url)
+            embed.set_footer(
+                text=f"ID: {role.id}", icon_url=role.guild.icon.url
+            )
+
+            log_channel = await self.get_logs_channel(role.guild.id)
+
+            await log_channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_guild_role_delete(self, role: discord.Role):
+
+        logging = await self.get_logging_model(role.guild.id)
+
+        if logging.role_created is True and logging.enabled != False:
+
+            embed = discord.Embed(
+                color=Colors.EMBED_COLOR,
+                description=f"Role: **{role.name}** Deleted\n\n▸ **Name:** {role.mention}\n▸ **Color:** {role.color}\n▸ **Hoisted:** {role.hoist}\n▸ **Mentionable:** {role.mentionable}",
+            )
+            embed.set_thumbnail(url=role.guild.icon.url)
+            embed.set_author(name=role.guild.name, icon_url=role.guild.icon.url)
+            embed.set_footer(
+                text=f"ID: {role.id}", icon_url=role.guild.icon.url
+            )
+
+            log_channel = await self.get_logs_channel(role.guild.id)
+
+            await log_channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_guild_role_update(
+        self, before: discord.Role, after: discord.Role
+    ):
+        logging = await self.get_logging_model(before.guild.id)
+
+        if logging.role_updated is True and logging.enabled != False:
+
+            embed = discord.Embed(
+                color=Colors.EMBED_COLOR,
+                description=f"Role: **{before.name}** Updated\n\n▸ **Name:** {before.mention} -> {after.mention}\n▸ **Color:** `{before.color}` -> `{after.color}`\n▸ **Hoisted:** `{before.hoist}` -> `{after.hoist}`\n▸ **Mentionable:** `{before.mentionable}` -> `{after.mentionable}`",
+            )
+            embed.set_thumbnail(url=before.guild.icon.url)
+            embed.set_author(
+                name=before.guild.name, icon_url=before.guild.icon.url
+            )
+            embed.set_footer(
+                text=f"ID: {before.id}", icon_url=before.guild.icon.url
+            )
+
+            log_channel = await self.get_logs_channel(before.guild.id)
+
+            await log_channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_voice_state_update(
+        self,
+        member: discord.Member,
+        before: discord.VoiceState,
+        after: discord.VoiceState,
+    ):
+
+        logging = await self.get_logging_model(member.guild.id)
+
+        if before.channel is None:
+            if (
+                logging.member_joined_voice_channel is True
+                and logging.enabled != False
+            ):
+
+                pass
+        elif before.channel is not None:
+            if (
+                logging.member_left_voice_channel is True
+                and logging.enabled != False
+            ):
+
+                pass
+        else:
+            return
+
+    @commands.Cog.listener()
+    async def on_guild_update(
+        self, before: discord.Guild, after: discord.Guild
+    ):
+        return
+
+        logging = await self.get_logging_model(before.id)
+
+        if logging.server_edited is True and logging.enabled != False:
+
+            embed = discord.Embed(
+                color=Colors.EMBED_COLOR,
+                description=f"{before.name} Has Been Updated",
+            )
+            embed.set_thumbnail(url=after.icon.url)
+            embed.set_author(name=after.name, icon_url=after.icon.url)
+            embed.set_footer(text=f"ID: {before.id}", icon_url=after.icon.url)
+
+            # TODO
+
+    @commands.Cog.listener()
+    async def on_guild_emojis_update(
+        self, guild: discord.Guild, before: discord.Emoji, after: discord.Emoji
+    ):
+
+        logging = await self.get_logging_model(guild.id)
+
+        if logging.server_emojis_updated is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_guild_channel_create(self, channel: discord.abc.GuildChannel):
+
+        logging = await self.get_logging_model(channel.guild.id)
+
+        if logging.channel_created is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_guild_channel_delete(self, channel: discord.abc.GuildChannel):
+
+        logging = await self.get_logging_model(channel.guild.id)
+
+        if logging.channel_deleted is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_guild_channel_update(self, channel: discord.abc.GuildChannel):
+
+        logging = await self.get_logging_model(channel.guild.id)
+
+        if logging.channel_updated is True and logging.enabled != False:
+
+            pass
 
 
 def setup(bot):

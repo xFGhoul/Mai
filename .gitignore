@@ -1,16 +1,3 @@
-# Cache
-__pycache__
+# -- VSCODE
 
-# Database
-migrations/
-aerich.ini
-
-# Config
-config/config.yaml
-.markdownlint.json
-
-# VS Code
-.vscode/settings.json
-
-# Documentation
-docs/site
+settings.json

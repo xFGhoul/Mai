@@ -1,0 +1,16 @@
+# Cache
+__pycache__
+
+# Database
+migrations/
+aerich.ini
+
+# Config
+config/config.yaml
+.markdownlint.json
+
+# VS Code
+.vscode/settings.json
+
+# Documentation
+docs/site
