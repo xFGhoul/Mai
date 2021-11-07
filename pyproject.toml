@@ -38,7 +38,7 @@ pyshorteners = "^1.0.1"
 halo = "^0.0.31"
 py-cpuinfo = "^8.0.0"
 aiofiles = "^0.7.0"
-rich = "^10.10.0"
+rich = "^10.13.0"
 tortoise-orm = {extras = ["asyncpg"], version = "^0.17.7"}
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
 
