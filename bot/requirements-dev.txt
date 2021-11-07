@@ -30,7 +30,7 @@ distlib==0.3.3; python_full_version >= "3.6.1"
 download==0.3.5
 filelock==3.3.2; python_version >= "3.6" and python_full_version >= "3.6.1"
 fuzzywuzzy==0.18.0
-genshinstats==1.4.11; python_version >= "3.7"
+genshinstats==1.4.11.1; python_version >= "3.7"
 ghp-import==2.0.2; python_version >= "3.6"
 h11==0.12.0; python_version >= "3.6"
 h2==4.1.0; python_version >= "3.6" and python_full_version >= "3.6.1"
