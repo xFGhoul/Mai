@@ -12,7 +12,7 @@ attrs==21.2.0; python_version >= "3.6" and python_full_version < "3.0.0" or pyth
 backoff==1.11.1; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "4.0" or python_version >= "3.6" and python_version < "4.0" and python_full_version >= "3.5.0"
 backports.entry-points-selectable==1.1.0; python_version >= "2.7" and python_full_version >= "3.6.1"
 beautifulsoup4==4.10.0; python_full_version > "3.0.0"
-black==21.9b0; python_full_version >= "3.6.2"
+black==21.10b0; python_full_version >= "3.6.2"
 browser-cookie3==0.13.0; python_version >= "3.7"
 bs4==0.0.1
 certifi==2021.10.8; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version >= "3.6"
