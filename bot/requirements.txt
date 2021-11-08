@@ -38,7 +38,7 @@ prompt-toolkit==3.0.21; python_version >= "3.7" and python_version < "4.0" and p
 py-cord @ git+https://github.com/Pycord-Development/pycord.git@master ; python_full_version >= "3.8.0"
 pyaes==1.6.1; python_version >= "3.7"
 pycord18n==1.0.1
-pycparser==2.20; python_full_version >= "3.8.0"
+pycparser==2.21; python_full_version >= "3.8.0"
 pycryptodome==3.11.0; python_version >= "3.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.7"
 pynacl==1.4.0; python_full_version >= "3.8.0"
 python-anilist==1.0.5; python_version >= "3.6"
