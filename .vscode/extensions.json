@@ -25,6 +25,9 @@
         "zignd.html-css-class-completion",
         "steoates.autoimport",
         "jasonnutter.search-node-modules",
-        "github.vscode-pull-request-github"
+        "github.vscode-pull-request-github",
+        "mrmlnc.vscode-scss",
+        "sibiraj-s.vscode-scss-formatter",
+        "wix.vscode-import-cost"
 	]
 }
