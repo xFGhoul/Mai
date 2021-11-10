@@ -77,7 +77,7 @@ py-cpuinfo==8.0.0
 pyaes==1.6.1; python_version >= "3.7"
 pycord18n==1.0.1
 pycordutils==0.0.2; python_version >= "3.6"
-pycparser==2.20; python_full_version >= "3.8.0"
+pycparser==2.21; python_full_version >= "3.8.0"
 pycryptodome==3.11.0; python_version >= "3.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.7"
 pydantic==1.8.2; python_version >= "3.7" and python_version < "4.0" and python_full_version >= "3.6.1"
 pygments==2.10.0; python_full_version >= "3.6.2" and python_full_version < "4.0.0" and python_version >= "3.5"
