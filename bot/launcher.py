@@ -17,7 +17,7 @@ from InquirerPy import inquirer
 
 from helpers import ASCII
 
-from config.ext.config_parser import ini
+from config.ext.parser import ini
 from helpers.console import console
 
 
@@ -239,7 +239,7 @@ redis_running = "redis-server.exe" in (p.name() for p in psutil.process_iter())
 
 if not redis_running:
 
-    from config.ext.config_parser import config
+    from config.ext.parser import config
 
     possible_redis_path = config["DEFAULT_REDIS_PATH"]
 
@@ -483,7 +483,6 @@ console.print("[blue3]> LAUNCHING MAIN BOT.[/blue3]\n")
 
 try:
     time.sleep(3)
-    os.system(f"{clear_console}")
     os.system("title [Mai] - Bot")
     subprocess.call(["python", "mai.py"])
 except Exception as e:

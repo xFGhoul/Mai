@@ -28,6 +28,7 @@
         "github.vscode-pull-request-github",
         "mrmlnc.vscode-scss",
         "sibiraj-s.vscode-scss-formatter",
-        "wix.vscode-import-cost"
+        "wix.vscode-import-cost",
+        "gruntfuggly.todo-tree"
 	]
 }

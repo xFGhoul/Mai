@@ -8,7 +8,7 @@ from discord.ext.commands import Context
 from tortoise import fields
 from tortoise.models import Model
 
-from config.ext.config_parser import config
+from config.ext.parser import config
 
 aioredis.util._converters[bool] = lambda x: b"1" if x else b"0"
 redis: aioredis.Redis

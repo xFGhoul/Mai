@@ -1,15 +1,19 @@
+import discord
+import humanize
 import time
 import psutil
 import platform
 
-import discord
+
 from discord.ext import commands
 
 from db.models import Guild
 from helpers.constants import *
 from helpers.logging import log
 
-from config.ext.config_parser import config
+from config.ext.parser import config
+
+from datetime import datetime
 
 
 class Invite(discord.ui.View):
@@ -75,7 +79,9 @@ class Misc(
         await ctx.send("Join The Support Server!", view=SupportServer())
 
     @commands.command(
-        name="source", description="Get An Link To The Bot's Source Code"
+        name="source",
+        alises=["src"],
+        description="Get An Link To The Bot's Source Code",
     )
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
@@ -108,6 +114,28 @@ class Misc(
             text="Developer: Ghoul#6066", icon_url=Links.BOT_AVATAR_URL
         )
         await message.edit(content=None, embed=pEmbed)
+
+    @commands.command(name="uptime", description="Get Mai's Uptime")
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.guild_only()
+    async def uptime(self, ctx: commands.Context):
+        now = datetime.utcnow()
+
+        start_time = self.bot.uptime
+
+        uptime = start_time - now
+
+        humanized_uptime = humanize.precisedelta(
+            uptime.total_seconds(), minimum_unit="milliseconds", format="%0.2f"
+        )
+
+        embed = discord.Embed(
+            title="Uptime",
+            color=Colors.EMBED_COLOR,
+            description=f"`{humanized_uptime}`",
+        )
+
+        await ctx.send(embed=embed)
 
     @commands.command(name="info", description="Get bot stats")
     @commands.cooldown(1, 5, commands.BucketType.user)

@@ -6,7 +6,7 @@ from pyshorteners.exceptions import (
     ShorteningErrorException,
 )
 
-from config.ext.config_parser import config
+from config.ext.parser import config
 
 
 from .logging import log

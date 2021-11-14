@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# Mai Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Directory Structure
 
-## Available Scripts
+> This Lists Out The Folders In `├──`[`src`](src)
 
-In the project directory, you can run:
+`├──`[`assets`](src/assets) — Assets Used<br>
+`├──`[`components`](src/components) — React components<br>
+`├──`[`config`](src/config) — client-side settings<br>
+`├──`[`locales`](src/locales) — Translations such as `fr_FR`, `ja_JP`, etc.<br>
+`├──`[`pages`](src/pages) — Pages<br>
+`├──`[`styles`](src/styles) — Application theme - colors, fonts, paddings, etc.<br>
+`├──`[`utils`](src/utils) — Utilitiy Functions<br>
+`├──`[`index.tsx`](src/index.tsx) — Entry Point<br>
 
-### `yarn start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Babel](https://babeljs.io/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Yarn](https://yarnpkg.com/)
+
+> Webpack, Jest, Emotion soon™
+
+## Requirements
+
+- [Node.js](https://nodejs.org/) v14 or newer, [Yarn](https://yarnpkg.com/) package manager
+- [VS Code](https://code.visualstudio.com/) editor with [recommended extensions](.vscode/extensions.json)
+
+## Getting Started
+
+- Clone the repo<br />
+  `git clone https://github.com/xFGhoul/Mai.git`
+- cd to `website/frontend`<br />
+  `cd website/frontend`
+- Install project dependencies — `yarn install`
+- Launch the app — `yarn start`, it will become available at [http://localhost:3000](http://localhost:3000/)
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+> Made With :heart: by Ghoul

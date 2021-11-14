@@ -41,6 +41,7 @@ aiofiles = "^0.7.0"
 rich = "^10.10.0"
 tortoise-orm = {extras = ["asyncpg"], version = "^0.17.7"}
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
+jishaku = {git = "https://github.com/Gorialis/jishaku", rev = "master"}
 
 [tool.black]
 line-length = 79

@@ -3,7 +3,7 @@ from itertools import groupby
 from discord import Embed
 
 from db.models import ServerLogging
-from .constants import Emoji
+from .constants import *
 
 
 def emoji(value: bool) -> str:
@@ -43,7 +43,7 @@ def format_logging_model(model: ServerLogging) -> Embed:
     Embed
         Embed representing all settings of the logging system
     """
-    embed = Embed()
+    embed = Embed(color=Colors.EMBED_COLOR)
     VALID_TYPES = {
         "channel_created",
         "channel_deleted",

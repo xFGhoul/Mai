@@ -9,7 +9,7 @@ from helpers.logging import log
 
 from db.models import Guild
 
-from config.ext.config_parser import config
+from config.ext.parser import config
 
 
 class Server(

@@ -15,7 +15,7 @@ from ossapi.enums import RankStatus, Grade
 
 from osutools.oppai import Oppai
 
-from config.ext.config_parser import config
+from config.ext.parser import config
 
 from db.models import OSU, Guild
 

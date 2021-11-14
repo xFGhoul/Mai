@@ -177,74 +177,16 @@ class Logging(
         description="View all enabled/disabled logs",
     )
     async def view(self, ctx: commands.Context):
-        # loading_embed = discord.Embed(
-        #     color=Colors.EMBED_COLOR,
-        #     description=f"{Emoji.LOADING_CIRCLE} Fetching Stats...",
-        # )
-        # message = await ctx.send(embed=loading_embed)
+        loading_embed = discord.Embed(
+            color=Colors.EMBED_COLOR,
+            description=f"{Emoji.LOADING_CIRCLE} Fetching Stats...",
+        )
+        message = await ctx.send(embed=loading_embed)
 
         guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
 
         logging = await ServerLogging.get(guild=guild)
-        await ctx.send(embed=format_logging_model(logging))
-
-        # if logging.channel_id is not None:
-        #     logging_channel = f"<#{logging.channel_id}>"
-        # else:
-        #     logging_channel = "`No Logging Channel`"
-
-        # if logging.ignored_logging_channels is not None:
-        #     for channel_id in logging.ignored_logging_channels:
-        #         chan = f"<#{channel_id}>"
-
-        #     ignored_channels = chan
-        # else:
-        #     ignored_channels = "`No Channels Ignored`"
-
-        # embed = discord.Embed(
-        #     color=Colors.EMBED_COLOR,
-        #     description=f"**Logging Enabled:** `{logging.enabled}`\n**Ignore Log Actions By Bots:** `{logging.log_actions_by_bots}`\n**Logging Channel:** {logging_channel}\n**Ignored Channels:** {ignored_channels}",
-        # )
-
-        # embed.set_author(name=ctx.guild.name, icon_url=ctx.guild.icon.url)
-        # embed.set_thumbnail(url=ctx.guild.icon.url)
-
-        # embed.add_field(
-        #     name=f"{Emoji.MESSAGES} Messages:",
-        #     value=f"Message Edited: `{logging.message_edited}`\nMessage Deleted: `{logging.messaged_deleted}`",
-        #     inline=False,
-        # )
-
-        # embed.add_field(
-        #     name=f"{Emoji.MEMBERS} Members:",
-        #     value=f"Nickname Changed: `{logging.nickname_changed}`\nMember Updated: `{logging.member_updated}`\nMember Banned: `{logging.member_banned}`\nMember Unbanned: `{logging.member_unbanned}`\nMember Joined: `{logging.member_joined}\n`Member Left: `{logging.member_left}`",
-        #     inline=False,
-        # )
-
-        # embed.add_field(
-        #     name=f"{Emoji.MENTION} Roles:",
-        #     value=f"Role Created: `{logging.role_created}`\nRole Updated: `{logging.role_updated}`\nRole Deleted: `{logging.role_deleted}`\nMember Roles Updated: `{logging.member_roles_changed}`",
-        #     inline=False,
-        # )
-
-        # embed.add_field(
-        #     name=f"{Emoji.CHANNEL} Channels:",
-        #     value=f"Channel Created: `{logging.channel_created}`\nChannel Updated: `{logging.channel_updated}`\nChannel Deleted: `{logging.channel_deleted}`",
-        #     inline=False,
-        # )
-
-        # embed.add_field(
-        #     name=f"{Emoji.VOICE_CHANNEL} Voice:",
-        #     value=f"Member Joined VC: `{logging.member_joined_voice_channel}`\nMember Left VC: `{logging.member_left_voice_channel}`",
-        #     inline=False,
-        # )
-
-        # embed.add_field(
-        #     name=f"{Emoji.DISCORD_EMPLOYEE} Server:",
-        #     value=f"Server Edited: `{logging.server_edited}`\nServer Emojis Updated: `{logging.server_emojis_updated}`",
-        #     inline=False,
-        # )
-        # await message.edit(content=None, embed=embed)
+        await message.edit(content=None, embed=format_logging_model(logging))
 
     @commands.cooldown(1, 2, BucketType.user)
     @logging.command(
