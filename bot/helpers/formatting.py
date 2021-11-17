@@ -1,3 +1,16 @@
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
 from itertools import groupby
 
 from discord import Embed

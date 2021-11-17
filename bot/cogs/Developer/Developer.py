@@ -1,3 +1,16 @@
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
 import discord
 from discord.ext import commands
 
@@ -11,8 +24,6 @@ from db.models import Guild
 
 class Developer(
     commands.Cog,
-    name="Developer",
-    description="Developer Commands For Mai",
     command_attrs=dict(hidden=True),
 ):
     def __init__(self, bot):
@@ -121,6 +132,12 @@ class Developer(
             description=f"**Guild ID's:** {blacklisted_ids}",
         )
         await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.is_owner()
+    async def createguild(self, ctx):
+        await Guild.create(discord_id=ctx.guild.id)
+        await ctx.send("ok done.")
 
 
 def setup(bot):

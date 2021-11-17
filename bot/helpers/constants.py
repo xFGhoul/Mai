@@ -1,4 +1,17 @@
-# Colors
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
+# -- COLORS
 class Colors:
 
     EMBED_COLOR = 0x4620F1
@@ -6,7 +19,7 @@ class Colors:
     ERROR_COLOR = 0xFF0000
 
 
-# LINKS
+# -- LINKS
 class Links:
 
     BOT_AVATAR_URL = "https://cdn.discordapp.com/avatars/770898395664875541/c04edaafef86e4efdff7208204e043a6.png?size=2048"
@@ -16,6 +29,7 @@ class Links:
     BOT_DOCUMENTATION_URL = "https://xfghoul.github.io/Mai/"
 
 
+# -- EMOJIS
 class Emoji:
     CHECKMARK = "<a:checkmark:879815681808412744>"
     WHITE_CHECKMARK = "<a:white_checkmark:880919593873461248>"
@@ -51,7 +65,7 @@ class Emoji:
     DISCORD_EMPLOYEE = "<:employee:901918060909326376>"
 
 
-# OSU EMOJIS
+# -- OSU EMOJIS
 
 # NOTE: THANKS owo bot :)
 

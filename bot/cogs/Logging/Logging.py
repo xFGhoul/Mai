@@ -1,7 +1,21 @@
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
 import discord
 import humanize
 
 from typing import Optional, Union
+from tortoise.exceptions import DoesNotExist
 from datetime import datetime
 
 from discord.ext import commands
@@ -104,7 +118,10 @@ class Logging(
         """
         guild = await Guild.get_or_none(discord_id=guild_id)
 
-        logging = await ServerLogging.get(guild=guild)
+        try:
+            logging = await ServerLogging.get(guild=guild)
+        except DoesNotExist:
+            logging = await ServerLogging.create(guild=guild)
 
         return logging
 
@@ -720,9 +737,11 @@ class Logging(
             pass
 
     @commands.Cog.listener()
-    async def on_guild_channel_update(self, channel: discord.abc.GuildChannel):
+    async def on_guild_channel_update(
+        self, before: discord.abc.GuildChannel, after: discord.abc.GuildChannel
+    ):
 
-        logging = await self.get_logging_model(channel.guild.id)
+        logging = await self.get_logging_model(before.guild.id)
 
         if logging.channel_updated is True and logging.enabled != False:
 

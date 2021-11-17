@@ -17,3 +17,5 @@
 `├──`[`formatting.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/formatting.py) — formatting functions used in the bot<br>
 `├──`[`logging.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/logging.py) — Used For Logging Important Data To Terminal<br>
 `├──`[`utils.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Used For Utility Functions Like `shortern_url`, etc<br>
+
+> Made With ❤️ By Ghoul & Nerd

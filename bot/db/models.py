@@ -1,3 +1,16 @@
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
 import asyncio
 import aioredis
 
@@ -123,6 +136,12 @@ class Guild(Model):
     discord_id = fields.BigIntField(pk=True)
     language = fields.TextField(default="en")
     prefix = fields.TextField(default="-")
+    timezone = fields.TextField(default="UTC")
+
+    changelog_enabled = fields.BooleanField(default=False)
+    changelog_channel = fields.BigIntField(default=None, null=True)
+
+    trusted_bot_owners = fields.BigIntField(null=True)
 
     # Some Checks (soon™)
     is_bot_blacklisted = fields.BooleanField(default=False)
@@ -164,7 +183,7 @@ class ServerLogging(Model):
 
     # Optional Fields
     log_actions_by_bots = fields.BooleanField(default=True)
-    ignored_logging_channels = fields.BigIntField(null=True)
+    ignored_logging_channels = fields.BigIntField(default=None, null=True)
 
     # Logging Types
 

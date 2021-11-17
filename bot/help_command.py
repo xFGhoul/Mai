@@ -1,3 +1,16 @@
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
 import humanize
 import datetime
 
@@ -7,6 +20,8 @@ from discord import Embed
 from discord.ext import commands
 
 from helpers.constants import *
+
+from config.ext.parser import config
 
 
 class MaiHelpCommand(commands.HelpCommand):
@@ -32,17 +47,27 @@ class MaiHelpCommand(commands.HelpCommand):
         self, mapping: Mapping[Optional[commands.Cog], List[commands.Command]]
     ) -> None:
         bot = self.context.bot
+        latest_news = f"`•` Dashboard Coming Soon\n`•` [Nerd](https://github.com/FrostByte266) Is Now A Core Developer\n`•` Updates Are Going To Be Slower Because Of School"
         embed = Embed(
             title=f"{bot.user.name} Help",
-            description=f"**{Emoji.CHECKMARK} Here is a full list of my commands!**",
+            description=f"__**{Emoji.NOTIFICATION} {bot.user.name} News**__\n{latest_news}\n\n**{Emoji.CHECKMARK} Here are all my modules!**",
             color=Colors.EMBED_COLOR,
         )
+        embed.set_author(
+            name=bot.user.name,
+            icon_url=Links.BOT_AVATAR_URL,
+            url=Links.BOT_DOCUMENTATION_URL,
+        )
         embed.set_thumbnail(url=Links.BOT_AVATAR_URL)
+        embed.set_footer(
+            text=f"Requested By {self.context.author.name}",
+            icon_url=self.context.author.avatar.url,
+        )
         for cog in self.context.bot.cogs.values():
+            # TODO: SEPERATE INTO CATEGORIES INSTEAD OF ALL COGS
             embed.add_field(
                 name=cog.qualified_name,
                 value=f"`{self.context.clean_prefix}help {cog.qualified_name}`",
-                inline=True,
             )
         await self.dispatch_help(embed)
 

@@ -1,4 +1,18 @@
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
 import discord
+import humanize
 import traceback
 
 from discord.ext import commands
@@ -10,30 +24,21 @@ class ErrorHandler(commands.Cog, command_attrs=dict(hidden=True)):
     def __init__(self, bot) -> None:
         self.bot = bot
 
-    def convert(self, time):
-        day = time // (24 * 3600)
-        time = time % (24 * 3600)
-        hour = time // 3600
-        time %= 3600
-        minutes = time // 60
-        time %= 60
-        seconds = time
-        return (int(day), int(hour), int(minutes), int(seconds))
-
     @commands.Cog.listener()
     async def on_command_error(
         self, ctx: commands.Context, error: commands.CommandError
     ):
         if isinstance(error, commands.CommandOnCooldown):
-            global time
+            retry_after = error.retry_after
 
-            time = error.retry_after
-
-            day, hour, minutes, seconds = self.convert(time)
+            precise = humanize.precisedelta(
+                retry_after, minimum_unit="seconds", format="%0.2f"
+            )
 
             embed = discord.Embed(
+                title="Active Cooldown",
                 color=Colors.EMBED_COLOR,
-                description=f"**The Command `{ctx.command}` Is On Cooldown!\n\n`{day}` Days, `{hour}` Hours, `{minutes}` Minutes and `{seconds}` Seconds Left.**",
+                description=f"Please wait `{precise}` before reusing `{ctx.command}`\n\n__**Cooldown Reductions**__\n`•` Buy [Premium](https://google.com) for an **50%** Reduction\n`•` Vote on [top.gg](https://google.com) for a **20%** Reduction\n`•` Join Our [Support Server]({Links.SUPPORT_SERVER_INVITE}) for a **20%** Reduction",
             )
             embed.set_thumbnail(url=ctx.author.avatar.url)
             embed.set_author(
@@ -58,7 +63,7 @@ class ErrorHandler(commands.Cog, command_attrs=dict(hidden=True)):
             embed.set_footer(
                 text=f"ID: {ctx.author.id}", icon_url=ctx.author.avatar.url
             )
-
+            await ctx.send(embed=embed)
         else:
             traceback.print_exception(type(error), error, error.__traceback__)
 

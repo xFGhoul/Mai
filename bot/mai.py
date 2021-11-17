@@ -1,4 +1,15 @@
-#!python
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
 
 import os
 import sys
@@ -10,12 +21,12 @@ import datetime
 
 
 from glob import glob
-from typing import Tuple, Optional
+from typing import Tuple
 
 
 from discord import AllowedMentions, Intents
 from discord.ext import commands, tasks
-from discord.ext.commands import AutoShardedBot, Greedy
+from discord.ext.commands import AutoShardedBot
 from discord.flags import MemberCacheFlags
 from discord.errors import (
     NoEntryPointError,
@@ -99,18 +110,19 @@ class Mai(AutoShardedBot):
 
         self.uptime = datetime.datetime.utcnow()
 
-        # Declaring intents and initalizing parent class
+        # Initalizing parent class
         intents = Intents.all()
+        chunk_guilds_at_startup = False
+        allowed_mentions = AllowedMentions(everyone=False, roles=False)
         stuff_to_cache = MemberCacheFlags.from_intents(intents)
-        mentions = AllowedMentions(everyone=False, roles=False)
         super().__init__(
             intents=intents,
             command_prefix=self.determine_prefix,
             case_insensitive=True,
             help_command=MaiHelpCommand(),
-            allowed_mentions=mentions,
+            allowed_mentions=allowed_mentions,
             member_cache_flags=stuff_to_cache,
-            chunk_guilds_at_startup=False,
+            chunk_guilds_at_startup=chunk_guilds_at_startup,
             max_messages=1000,
             *args,
             **kwargs,

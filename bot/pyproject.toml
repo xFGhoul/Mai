@@ -8,7 +8,6 @@ license = "GPL 3.0"
 [tool.poetry.dependencies]
 python = "^3.10"
 PyYAML = "^5.4.1"
-Pycord18n = "^1.0.0"
 python-anilist = "^1.0.4"
 animec = "^0.3.3"
 aPRAW = "^0.6.9-alpha.0"
@@ -19,6 +18,8 @@ humanize = "^3.11.0"
 py-cord = {git = "https://github.com/Pycord-Development/pycord.git", rev = "master", extras = ["voice"]}
 ossapi = "^2.2.0"
 inquirerpy = "^0.3.0"
+nudepy = "^0.5.1"
+Augmentor = "^0.2.9"
 
 [tool.poetry.dev-dependencies]
 aerich = "^0.5.8"
