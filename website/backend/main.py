@@ -1,17 +1,18 @@
 import os
 import aioredis
 import uvicorn
+import secrets
 
-from typing import List
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, BackgroundTasks
-from fastapi.requests import Request
-from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from fastapi_discord import DiscordOAuthClient, RateLimited, Unauthorized, User
-from fastapi_discord.models import GuildPreview
+from starlette_discord.client import DiscordOAuthClient
+from starlette.middleware.sessions import SessionMiddleware
+from starlette.responses import RedirectResponse, JSONResponse
+from starlette.requests import Request
+from starlette.exceptions import HTTPException
 
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
@@ -30,7 +31,6 @@ from config.ext.parser import config
 
 from exceptions.exceptions import UserIsBlacklisted, GuildIsBlacklisted
 from helpers.classes import EmailTemplates
-from events.handlers import discord_get_user
 from models.schemas import EmailSchema, EmailContent
 
 
@@ -49,27 +49,14 @@ conf = ConnectionConfig(
 
 
 app = FastAPI(debug=True)
-app.add_middleware(
-    EventHandlerASGIMiddleware, handlers=[local_handler, discord_get_user]
-)
-
-origins = ["http://localhost:3000"]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 CLIENT_ID = config["DISCORD_CLIENT_ID"]
 CLIENT_SECRET = config["DISCORD_CLIENT_SECRET"]
 REDIRECT_URL = config["DISCORD_REDIRECT_URL"]
 
 discord = DiscordOAuthClient(
-    CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, ("identify", "guilds", "email")
-)  # scopes
+    CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, scopes=("identify", "email")
+)
 
 
 @cache()
@@ -107,68 +94,33 @@ async def root(request: Request) -> JSONResponse:
     return JSONResponse({"message": "Hello World"})
 
 
-@app.get("api/v1/login")
+@app.get("/api/v1/login")
 @cache(expire=60)
 async def login():
-    return RedirectResponse(discord.oauth_login_url)
+    return discord.redirect()
 
 
-@app.get("/callback")
+@app.get("/auth/discord/redirect")
 @cache(expire=60)
-async def callback(code: str):
-    token, refresh_token = await discord.get_access_token(code)
-    return {"access_token": token, "refresh_token": refresh_token}
+async def redirect(request: Request, code: str):
+    user = await discord.login(code)
+    request.session["discord_user"] = user
+    return RedirectResponse("/api/v1/users/me")
 
 
-@app.get(
-    "api/v1/authenticated",
-    dependencies=[Depends(discord.requires_authorization)],
-    response_model=bool,
-)
+@app.get("/api/v1/users/me")
 @cache(expire=60)
-async def isAuthenticated(token: str = Depends(discord.get_token)):
-    try:
-        auth = await discord.isAuthenticated(token)
-        return auth
-    except Unauthorized:
-        return False
+async def get_user(request: Request):
+    user = request.session.get("discord_user")
+
+    # dispatch("on_discord_get_user", payload={"id": user.id})
+    return user.json()
 
 
-@app.get(
-    "api/v1/users/me",
-    dependencies=[Depends(discord.requires_authorization)],
-    response_model=User,
-)
+@app.get("/api/v1/guilds")
 @cache(expire=60)
-async def get_user(user: User = Depends(discord.user)):
-    dispatch("on_discord_get_user", payload={"id": user.id})
-    return user
-
-
-@app.get(
-    "api/v1/guilds",
-    dependencies=[Depends(discord.requires_authorization)],
-    response_model=List[GuildPreview],
-)
-@cache(expire=60)
-async def get_guilds(guilds: List = Depends(discord.guilds)):
+async def get_guilds(guilds):
     return guilds
-
-
-# -- Error Handling
-
-
-@app.exception_handler(Unauthorized)
-async def unauthorized_error_handler(_, __):
-    return JSONResponse({"error": "Unauthorized"}, status_code=401)
-
-
-@app.exception_handler(RateLimited)
-async def rate_limit_error_handler(_, e: RateLimited):
-    return JSONResponse(
-        {"error": "RateLimited", "retry": e.retry_after, "message": e.message},
-        status_code=429,
-    )
 
 
 # -- Events
@@ -184,6 +136,16 @@ async def startup():
 
 
 if __name__ == "__main__":
+    app.add_middleware(EventHandlerASGIMiddleware, handlers=[local_handler])
+    app.add_middleware(SessionMiddleware, secret_key=secrets.token_urlsafe(64))
+    origins = ["http://localhost:3000"]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
     app_name = os.path.basename(__file__).replace(".py", "")
     uvicorn.run(
         app=f"{app_name}:app",
