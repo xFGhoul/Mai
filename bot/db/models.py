@@ -223,3 +223,7 @@ class ServerLogging(Model):
     channel_created = fields.BooleanField(default=True)
     channel_updated = fields.BooleanField(default=True)
     channel_deleted = fields.BooleanField(default=True)
+
+    # Invite Events
+    invite_created = fields.BooleanField(default=True)
+    invite_deleted = fields.BooleanField(default=True)

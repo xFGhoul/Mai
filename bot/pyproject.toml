@@ -20,6 +20,7 @@ ossapi = "^2.2.0"
 inquirerpy = "^0.3.0"
 nudepy = "^0.5.1"
 Augmentor = "^0.2.9"
+pypresence = {git = "https://github.com/qwertyquerty/pypresence"}
 
 [tool.poetry.dev-dependencies]
 aerich = "^0.5.8"

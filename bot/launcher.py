@@ -194,6 +194,11 @@ if not os.path.exists("config/config.yaml"):
         "BITLY_API_TOKEN": "",
         "DEFAULT_PREFIX": "",
         "BOT_VERSION": "",
+        "RPC_ENABLED": "",
+        "RPC_LARGE_IMAGE": "",
+        "RPC_LARGE_TEXT": "",
+        "RPC_SMALL_IMAGE": "",
+        "RPC_SMALL_TEXT": "",
     }
 
     if (

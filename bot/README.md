@@ -15,14 +15,14 @@ Folders
 
 `├──`[`assets`](https://github.com/xFGhoul/Mai/blob/dev/bot/assets) — Icons, Images, Templates<br>
 `├──`[`cogs`](https://github.com/xFGhoul/Mai/blob/dev/bot/cogs) — All Cogs(Commands)<br>
-`├──`[`config`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/constants.py) — Settings<br>
-`├──`[`db`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/formatting.py) — Database<br>
-`├──`[`docs`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/logging.py) — Documentation<br>
-`├──`[`helpers`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Utilities<br>
-`├──`[`locales`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Translations<br>
-`├──`[`scripts`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Utility Sripts<br>
+`├──`[`config`](https://github.com/xFGhoul/Mai/blob/dev/bot/config) — Settings<br>
+`├──`[`db`](https://github.com/xFGhoul/Mai/blob/dev/bot/db) — Database<br>
+`├──`[`docs`](https://github.com/xFGhoul/Mai/blob/dev/bot/docs) — Documentation<br>
+`├──`[`helpers`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers) — Utilities<br>
+`├──`[`locales`](https://github.com/xFGhoul/Mai/blob/dev/bot/locales) — Translations<br>
+`├──`[`scripts`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts) — Utility Sripts<br>
 
-`├──`[`mai.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Bread and Butter<br>
-`├──`[`launcher.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Beautiful Launcher<br>
+`├──`[`mai.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/mai.py) — Bread and Butter<br>
+`├──`[`launcher.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/launcher.py) — Beautiful Launcher<br>
 
 > Made With ❤️ By Ghoul & Nerd

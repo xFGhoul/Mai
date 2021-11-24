@@ -12,6 +12,8 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import os
+import yaml
+import inspect
 import sys
 import discord
 import watchgod
@@ -41,11 +43,12 @@ from pycord18n.extension import I18nExtension, _
 
 from rich.traceback import install
 
+from pypresence import AioPresence
 
 from tortoise import Tortoise
 from tortoise.exceptions import IntegrityError
 
-from config.ext.parser import config
+from config.ext.parser import config, ini
 
 from db.models import Guild, OSU, ServerLogging
 from db.tortoise.config import tortoise_config
@@ -70,7 +73,15 @@ os.system("cls" if sys.platform == "win32" else "clear")
 
 
 class Mai(AutoShardedBot):
-    def __init__(self, development_mode: str, *args, **kwargs):
+    def __init__(
+        self,
+        development_mode: str = None,
+        extensions_dir: str = "cogs",
+        *args,
+        **kwargs,
+    ):
+
+        self.extensions_dir = extensions_dir
 
         development_mode_passed = development_mode is not None
 
@@ -78,6 +89,8 @@ class Mai(AutoShardedBot):
             raise ValueError(
                 "__init__ expects development_mode to be provided, got None"
             )
+
+        self.RPC = AioPresence(config["DISCORD_ID"])
 
         self.development_mode = development_mode
 
@@ -150,7 +163,7 @@ class Mai(AutoShardedBot):
         failed_extensions = set()
         for file in map(
             lambda file_path: file_path.replace(os.path.sep, ".")[:-3],
-            glob("cogs/**/*.py", recursive=True),
+            glob(f"{self.extensions_dir}/**/*.py", recursive=True),
         ):
             try:
                 self.load_extension(file)
@@ -173,6 +186,31 @@ class Mai(AutoShardedBot):
     def _start(self) -> None:
         self.run(config["DISCORD_TOKEN"], reconnect=True)
 
+    @tasks.loop(seconds=15)
+    async def rich_presence(self):
+        rpc_enabled = config["RPC_ENABLED"]
+        if rpc_enabled == True:
+            await self.RPC.update(
+                details=f"{len(self.guilds)} Guilds",
+                state=f"{len(self.users)} Users",
+                large_image=config["RPC_LARGE_IMAGE"],
+                large_text=config["RPC_LARGE_TEXT"],
+                small_image=config["RPC_SMALL_IMAGE"],
+                small_text=config["RPC_SMALL_TEXT"],
+                buttons=[
+                    {"label": "Invite", "url": Links.BOT_INVITE_URL},
+                    {
+                        "label": "Support Server",
+                        "url": Links.SUPPORT_SERVER_INVITE,
+                    },
+                ],
+            )
+            log.info(
+                "[bright_green][RPC][/bright_green] [blue3]Rich Presence Updated.[/blue3]"
+            )
+        else:
+            pass
+
     @tasks.loop(seconds=10)
     async def status(self) -> None:
         """Cycles through all status every 10 seconds"""
@@ -191,7 +229,7 @@ class Mai(AutoShardedBot):
     async def cog_watcher_task(self) -> None:
         """Watches the cogs directory for changes and reloads files"""
         async for change in watchgod.awatch(
-            "cogs", watcher_cls=watchgod.PythonWatcher
+            self.extensions_dir, watcher_cls=watchgod.PythonWatcher
         ):
             for change_type, changed_file_path in change:
                 try:
@@ -229,6 +267,7 @@ class Mai(AutoShardedBot):
     async def on_ready(self) -> None:
         """Called when we have successfully connected to a gateway"""
         await Tortoise.init(tortoise_config.TORTOISE_CONFIG)
+        await self.RPC.connect()
         # await self.i18n.init_bot(bot, self.get_locale(commands.Context)) #FIXME 'cahced_property' has no attribute 'id'. most likely due to how the pycordi18n uses pre_invoke, looking into it.
 
         console.print(
@@ -264,6 +303,7 @@ class Mai(AutoShardedBot):
         )
         self.status.start()
         self.cog_watcher_task.start()
+        self.rich_presence.start()
 
 
 # Defining root level commands
@@ -288,6 +328,48 @@ async def on_guild_join(guild: discord.Guild):
 # DEVELOPER ONLY COMMANDS :)
 
 # -- COG RELATED COMMANDS
+
+
+@bot.command(aliases=["where", "find"])
+@commands.is_owner()
+async def which(ctx: commands.Context, *, command_name: str) -> None:
+    """Finds the cog a command is part of"""
+    command = bot.get_command(command_name)
+    if command is None:
+        embed = discord.Embed(
+            description=f"{Emoji.ERROR} `{command_name}` **does not exist.**",
+            color=Colors.ERROR_COLOR,
+        )
+    else:
+        inner_command = command.callback
+        command_defined_on = inspect.getsourcelines(inner_command)[1]
+        full_command_signature = f"`async def {inner_command.__name__}{inspect.signature(inner_command)}`"
+        if type(command) is commands.Command and not command.parent:
+            command_type = "`Standalone command`"
+        elif type(command) is commands.Group:
+            command_type = "`Command group`"
+        else:
+            command_type = f"Subcommand of `{command.parent.qualified_name}`"
+        embed = discord.Embed(
+            title="Target Aquired \U0001F3AF", color=Colors.SUCCESS_COLOR
+        )
+        embed.add_field(
+            name="Part of Extension",
+            value=f"`{command.cog.qualified_name}`"
+            if command.cog is not None
+            else "`Root Module`",
+            inline=False,
+        )
+        embed.add_field(name="Type of command", value=command_type)
+        embed.add_field(
+            name="Defined on line",
+            value=f"`{command_defined_on}`",
+            inline=False,
+        )
+        embed.add_field(
+            name="Signature", value=full_command_signature, inline=False
+        )
+    await ctx.send(embed=embed)
 
 
 @bot.command()

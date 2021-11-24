@@ -18,7 +18,7 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Uploads(commands.Cog, name="Uploads", description="XXX"):
+class Youtube(commands.Cog, name="Youtube", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -30,4 +30,4 @@ class Uploads(commands.Cog, name="Uploads", description="XXX"):
 
 
 def setup(bot):
-    bot.add_cog(Uploads(bot))
+    bot.add_cog(Youtube(bot))

@@ -12,6 +12,7 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+from discord.ext.tasks import T
 import humanize
 
 from typing import Optional, Union
@@ -99,7 +100,10 @@ class Logging(
             loggging_channel = discord.utils.get(
                 text_channels, id=logging_channel_id
             )
-            return loggging_channel
+            if loggging_channel is None:
+                pass
+            else:
+                return loggging_channel
         else:
             return
 
@@ -138,13 +142,26 @@ class Logging(
     @logging.command(
         name="toggle",
         description="Toggle Logging on/off",
-        brief="logging toggle on\nlogging toggle True",
+        brief="logging toggle on\nlogging toggle off\nlogging toggle True\nlogging toggle False",
     )
-    async def toggle(self, ctx: commands.Context, toggle: bool):
+    async def toggle(self, ctx: commands.Context, toggle: Union[str, bool]):
 
         guild = await Guild.from_context(ctx)
 
         logging = await ServerLogging.get_or_none(guild=guild)
+
+        if type(toggle) is str:
+            if toggle == "on":
+                toggle = True
+            elif toggle == "off":
+                toggle = False
+            elif toggle != "on" or "off":
+                embed = discord.Embed(
+                    color=Colors.ERROR_COLOR,
+                    description=f"{Emoji.ERROR} `toggle` expects `on`/`off`, not `{str(toggle)}`",
+                )
+                await ctx.send(embed=embed)
+                return
 
         logging.enabled = toggle
         await logging.save(update_fields=["enabled"])
@@ -239,6 +256,8 @@ class Logging(
             "channel_created",
             "channel_updated",
             "channel_deleted",
+            "invite_created",
+            "invite_deleted",
         }
 
         if log not in VALID_TYPES:
