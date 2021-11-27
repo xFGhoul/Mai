@@ -27,6 +27,7 @@ class Links:
     BOT_SOURCE_CODE_URL = "https://github.com/xFGhoul/Mai"
     SUPPORT_SERVER_INVITE = "https://discord.gg/AZQpDFFtqK"
     BOT_DOCUMENTATION_URL = "https://xfghoul.github.io/Mai/"
+    NSFW_CHANNEL_REQUIRED = "https://i.imgur.com/oe4iK5i.gif"
 
 
 # -- EMOJIS
@@ -63,6 +64,7 @@ class Emoji:
     MEMBERS = "<:members:901917213877997619>"
     MESSAGES = "<:messages:901917529268682752>"
     DISCORD_EMPLOYEE = "<:employee:901918060909326376>"
+    BRAIN = "<:BigBrainTime:914164430172983397>"
 
 
 # -- OSU EMOJIS

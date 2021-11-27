@@ -21,6 +21,9 @@ inquirerpy = "^0.3.0"
 nudepy = "^0.5.1"
 Augmentor = "^0.2.9"
 pypresence = {git = "https://github.com/qwertyquerty/pypresence"}
+topggpy = {git = "https://github.com/top-gg/python-sdk/"}
+sympy = "^1.9"
+asyncpraw = "^7.5.0"
 
 [tool.poetry.dev-dependencies]
 aerich = "^0.5.8"
@@ -39,7 +42,6 @@ PycordUtils = "^0.0.2"
 pyshorteners = "^1.0.1"
 halo = "^0.0.31"
 py-cpuinfo = "^8.0.0"
-aiofiles = "^0.7.0"
 rich = "^10.10.0"
 tortoise-orm = {extras = ["asyncpg"], version = "^0.17.7"}
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}

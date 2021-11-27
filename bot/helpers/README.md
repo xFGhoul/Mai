@@ -11,6 +11,8 @@
 
 <h3 align="center">Files And Explanations</h3>
 
+
+`├──`[`cache/reddit.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/cache/reddit.py) — Caches For Reddit Images<br>
 `├──`[`ASCII.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/ASCII.py) — ASCII Used For Pretty Terminal Output<br>
 `├──`[`console.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/console.py) — Used For Pretty Printing Output To Terminal<br>
 `├──`[`constants.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/constants.py) — Constants Used For Emojis, Links, Colors, etc<br>

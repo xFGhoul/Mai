@@ -12,7 +12,6 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import os
-import yaml
 import inspect
 import sys
 import discord

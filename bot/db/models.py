@@ -19,6 +19,7 @@ from discord.ext.commands import Context
 
 
 from tortoise import fields
+from tortoise.expressions import F
 from tortoise.models import Model
 
 from config.ext.parser import config
@@ -172,6 +173,30 @@ class OSU(Model):
     passive = fields.BooleanField(default=True)
     discord_id = fields.BigIntField()
     guild = fields.ForeignKeyField("Mai.Guild", related_name="OSU")
+
+
+class Counting(Model):
+    discord_id = fields.BigIntField(pk=True)
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="Counting")
+    counting_channel = fields.BigIntField(null=True)
+    counting_goal = fields.BigIntField(default=0, null=True)
+    counting_number = fields.BigIntField(default=0, null=True)
+    counting_warn_message = fields.TextField(
+        default="Please use this channel for counting only!", null=True
+    )
+    enabled = fields.BooleanField(default=True)
+    last_member_id = fields.BigIntField(null=True)
+    webhook_url = fields.CharField(null=True, max_length=400)
+
+    async def increment(self, increase_no: int = 1):
+        self.counting_number = F("counting_number") + increase_no
+        await self.save(update_fields=["counting_number"])
+        await self.refresh_from_db(fields=["counting_number"])
+        return self.counting_number
+
+    @property
+    def next_number(self):
+        return self.counting_number + 1
 
 
 class ServerLogging(Model):

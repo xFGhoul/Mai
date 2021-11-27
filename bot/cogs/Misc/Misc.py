@@ -17,8 +17,8 @@ import time
 import psutil
 import platform
 
-
 from discord.ext import commands
+from typing import Optional
 
 from db.models import Guild
 from helpers.constants import *
@@ -27,6 +27,13 @@ from helpers.logging import log
 from config.ext.parser import config
 
 from datetime import datetime
+
+from sympy.core.symbol import var
+from sympy.parsing.sympy_parser import (
+    parse_expr,
+    standard_transformations,
+    implicit_multiplication,
+)
 
 
 class Invite(discord.ui.View):
@@ -105,6 +112,7 @@ class Misc(
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def ping(self, ctx: commands.Context):
+        await ctx.trigger_typing()
         before = time.monotonic()
         loading_embed = discord.Embed(
             color=Colors.EMBED_COLOR,
@@ -132,6 +140,7 @@ class Misc(
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.guild_only()
     async def uptime(self, ctx: commands.Context):
+        await ctx.trigger_typing()
         now = datetime.utcnow()
 
         start_time = self.bot.uptime
@@ -154,6 +163,8 @@ class Misc(
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def stats(self, ctx: commands.Context):
+
+        await ctx.trigger_typing()
 
         loading_embed = discord.Embed(
             color=Colors.EMBED_COLOR,
@@ -238,6 +249,48 @@ class Misc(
 
         embed.set_footer(text="Made With ❤️", icon_url=ctx.author.avatar.url)
 
+        await message.edit(content=None, embed=embed)
+
+    @commands.command()
+    @commands.guild_only()
+    async def math(self, ctx, expression: str, *, vars: Optional[str]):
+        await ctx.trigger_typing()
+
+        loading_embed = discord.Embed(
+            color=Colors.EMBED_COLOR,
+            description=f"{Emoji.LOADING_CIRCLE} Calculating...",
+        )
+        message = await ctx.send(embed=loading_embed)
+
+        if vars is not None:
+            declarations = vars.split(";")
+            runtime_vars = dict()
+            for declaration in declarations:
+                lhs, rhs = tuple(declaration.split("="))
+                runtime_vars.update({lhs: int(rhs)})
+        else:
+            runtime_vars = dict()
+
+        result = parse_expr(
+            expression,
+            local_dict=runtime_vars,
+            transformations=standard_transformations
+            + (implicit_multiplication,),
+        )
+        embed = discord.Embed(
+            title=f"Math Calculated {Emoji.BRAIN}",
+            color=Colors.SUCCESS_COLOR,
+            timestamp=datetime.utcnow(),
+        )
+        embed.add_field(name="Expression", value=expression, inline=False)
+        var_mappings = "\n".join(
+            [f"{var} -> {val}" for var, val in runtime_vars.items()]
+        )
+        if var_mappings:
+            embed.add_field(
+                name="Runtime variables", value=var_mappings, inline=False
+            )
+        embed.add_field(name="Result", value=result, inline=False)
         await message.edit(content=None, embed=embed)
 
 

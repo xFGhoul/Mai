@@ -33,12 +33,14 @@ from helpers import ASCII
 from config.ext.parser import ini
 from helpers.console import console
 
+ascii = ASCII()
+
 
 def WaitAndExit(message):
     time.sleep(2)
     os.system("cls" if sys.platform == "win32" else "clear")
-    ASCII.error()
-    ASCII.line()
+    ascii.error()
+    ascii.line()
     console.print(f"[red]{message}[/red]")
     time.sleep(5)
     raise SystemExit
@@ -194,11 +196,17 @@ if not os.path.exists("config/config.yaml"):
         "BITLY_API_TOKEN": "",
         "DEFAULT_PREFIX": "",
         "BOT_VERSION": "",
+        "BOT_LOGS_CHANNEL_ID": "",
         "RPC_ENABLED": "",
         "RPC_LARGE_IMAGE": "",
         "RPC_LARGE_TEXT": "",
         "RPC_SMALL_IMAGE": "",
         "RPC_SMALL_TEXT": "",
+        "PRAW_ID": "",
+        "PRAW_SECRET": "",
+        "YOUTUBE_API_KEY": "",
+        "TWITCH_API_ID": "",
+        "TWITCH_API_SECRET": "",
     }
 
     if (
