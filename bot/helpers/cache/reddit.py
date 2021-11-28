@@ -1,10 +1,23 @@
+"""
+
+███╗   ███╗ █████╗ ██╗
+████╗ ████║██╔══██╗██║
+██╔████╔██║███████║██║
+██║╚██╔╝██║██╔══██║██║
+██║ ╚═╝ ██║██║  ██║██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
+
+Made With ❤️ By Ghoul & Nerd
+
+"""
+
 import aiofiles
 import asyncpraw
 import asyncio
 import pickle
 import random
 
-from discord.ext.commands import tasks
+from discord.ext import tasks
 from typing import List, Tuple
 
 
@@ -18,11 +31,12 @@ from config.ext.parser import config
 class RedditPostCacher:
     def __init__(self, subreddit_names: List[str], cache_location):
         self.subreddit_names = subreddit_names
+        self.bot_name = config["BOT_NAME"]
 
         self.reddit = Reddit(
             client_id=config["PRAW_ID"],
             client_secret=config["PRAW_SECRET"],
-            user_agent=f"{self.bot.user.name}/0.5",
+            user_agent=f"{self.bot_name}/0.5",
         )
 
         self.file_path = cache_location

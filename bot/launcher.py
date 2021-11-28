@@ -187,6 +187,7 @@ if not os.path.exists("config/config.yaml"):
         "DISCORD_TOKEN": "",
         "DISCORD_ID": "",
         "DATABASE_URI": "",
+        "BOT_NAME": "",
         "DEFAULT_REDIS_PATH": "",
         "REDIS_URI": "",
         "OSU_API_V1_KEY": "",

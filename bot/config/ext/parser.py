@@ -26,7 +26,7 @@ INI_CONFIG_PATH = os.path.join(ROOT_DIR, INI_FILE)
 
 if not os.path.exists(CONFIG_PATH):
     log.error(
-        "[CONFIG] CONFIG.YAML DOES NOT EXIST. PLEASE SEE => example.config.yaml"
+        "[CONFIG] CONFIG.YAML DOES NOT EXIST. PLEASE SEE => config/example.config.yaml"
     )
     raise SystemExit  # Realistically this won't ever be called if you run the launcher but just incase you actually did 'python mai.py' :cringe:
 

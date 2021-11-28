@@ -50,7 +50,7 @@ conf = ConnectionConfig(
 
 app = FastAPI(debug=True)
 
-CLIENT_ID = config["DISCORD_CLIENT_ID"]
+CLIENT_ID = str(config["DISCORD_CLIENT_ID"])
 CLIENT_SECRET = config["DISCORD_CLIENT_SECRET"]
 REDIRECT_URL = config["DISCORD_REDIRECT_URL"]
 

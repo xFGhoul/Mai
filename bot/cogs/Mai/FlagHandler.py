@@ -25,7 +25,7 @@ from db.models import Guild
 from config.ext.parser import config
 
 
-class TopGG(commands.Cog, command_attrs=dict(hidden=True)):
+class FlagHandler(commands.Cog, command_attrs=dict(hidden=True)):
     def __init__(self, bot):
         self.bot = bot
         self.spam_control = commands.CooldownMapping.from_cooldown(
@@ -101,4 +101,4 @@ class TopGG(commands.Cog, command_attrs=dict(hidden=True)):
 
 
 def setup(bot):
-    bot.add_cog(TopGG(bot))
+    bot.add_cog(FlagHandler(bot))

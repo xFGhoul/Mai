@@ -12,10 +12,11 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+import os
 import random
 import json
 
-from typing import Optional, Union
+from typing import Optional
 
 from discord.ext import commands
 from discord.ext.commands import Greedy
@@ -23,12 +24,15 @@ from discord.ext.commands import Greedy
 from helpers.constants import *
 from helpers.logging import log
 
+from config.ext.parser import ROOT_DIR
+
 
 class Actions(commands.Cog, name="Actions", description="XXX"):
     def __init__(self, bot):
         self.bot = bot
+        self.json_path = "assets/actions.json"
 
-        with open("../../assets/json.py", "r") as json_file:
+        with open(os.path.join(ROOT_DIR, self.json_path), "r") as json_file:
             self.links = json.load(json_file)
 
         self.hugs = self.links["hugs"]
