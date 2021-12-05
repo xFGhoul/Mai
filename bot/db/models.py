@@ -175,6 +175,16 @@ class OSU(Model):
     guild = fields.ForeignKeyField("Mai.Guild", related_name="OSU")
 
 
+class AFKModel(Model):
+    id = fields.BigIntField(pk=True)
+    afk_user_id = fields.BigIntField()
+    start_time = fields.DatetimeField(auto_now_add=True)
+    enabled = fields.BooleanField(default=True)
+    nickname = fields.TextField(default=None, null=True)
+    message = fields.TextField(default=None, null=True)
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="AFK")
+
+
 class Counting(Model):
     discord_id = fields.BigIntField(pk=True)
     guild = fields.ForeignKeyField("Mai.Guild", related_name="Counting")

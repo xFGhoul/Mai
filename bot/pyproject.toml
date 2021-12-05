@@ -24,6 +24,7 @@ pypresence = {git = "https://github.com/qwertyquerty/pypresence"}
 topggpy = {git = "https://github.com/top-gg/python-sdk/"}
 sympy = "^1.9"
 asyncpraw = "^7.5.0"
+typer = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 aerich = "^0.5.8"

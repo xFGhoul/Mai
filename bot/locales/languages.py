@@ -18,6 +18,9 @@ from pycord18n.language import Language
 FRENCH = Language(
     "French", "fr", json.load(open("locales/fr_FR/fr.json", encoding="UTF-8"))
 )
+SPANISH = Language(
+    "Spanish", "es", json.load(open("locales/es_ES/es.json", encoding="UTF-8"))
+)
 ENGLISH = Language(
     "English", "en", json.load(open("locales/en_US/en.json", encoding="UTF-8"))
 )

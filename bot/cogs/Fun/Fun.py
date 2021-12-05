@@ -187,7 +187,7 @@ class Fun(commands.Cog, name="Fun", description="XXX"):
 
         async with ctx.channel.typing():
             async with aiohttp.ClientSession() as session:
-                avatar = member.avatar_url_as(static_format="png")
+                avatar = member.avatar.with_static_format("png")
                 async with session.get(
                     f'https://some-random-api.ml/canvas/triggered?avatar={avatar}&key={config["SOME_RANDOM_API_KEY"]}'
                 ) as resp:

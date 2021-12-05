@@ -1,3 +1,0 @@
-# Welcome to Mai
-
-DOCUMENTATION IN PROGRES

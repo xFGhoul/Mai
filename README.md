@@ -1,46 +1,42 @@
+
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/) ![forthebadge built-with-love](https://forthebadge.com/images/badges/built-with-love.svg) ![forthebadge built-by-developers](https://forthebadge.com/images/badges/built-by-developers.svg)
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
     <a href="https://github.com/xFGhoul/Mai">
-    <img src="https://cdn.discordapp.com/avatars/770898395664875541/c04edaafef86e4efdff7208204e043a6.png?size=2048" alt="Logo" width="80" height="80">
+    <img src="https://cdn.discordapp.com/avatars/770898395664875541/c04edaafef86e4efdff7208204e043a6.png?size=2048" alt="Logo" width="300" height="300">
     </a>
   <h3 align="center">Mai</h3>
   <p align="center">
     A Discord Bot That Transcends Normality
     </br>
-    <a href="https://github.com/xFGhoul/Mai/issues">Report Bug</a>
+    <a href="https://github.com/xFGhoul/Mai/issues">• Report Bug</a>
     ·
-    <a href="https://github.com/xFGhoul/Mai/issues">Request Feature</a>
+    <a href="https://github.com/xFGhoul/Mai/issues"> • Request Feature</a>
   </p>
 </p>
 
-## Using The Bot
+<h3><img src="https://cdn.discordapp.com/emojis/562008110412201986.png" height="20px"> • Info</h3>
+<ul>
+<li> <img src="https://cdn.discordapp.com/attachments/890304279737405510/917082931040763924/825851463954726932.gif" height="19px"> Mai Is A Discord Bot That Aims To Remove The Need For 20+ Discord Bots In 1 Server.</li>
+<li> Mai Contains Translations™, Dashboard™ And Many Other Really Cool Features To Satisfy The User Experience.
+</ul>
 
-All The Information You Need Is [Here](https://xfghoul.github.io/Mai/)
+<h3><img src="https://cdn.discordapp.com/attachments/770679803635433473/825245721951207454/802801495153967154.png" height="20px"> • I'd like to contribute</h3>
+<ul>
+  <li><a href="https://xfghoul.github.io/Mai/">Follow The Developer Documentation</li>
+</ul>
 
-## Setting Up A Development Environment
 
-* See The [CONTRIBUTING.MD](https://github.com/xFGhoul/Mai/blob/dev/.github/CONTRIBUTING.md) Guide For More Info.
+<h3><img src="https://cdn.discordapp.com/attachments/890304279737405510/917079327810682971/901917529268682752.png" height="20px"> • License</h3>
+<ul>
+<li>Distributed under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0</li>
+<li><a href="https://github.com/xFGhoul/Mai/blob/dev/LICENSE">LICENSE</li>
+</ul>
 
-## LICENSE
-
-Distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html). See [LICENSE](https://github.com/xFGhoul/Mai/blob/dev/LICENSE) for more information.
-
-## Credits
-
-* [Nerd](https://github.com/FrostByte266) ([Discord](discord.com/users/Nerd#4271))
-* [FalseDev](https://github.com/FalseDev) ([Discord](dicord.com/users/FalseDev#7435))
-* [Icon Artist](https://www.instagram.com/chon_mi105/?hl=en)
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/xFGhoul/Mai.svg?style=for-the-badge
-[contributors-url]: https://github.com/xFGhoul/Mai_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/xFGhoul/Mai.svg?style=for-the-badge
-[forks-url]: https://github.com/xFGhoul/Mai_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/xFGhoul/Mai.svg?style=for-the-badge
-[stars-url]: https://github.com/xFGhoul/Mai_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/xFGhoul/Mai.svg?style=for-the-badge
-[issues-url]: https://github.com/xFGhoul/Mai_name/issues
-[license-shield]: https://img.shields.io/github/license/xFGhoul/Mai.svg?style=for-the-badge
-[license-url]: https://github.com/xFGhoul/Mai_name/blob/master/LICENSE.txt
+<h3><img src="https://cdn.discordapp.com/attachments/890304279737405510/917081467270602822/901917213877997619.png" height="20px"> • Credits</h3>
+<ul>
+<li><a href="https://github.com/FrostByte266">Nerd</li>
+<li><a href="https://github.com/FalseDev">FalseDev</li>
+<li><a href="https://www.instagram.com/chon_mi105/?hl=en">Icon Artist</li>
+</ul>

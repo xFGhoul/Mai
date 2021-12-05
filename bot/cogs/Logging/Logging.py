@@ -366,7 +366,7 @@ class Logging(
 
         logging = await self.get_logging_model(guild_id=message.guild.id)
 
-        if logging.messaged_deleted is True and logging.enabled != False:
+        if logging.message_deleted is True and logging.enabled != False:
 
             member = message.author
 

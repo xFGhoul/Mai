@@ -1,6 +1,6 @@
 # Cache
 __pycache__
-*.pickle
+cogs/NSFW/cache
 
 # Database
 migrations/
@@ -15,3 +15,5 @@ config/config.yaml
 
 # Documentation
 docs/site
+docs_build
+site
