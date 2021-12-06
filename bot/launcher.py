@@ -36,7 +36,7 @@ from helpers.console import console
 ascii = ASCII()
 
 
-def WaitAndExit(message):
+def WaitAndExit(message) -> SystemExit:
     time.sleep(2)
     os.system("cls" if sys.platform == "win32" else "clear")
     ascii.error()

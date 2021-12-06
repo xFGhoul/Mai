@@ -1,4 +1,3 @@
-
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/) ![forthebadge built-with-love](https://forthebadge.com/images/badges/built-with-love.svg) ![forthebadge built-by-developers](https://forthebadge.com/images/badges/built-by-developers.svg)
 <!-- PROJECT LOGO -->
 <br />
@@ -26,7 +25,6 @@
 <ul>
   <li><a href="https://xfghoul.github.io/Mai/">Follow The Developer Documentation</li>
 </ul>
-
 
 <h3><img src="https://cdn.discordapp.com/attachments/890304279737405510/917079327810682971/901917529268682752.png" height="20px"> • License</h3>
 <ul>

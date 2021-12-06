@@ -55,6 +55,7 @@ from db.tortoise.config import tortoise_config
 from help_command import MaiHelpCommand
 
 from locales.languages import (
+    SPANISH,
     ENGLISH,
     FRENCH,
     GERMAN,
@@ -116,7 +117,16 @@ class Mai(AutoShardedBot):
         )
 
         self.i18n = I18nExtension(
-            [FRENCH, ENGLISH, JAPANESE, GERMAN, KOREAN, TURKISH, RUSSIAN],
+            [
+                FRENCH,
+                ENGLISH,
+                SPANISH,
+                JAPANESE,
+                GERMAN,
+                KOREAN,
+                TURKISH,
+                RUSSIAN,
+            ],
             fallback="en",
         )
 
