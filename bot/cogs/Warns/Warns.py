@@ -18,7 +18,7 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Warns(commands.Cog, name="Warns", description="XXX"):
+class Warns(commands.Cog, name="Warns", description="Warn Misbehaving Members"):
     def __init__(self, bot):
         self.bot = bot
 

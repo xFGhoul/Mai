@@ -18,7 +18,9 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Music(commands.Cog, name="Music", description="XXX"):
+class Music(
+    commands.Cog, name="Music", description="Play Spotify, Youtube, SoundCloud"
+):
     def __init__(self, bot):
         self.bot = bot
 

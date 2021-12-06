@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Economy(commands.Cog, name="Economy", description="XXX"):
+class Economy(
+    commands.Cog,
+    name="Economy",
+    description="Create A Wonderful Economic System Right In Your Discord Server",
+):
     def __init__(self, bot):
         self.bot = bot
 

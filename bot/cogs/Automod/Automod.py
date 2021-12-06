@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Automod(commands.Cog, name="Auto Mod", description="XXX"):
+class Automod(
+    commands.Cog,
+    name="Auto Mod",
+    description="Keep Your Server Safe From Trolls",
+):
     def __init__(self, bot):
         self.bot = bot
 

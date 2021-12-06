@@ -19,7 +19,7 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Leveling(commands.Cog, name="Leveling", description="XXX"):
+class Leveling(commands.Cog, name="Leveling", description="Leveling System"):
     def __init__(self, bot):
         self.bot = bot
 

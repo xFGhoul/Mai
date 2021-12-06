@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Captcha(commands.Cog, name="Captcha", description="XXX"):
+class Captcha(
+    commands.Cog,
+    name="Captcha",
+    description="Prevent Bots From Raiding Your Server",
+):
     def __init__(self, bot):
         self.bot = bot
 

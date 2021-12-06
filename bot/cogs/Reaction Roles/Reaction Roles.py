@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class ReactionRoles(commands.Cog, name="Reaction Roles", description="XXX"):
+class ReactionRoles(
+    commands.Cog,
+    name="Reaction Roles",
+    description="Set Up Reaction Roles Easily and Efficiently",
+):
     def __init__(self, bot):
         self.bot = bot
 

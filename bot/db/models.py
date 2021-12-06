@@ -185,6 +185,12 @@ class AFKModel(Model):
     guild = fields.ForeignKeyField("Mai.Guild", related_name="AFK")
 
 
+class Snipe(Model):
+    id = fields.BigIntField(pk=True)
+    enabled = fields.BooleanField(default=True)
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="Snipe")
+
+
 class Counting(Model):
     discord_id = fields.BigIntField(pk=True)
     guild = fields.ForeignKeyField("Mai.Guild", related_name="Counting")

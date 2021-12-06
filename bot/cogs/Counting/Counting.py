@@ -27,7 +27,11 @@ from helpers.logging import log
 from db.models import Guild, Counting
 
 
-class CountingCog(commands.Cog, name="Counting", description="XXX"):
+class CountingCog(
+    commands.Cog,
+    name="Counting",
+    description="Count To A Number, The Right Way!",
+):
     def __init__(self, bot):
         self.bot = bot
 

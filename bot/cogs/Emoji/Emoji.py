@@ -33,7 +33,7 @@ from helpers.logging import log
 from asyncio import Event
 
 
-class Emoji(commands.Cog, name="Emoji", description="XXX"):
+class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
     def __init__(self, bot):
         self.bot = bot
         self.emoji_extraction_pattern = re.compile(
@@ -73,7 +73,7 @@ class Emoji(commands.Cog, name="Emoji", description="XXX"):
         self, emoji: discord.Emoji, guild: discord.Guild
     ):
         created_emoji = await guild.create_custom_emoji(
-            name=emoji.name, image=await emoji.url.read()
+            name=emoji.name, image=await emoji.read()
         )
         return created_emoji
 

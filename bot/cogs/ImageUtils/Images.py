@@ -18,7 +18,9 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class ImageUtils(commands.Cog, name="Image Utils", description="XXX"):
+class ImageUtils(
+    commands.Cog, name="Image Utils", description="Funny Image Utilities"
+):
     def __init__(self, bot):
         self.bot = bot
 

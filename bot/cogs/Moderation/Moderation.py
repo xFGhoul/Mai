@@ -18,7 +18,9 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Moderation(commands.Cog, name="Moderation", description="XXX"):
+class Moderation(
+    commands.Cog, name="Moderation", description="Moderate Your Discord Server"
+):
     def __init__(self, bot):
         self.bot = bot
 

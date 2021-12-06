@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Twitch(commands.Cog, name="Twitch", description="XXX"):
+class Twitch(
+    commands.Cog,
+    name="Twitch",
+    description="See When Your Favorite Twitch Streamer Goes Live",
+):
     def __init__(self, bot):
         self.bot = bot
 

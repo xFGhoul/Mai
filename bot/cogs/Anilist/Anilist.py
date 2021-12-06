@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Anilist(commands.Cog, name="Anilist", description="XXX"):
+class Anilist(
+    commands.Cog,
+    name="Anilist",
+    description="Get Info About Your Favorite Anime, Characters And Other Stuff!",
+):
     def __init__(self, bot):
         self.bot = bot
 

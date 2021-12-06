@@ -26,7 +26,11 @@ from helpers.logging import log
 from helpers.cache.reddit import RedditPostCacher
 
 
-class NSFW(commands.Cog, name="NSFW", description="XXX"):
+class NSFW(
+    commands.Cog,
+    name="NSFW",
+    description="NSFW(Not Safe For Work) Commands :smirk:",
+):
     def __init__(self, bot):
         self.bot = bot
         self.subreddits = (

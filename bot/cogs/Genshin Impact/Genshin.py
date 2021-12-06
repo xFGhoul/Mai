@@ -18,7 +18,9 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Genshin(commands.Cog, name="Genshin", description="XXX"):
+class Genshin(
+    commands.Cog, name="Genshin", description="Get Stats About Genshin Impact"
+):
     def __init__(self, bot):
         self.bot = bot
 

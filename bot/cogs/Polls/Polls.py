@@ -18,7 +18,7 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Polls(commands.Cog, name="Polls", description="XXX"):
+class Polls(commands.Cog, name="Polls", description="Create Polls"):
     def __init__(self, bot):
         self.bot = bot
 

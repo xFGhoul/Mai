@@ -18,7 +18,9 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Suggestions(commands.Cog, name="Suggestions", description="XXX"):
+class Suggestions(
+    commands.Cog, name="Suggestions", description="Manage Server Suggestions"
+):
     def __init__(self, bot):
         self.bot = bot
 

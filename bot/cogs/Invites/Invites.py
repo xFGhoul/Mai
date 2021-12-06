@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Invites(commands.Cog, name="Invite Manager", description="XXX"):
+class Invites(
+    commands.Cog,
+    name="Invite Manager",
+    description="See Who Really Invited Who.",
+):
     def __init__(self, bot):
         self.bot = bot
 

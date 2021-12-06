@@ -12,13 +12,26 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+import humanize
+import datetime
+
+from typing import Optional
+
 from discord.ext import commands
+from discord.ext.commands import BucketType
 
 from helpers.constants import *
 from helpers.logging import log
 
 
-class AFK(commands.Cog, name="AFK", description="XXX"):
+from db.models import Guild, AFKModel
+
+
+class AFK(
+    commands.Cog,
+    name="AFK",
+    description="Let People Know You're Away From Discord",
+):
     def __init__(self, bot):
         self.bot = bot
 

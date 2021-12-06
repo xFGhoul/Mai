@@ -18,7 +18,9 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Youtube(commands.Cog, name="Youtube", description="XXX"):
+class Youtube(
+    commands.Cog, name="Youtube", description="Get Youtube Notifications"
+):
     def __init__(self, bot):
         self.bot = bot
 

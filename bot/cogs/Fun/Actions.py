@@ -27,7 +27,7 @@ from helpers.logging import log
 from config.ext.parser import ROOT_DIR
 
 
-class Actions(commands.Cog, name="Actions", description="XXX"):
+class Actions(commands.Cog, name="Actions", description="Fun Commands"):
     def __init__(self, bot):
         self.bot = bot
         self.json_path = "assets/actions.json"

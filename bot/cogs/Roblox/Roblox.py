@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Roblox(commands.Cog, name="Roblox", description="XXX"):
+class Roblox(
+    commands.Cog,
+    name="Roblox",
+    description="Get Player Roblox Stats, or Verify Through Roblox",
+):
     def __init__(self, bot):
         self.bot = bot
 

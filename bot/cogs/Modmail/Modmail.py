@@ -18,7 +18,7 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Modmail(commands.Cog, name="Modmail", description="XXX"):
+class Modmail(commands.Cog, name="Modmail", description="Set Up Modmail"):
     def __init__(self, bot):
         self.bot = bot
 

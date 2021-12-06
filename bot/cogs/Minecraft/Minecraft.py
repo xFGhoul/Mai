@@ -18,7 +18,11 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Minecraft(commands.Cog, name="Minecraft", description="XXX"):
+class Minecraft(
+    commands.Cog,
+    name="Minecraft",
+    description="Get Minecraft Player, Server and Other Stats",
+):
     def __init__(self, bot):
         self.bot = bot
 

@@ -24,7 +24,7 @@ from helpers.logging import log
 from config.ext.parser import config
 
 
-class Fun(commands.Cog, name="Fun", description="XXX"):
+class Fun(commands.Cog, name="Fun", description="Fun Commands"):
     def __init__(self, bot):
         self.bot = bot
         self.HTTP_ERROR_VALID_RANGES = (
@@ -146,7 +146,7 @@ class Fun(commands.Cog, name="Fun", description="XXX"):
             await ctx.send(embed=embed)
 
     @commands.command()
-    async def lyrics(self, ctx: commands.Context, song_name: Optional[str]):
+    async def lyrics(self, ctx: commands.Context, *, song_name: Optional[str]):
 
         async with ctx.channel.typing():
             async with aiohttp.ClientSession() as session:

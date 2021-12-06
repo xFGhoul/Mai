@@ -18,7 +18,7 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Welcome(commands.Cog, name="Welcome", description="XXX"):
+class Welcome(commands.Cog, name="Welcome", description="Welcome Members"):
     def __init__(self, bot):
         self.bot = bot
 
