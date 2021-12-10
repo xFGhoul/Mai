@@ -8,13 +8,13 @@ license = "GPL-3.0 License"
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "0.70.0"
+ujson = "^4.2.0"
+itsdangerous = "^2.0.1"
 fastapi-cache2 = {extras = ["redis"], version = "^0.1.7"}
 fastapi-events = "^0.2.1"
-fastapi-mail = "^1.0.2"
-ujson = "^4.2.0"
+fastapi-mail = {git = "https://github.com/sabuhish/fastapi-mail.git"}
 fastapi-limiter = {git = "https://github.com/long2ice/fastapi-limiter.git"}
 starlette-discord = {git = "https://github.com/nwunderly/starlette-discord.git"}
-itsdangerous = "^2.0.1"
 
 
 [tool.poetry.dev-dependencies]

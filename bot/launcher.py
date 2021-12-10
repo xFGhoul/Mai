@@ -30,7 +30,7 @@ from InquirerPy import inquirer
 
 from helpers import ASCII
 
-from config.ext.parser import ini
+from config.ext.parser import config
 from helpers.console import console
 
 ascii = ASCII()
@@ -110,7 +110,7 @@ console.print(
     "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
 )
 
-run_extra_sys_info = ini["mai"]["RunLauncherWithExtraSystemInfo"]
+run_extra_sys_info = config["RUN_LAUNCHER_WITH_EXTRA_SYS_INFO"]
 
 if run_extra_sys_info == True:
     cpu_info = cpuinfo.get_cpu_info()
@@ -187,7 +187,9 @@ if not os.path.exists("config/config.yaml"):
         "DISCORD_TOKEN": "",
         "DISCORD_ID": "",
         "DATABASE_URI": "",
+        "BATABASE_MODEL_PATH": "",
         "BOT_NAME": "",
+        "RUN_LAUNCHER_WITH_EXTRA_SYS_INFO": "",
         "DEFAULT_REDIS_PATH": "",
         "REDIS_URI": "",
         "OSU_API_V1_KEY": "",

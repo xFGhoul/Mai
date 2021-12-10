@@ -11,7 +11,6 @@ Made With ❤️ By Ghoul & Nerd
 
 """
 
-import configparser
 import os
 
 import yaml
@@ -19,10 +18,8 @@ import yaml
 from helpers.logging import log
 
 ROOT_DIR = os.path.abspath(os.curdir)
-INI_FILE = "mai.ini"
 
 CONFIG_PATH = "config/config.yaml"
-INI_CONFIG_PATH = os.path.join(ROOT_DIR, INI_FILE)
 
 if not os.path.exists(CONFIG_PATH):
     log.error(
@@ -32,6 +29,3 @@ if not os.path.exists(CONFIG_PATH):
 
 with open(CONFIG_PATH) as f:
     config = yaml.load(f, yaml.Loader)
-
-ini = configparser.ConfigParser()
-ini.read(INI_CONFIG_PATH)

@@ -47,7 +47,7 @@ from pypresence import AioPresence
 from tortoise import Tortoise
 from tortoise.exceptions import IntegrityError
 
-from config.ext.parser import config, ini
+from config.ext.parser import config
 
 from db.models import Guild, OSU, ServerLogging
 from db.tortoise.config import tortoise_config
@@ -277,7 +277,7 @@ class Mai(AutoShardedBot):
         """Called when we have successfully connected to a gateway"""
         await Tortoise.init(tortoise_config.TORTOISE_CONFIG)
         await self.RPC.connect()
-        # await self.i18n.init_bot(bot, self.get_locale(commands.Context)) #FIXME 'cahced_property' has no attribute 'id'. most likely due to how the pycordi18n uses pre_invoke, looking into it.
+        # await self.i18n.init_bot(bot, self.get_locale(commands.Context)) 'cahced_property' has no attribute 'id'. most likely due to how the pycordi18n uses pre_invoke, looking into it.
 
         console.print(
             "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"

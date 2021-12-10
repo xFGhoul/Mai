@@ -12,10 +12,14 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+
 from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+
+
+from roblox import Client
 
 
 class Roblox(
@@ -25,6 +29,7 @@ class Roblox(
 ):
     def __init__(self, bot):
         self.bot = bot
+        self.client = Client()
 
     @commands.Cog.listener()
     async def on_ready(self):

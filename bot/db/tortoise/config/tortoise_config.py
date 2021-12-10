@@ -17,7 +17,7 @@ TORTOISE_CONFIG = {
     "connections": {"default": config["DATABASE_URI"]},
     "apps": {
         config["TORTOISE_APP_NAME"]: {
-            "models": ["db.models", "aerich.models"],
+            "models": [config["BATABASE_MODEL_PATH"], "aerich.models"],
             "default_connection": "default",
         }
     },

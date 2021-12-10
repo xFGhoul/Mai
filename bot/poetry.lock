@@ -1099,7 +1099,7 @@ test = ["ipaddress", "mock", "unittest2", "enum34", "pywin32", "wmi"]
 
 [[package]]
 name = "py-cord"
-version = "2.0.0a4492+g36d2cd55"
+version = "2.0.0a4501+g9fceff87"
 description = "A Python wrapper for the Discord API"
 category = "main"
 optional = false
@@ -1119,7 +1119,7 @@ voice = ["PyNaCl (>=1.3.0,<1.5)"]
 type = "git"
 url = "https://github.com/Pycord-Development/pycord.git"
 reference = "master"
-resolved_reference = "36d2cd55c38a2cbc9766f3920029b867531becc5"
+resolved_reference = "9fceff873404ff57fcc1a3c3f07c539152226fbb"
 
 [[package]]
 name = "py-cpuinfo"
@@ -1295,7 +1295,7 @@ httpx = {version = ">=0.14", extras = ["http2"]}
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 
@@ -1423,6 +1423,18 @@ pygments = ">=2.6.0,<3.0.0"
 
 [package.extras]
 jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
+
+[[package]]
+name = "roblox"
+version = "2.0.0"
+description = "ro.py is a modern object-oriented asynchronous Python wrapper for the Roblox web API."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+httpx = ">=0.21.0"
+python-dateutil = ">=2.8.0"
 
 [[package]]
 name = "secretstorage"
@@ -1716,7 +1728,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "829e7997399bf969c093280343bfb372792528ffe21967eccc9522527b9b5ebc"
+content-hash = "d55fb571f1464ce187923e948abebcf37df92bb7c97fe8f31120ce01d7c2382f"
 
 [metadata.files]
 aerich = [
@@ -2806,6 +2818,10 @@ rfc3986 = [
 rich = [
     {file = "rich-10.15.1-py3-none-any.whl", hash = "sha256:a59fb2721c52c5061ac65f318c0afb709e098b1ab6ce5813ea38982654c4b6ee"},
     {file = "rich-10.15.1.tar.gz", hash = "sha256:93d0ea3c35ecfd8703dbe52b76885e224ad8d68c7766c921c726b14b22a57b7d"},
+]
+roblox = [
+    {file = "roblox-2.0.0-py3-none-any.whl", hash = "sha256:3410fc4a26032ee001209bba652d277d611e5c441eee2b274da867d8db239646"},
+    {file = "roblox-2.0.0.tar.gz", hash = "sha256:fdc67adbb609bd5f669a30695b7c81ea12b4fabdc07bb4b08ca0152650ade551"},
 ]
 secretstorage = [
     {file = "SecretStorage-3.3.1-py3-none-any.whl", hash = "sha256:422d82c36172d88d6a0ed5afdec956514b189ddbfb72fefab0c8a1cee4eaf71f"},
