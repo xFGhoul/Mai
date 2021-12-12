@@ -1,5 +1,7 @@
 DATABASE_URI:
 BATABASE_MODEL_PATH: db.models
+DATABASE_TIMEZONE: UTC
+DATABASE_USE_TZ: True
 BOT_NAME: Mai
 TORTOISE_APP_NAME: My Wonderful Bot
 DISCORD_ID:
@@ -38,3 +40,5 @@ X_RAPID_API_KEY:
 X_RAPID_API_HOST: mashape-community-urban-dictionary.p.rapidapi.com
 
 SOME_RANDOM_API_KEY:
+
+STATCORD_API_KEY:

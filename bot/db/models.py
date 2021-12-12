@@ -191,6 +191,15 @@ class Snipe(Model):
     guild = fields.ForeignKeyField("Mai.Guild", related_name="Snipe")
 
 
+class Captcha(Model):
+    id = fields.BigIntField(pk=True)
+    enabled = fields.BooleanField(default=False)
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="Captcha")
+    type = fields.TextField(
+        default="text"
+    )  # Types: Audio, Text, Picture, Arithimetic
+
+
 class Counting(Model):
     discord_id = fields.BigIntField(pk=True)
     guild = fields.ForeignKeyField("Mai.Guild", related_name="Counting")

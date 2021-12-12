@@ -21,4 +21,6 @@ TORTOISE_CONFIG = {
             "default_connection": "default",
         }
     },
+    "use_tz": config["DATABASE_USE_TZ"],
+    "timezone": config["DATABASE_TIMEZONE"],
 }

@@ -188,6 +188,8 @@ if not os.path.exists("config/config.yaml"):
         "DISCORD_ID": "",
         "DATABASE_URI": "",
         "BATABASE_MODEL_PATH": "",
+        "DATABASE_TIMEZONE": "",
+        "DATABASE_USE_TZ": "",
         "BOT_NAME": "",
         "RUN_LAUNCHER_WITH_EXTRA_SYS_INFO": "",
         "DEFAULT_REDIS_PATH": "",
@@ -210,6 +212,10 @@ if not os.path.exists("config/config.yaml"):
         "YOUTUBE_API_KEY": "",
         "TWITCH_API_ID": "",
         "TWITCH_API_SECRET": "",
+        "X_RAPID_API_KEY": "",
+        "X_RAPID_API_HOST": "",
+        "SOME_RANDOM_API_KEY": "",
+        "STATCORD_API_KEY": "",
     }
 
     if (

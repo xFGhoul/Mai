@@ -89,13 +89,17 @@ class MaiHelpCommand(commands.HelpCommand):
         )
 
         examples = (
-            f"{command.brief}" if command.brief is not None else "No Examples."
+            f"`{command.brief}`"
+            if command.brief is not None
+            else "No Examples."
         )
 
         embed.add_field(name="Examples", value=examples, inline=False)
 
         if command._buckets._cooldown is None:
-            embed.add_field(name="Cooldown", value=f"`0`", inline=False)
+            embed.add_field(
+                name="Cooldown", value=f"`0` (No Cooldown)", inline=False
+            )
         else:
             delta = datetime.timedelta(seconds=command._buckets._cooldown.per)
             cooldown = humanize.precisedelta(delta, format="%0.0f")

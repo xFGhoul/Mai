@@ -20,7 +20,7 @@ import platform
 from discord.ext import commands
 from typing import Optional
 
-from db.models import Guild
+from db.models import Guild, redis
 from helpers.constants import *
 from helpers.logging import log
 
@@ -119,17 +119,32 @@ class Misc(
             description=f"{Emoji.LOADING_CIRCLE} Pinging...",
         )
         message = await ctx.send(embed=loading_embed)
+
         ping = (time.monotonic() - before) * 1000
         pEmbed = discord.Embed(title="Stats:", color=Colors.EMBED_COLOR)
-        pEmbed.add_field(name="Latency", value=f"{int(ping)}ms")
+        pEmbed.add_field(name=f"{Emoji.MAI} Latency", value=f"{int(ping)}ms")
         pEmbed.add_field(
-            name="API", value=f"{round(self.bot.latency * 1000)}ms"
+            name=f"{Emoji.DISCORD} API",
+            value=f"{round(self.bot.latency * 1000)}ms",
         )
+
         db_time_start = time.time()
         guild = await Guild.get(discord_id=ctx.guild.id)
         db_time_end = time.time()
         db_time = db_time_end - db_time_start
-        pEmbed.add_field(name="Database", value=f"{round(db_time * 1000)}ms")
+        pEmbed.add_field(
+            name=f"{Emoji.POSTGRESQL} Database",
+            value=f"{round(db_time * 1000)}ms",
+        )
+
+        redis_time_start = time.time()
+        redis.ping()
+        redis_time_end = time.time()
+        redis_time = redis_time_end - redis_time_start
+        pEmbed.add_field(
+            name=f"{Emoji.REDIS} Redis", value=f"{round(redis_time * 1000)}ms"
+        )
+
         pEmbed.set_thumbnail(url=Links.BOT_AVATAR_URL)
         pEmbed.set_footer(
             text="Developer: Ghoul#6066", icon_url=Links.BOT_AVATAR_URL

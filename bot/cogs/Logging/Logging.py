@@ -16,7 +16,7 @@ from discord.ext.tasks import T
 import humanize
 
 from typing import Optional, Union
-from tortoise.exceptions import DoesNotExist
+from tortoise.exceptions import DoesNotExist, IntegrityError
 from datetime import datetime
 
 from discord.ext import commands
@@ -69,7 +69,9 @@ class Logging(
         )
         return entry
 
-    async def get_logs_channel(self, guild: Union[discord.Guild, int]):
+    async def get_logs_channel(
+        self, guild: Union[discord.Guild, int]
+    ) -> discord.TextChannel:
         """Get The Logging Channel Of A Guild
 
         Parameters
@@ -107,7 +109,7 @@ class Logging(
         else:
             return
 
-    async def get_logging_model(self, guild_id: int):
+    async def get_logging_model(self, guild_id: int) -> ServerLogging:
         """Get The Guild's Logging Model
 
         Parameters
@@ -122,10 +124,7 @@ class Logging(
         """
         guild = await Guild.get_or_none(discord_id=guild_id)
 
-        try:
-            logging = await ServerLogging.get(guild=guild)
-        except DoesNotExist:
-            logging = await ServerLogging.create(guild=guild)
+        logging = (await ServerLogging.get_or_create(guild=guild))[0]
 
         return logging
 

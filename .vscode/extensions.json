@@ -29,6 +29,7 @@
         "mrmlnc.vscode-scss",
         "sibiraj-s.vscode-scss-formatter",
         "wix.vscode-import-cost",
-        "gruntfuggly.todo-tree"
+        "gruntfuggly.todo-tree",
+        "darkempire78.discord-tools"
 	]
 }
