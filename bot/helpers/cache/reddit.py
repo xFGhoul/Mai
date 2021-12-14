@@ -66,7 +66,7 @@ class RedditPostCacher:
         return (subreddit.display_name, post_urls)
 
     @tasks.loop(minutes=30)
-    async def cache_posts(self):
+    async def cache_posts(self) -> None:
         subreddits = [
             await self.reddit.subreddit(subreddit)
             for subreddit in self.subreddit_names

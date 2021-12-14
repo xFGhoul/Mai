@@ -24,6 +24,8 @@ from discord import (
     HTTPException,
 )
 
+from typing import Set
+
 from discord.ext import commands
 from discord.ext.commands import Greedy, BucketType
 
@@ -47,11 +49,13 @@ class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
         )
 
     @commands.group(name="emoji", aliases=["emote"])
-    async def emoji(self, ctx: commands.Context):
+    async def emoji(self, ctx: commands.Context) -> None:
         if ctx.invoked_subcommand is None:
             await self.bot.send_help(ctx.command)
 
-    async def extract_emoji_from_messages(self, messages: discord.Message):
+    async def extract_emoji_from_messages(
+        self, messages: discord.Message
+    ) -> Set:
         parsed_emoji = set()
         for message in messages:
             for match in self.emoji_extraction_pattern.finditer(
@@ -71,7 +75,7 @@ class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
 
     async def copy_emoji_to_guild(
         self, emoji: discord.Emoji, guild: discord.Guild
-    ):
+    ) -> discord.Emoji:
         created_emoji = await guild.create_custom_emoji(
             name=emoji.name, image=await emoji.read()
         )
@@ -82,13 +86,17 @@ class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
         return match is not None
 
     @commands.has_guild_permissions(manage_emojis=True)
-    @emoji.command(name="add")
+    @emoji.command(
+        name="add",
+        description="Add Multiple Emojis To A Server",
+        brief="add :emoji1: :emoji2: :emoji3:",
+    )
     async def add_emoji(
         self,
         ctx: commands.Context,
         emojis: Greedy[PartialEmoji],
         messages: Greedy[Message],
-    ):
+    ) -> None:
 
         if not emojis and not messages:
             last_message = [

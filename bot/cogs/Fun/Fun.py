@@ -42,9 +42,15 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
             f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
 
-    @commands.command(name="httpcat")
+    @commands.command(
+        name="httpcat",
+        description="Get An HTTP Cat Image",
+        brief="httpcat 404\nhttpcat 200",
+    )
     @commands.guild_only()
-    async def httpcat(self, ctx, code: Union[int, str]):
+    async def httpcat(
+        self, ctx: commands.Context, code: Union[int, str]
+    ) -> None:
 
         title = None
 
@@ -72,8 +78,13 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
         embed.set_image(url=url)
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["define"])
-    async def urban(self, ctx: commands.Context, word: Optional[str]):
+    @commands.command(
+        name="urban",
+        aliases=["define"],
+        description="Get Urban Definition Of An Word",
+        brief="urban Mai\nurban Discord",
+    )
+    async def urban(self, ctx: commands.Context, word: Optional[str]) -> None:
 
         if not word:
             word = "urban"
@@ -145,8 +156,14 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
             )
             await ctx.send(embed=embed)
 
-    @commands.command()
-    async def lyrics(self, ctx: commands.Context, *, song_name: Optional[str]):
+    @commands.command(
+        name="lyrics",
+        description="Get Lyrics To A Song",
+        brief="lyrics Rap God\nlyrics This Side Of Paradise",
+    )
+    async def lyrics(
+        self, ctx: commands.Context, *, song_name: Optional[str]
+    ) -> None:
 
         async with ctx.channel.typing():
             async with aiohttp.ClientSession() as session:
@@ -178,10 +195,14 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
                         )
                         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(
+        name="triggered",
+        description="Return Triggered Image Of Someones Avatar",
+        brief="triggered (works with no mention)\ntriggered @Member",
+    )
     async def triggered(
         self, ctx: commands.Context, member: Optional[discord.Member]
-    ):
+    ) -> None:
         if not member:
             member = ctx.author
 

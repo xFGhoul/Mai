@@ -220,7 +220,7 @@ class Counting(Model):
         return self.counting_number
 
     @property
-    def next_number(self):
+    def next_number(self) -> int:
         return self.counting_number + 1
 
 
@@ -267,6 +267,8 @@ class ServerLogging(Model):
     server_edited = fields.BooleanField(default=True)
 
     server_emojis_updated = fields.BooleanField(default=True)
+    server_stickers_updated = fields.BooleanField(default=True)
+    server_webhooks_updated = fields.BooleanField(default=True)
 
     # Channel Events
 
@@ -277,3 +279,8 @@ class ServerLogging(Model):
     # Invite Events
     invite_created = fields.BooleanField(default=True)
     invite_deleted = fields.BooleanField(default=True)
+
+    # Stage Events
+    stage_created = fields.BooleanField(default=True)
+    stage_deleted = fields.BooleanField(default=True)
+    stage_updated = fields.BooleanField(default=True)

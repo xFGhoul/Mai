@@ -74,7 +74,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         username = osu_model.username
         return username
 
-    async def parse_score(self, score: str):
+    async def parse_score(self, score: str) -> str:
         if score == Grade.B:
             return OsuEmotes.B
         elif score == Grade.F:
@@ -94,7 +94,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         else:
             return score
 
-    async def parse_playstyle(self, user_playstyle: int):
+    async def parse_playstyle(self, user_playstyle: int) -> str:
 
         if user_playstyle == 1:
             playstyle = "mouse"
@@ -127,7 +127,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         return playstyle
 
-    async def parse_rank_status(self, type: RankStatus):
+    async def parse_rank_status(self, type: RankStatus) -> str:
         if type == RankStatus.RANKED:
             rank = "Ranked"
         elif type == RankStatus.APPROVED:
@@ -154,7 +154,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         )
 
     @commands.Cog.listener()
-    async def on_message(self, message: discord.Message):
+    async def on_message(self, message: discord.Message) -> None:
 
         guild = (await Guild.get_or_create(discord_id=message.guild.id))[0]
 
@@ -188,7 +188,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed = discord.Embed(
                 color=Colors.EMBED_COLOR,
-                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user.rank)} ({user.country}#{humanize.intcomma(user.country_rank)})\n▸ **Level:** {int(round(user.level ,2))}%\n▸ **PP:** {humanize.intcomma(user.pp)} **Acc:** {round(user.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user.play_count)} ({playtime})\n▸ **Ranks:** {OsuEmotes.SSHD}`{user.ssh_count}`{OsuEmotes.SS}`{user.ss_count}`{OsuEmotes.S}`{user.s_count}`{OsuEmotes.A}`{user.a_count}`",
+                description=f"{Chars.ARROW} **Bancho Rank:** #{humanize.intcomma(user.rank)} ({user.country}#{humanize.intcomma(user.country_rank)})\n{Chars.ARROW} **Level:** {int(round(user.level ,2))}%\n{Chars.ARROW} **PP:** {humanize.intcomma(user.pp)} **Acc:** {round(user.accuracy, 2)}%\n{Chars.ARROW} **Playcount:** {humanize.intcomma(user.play_count)} ({playtime})\n{Chars.ARROW} **Ranks:** {OsuEmotes.SSHD}`{user.ssh_count}`{OsuEmotes.SS}`{user.ss_count}`{OsuEmotes.S}`{user.s_count}`{OsuEmotes.A}`{user.a_count}`",
             )
             embed.set_author(
                 name=f"Osu Standard Profile for {user.username}",
@@ -220,7 +220,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         description="Link your osu account to your discord account.",
         brief=f"osu link Whitecat\nosu set Whitecat",
     )
-    async def osu_link(self, ctx: commands.Context, *, username: str):
+    async def osu_link(self, ctx: commands.Context, *, username: str) -> None:
 
         guild = (await Guild.get_or_create(ctx.guild.id))[0]
 
@@ -257,7 +257,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         username: Optional[str],
         *,
         StatsFlags: StatsFlags,
-    ):
+    ) -> None:
 
         if username is None:
             username = await self.fetch_db_username(ctx)
@@ -300,7 +300,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed = discord.Embed(
                 color=Colors.EMBED_COLOR,
-                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n▸ **Level:** {int(round(user_v1.level ,2))}%\n▸ **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n▸ **Ranks:** {OsuEmotes.SSHD}`{user_v1.ssh_count}`{OsuEmotes.SS}`{user_v1.ss_count}`{OsuEmotes.S}`{user_v1.s_count}`{OsuEmotes.A}`{user_v1.a_count}`\n▸ **Ranked Score:** {humanize.intcomma(user_v1.ranked_score)}\n▸ **Total Score:** {humanize.intcomma(user_v1.total_score)}\n▸ **Total Hits:** {humanize.intcomma(user_v1.num_300 + user_v1.num_100 + user_v1.num_50)}\n▸ **Max Combo:** {humanize.intcomma(user_v2.statistics.maximum_combo)}",
+                description=f"{Chars.ARROW} **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n{Chars.ARROW} **Level:** {int(round(user_v1.level ,2))}%\n{Chars.ARROW} **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n{Chars.ARROW} **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n{Chars.ARROW} **Ranks:** {OsuEmotes.SSHD}`{user_v1.ssh_count}`{OsuEmotes.SS}`{user_v1.ss_count}`{OsuEmotes.S}`{user_v1.s_count}`{OsuEmotes.A}`{user_v1.a_count}`\n{Chars.ARROW} **Ranked Score:** {humanize.intcomma(user_v1.ranked_score)}\n{Chars.ARROW} **Total Score:** {humanize.intcomma(user_v1.total_score)}\n{Chars.ARROW} **Total Hits:** {humanize.intcomma(user_v1.num_300 + user_v1.num_100 + user_v1.num_50)}\n{Chars.ARROW} **Max Combo:** {humanize.intcomma(user_v2.statistics.maximum_combo)}",
             )
 
             if user_v2.twitter is None:
@@ -315,13 +315,13 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed.add_field(
                 name="Contact",
-                value=f"▸ **Discord:** {osu_discord} \n▸ **Twitter:** {twitter}",
+                value=f"{Chars.ARROW} **Discord:** {osu_discord} \n{Chars.ARROW} **Twitter:** {twitter}",
                 inline=False,
             )
 
             embed.add_field(
                 name="Extra Info",
-                value=f"▸ **Previously Known As:** {' , '.join(user_v2.previous_usernames)}  \n▸ **Playstyle:**: {await self.parse_playstyle(user_v2.playstyle)} \n▸ **Followers:** {humanize.intcomma(user_v2.follower_count)} \n▸ **Ranked/Approved Beatmaps:** {humanize.intcomma(user_v2.ranked_and_approved_beatmapset_count)} \n▸ **Replays Watched By Others:** {humanize.intcomma(user_v2.statistics.replays_watched_by_others)}",
+                value=f"{Chars.ARROW} **Previously Known As:** {' , '.join(user_v2.previous_usernames)}  \n{Chars.ARROW} **Playstyle:**: {await self.parse_playstyle(user_v2.playstyle)} \n{Chars.ARROW} **Followers:** {humanize.intcomma(user_v2.follower_count)} \n{Chars.ARROW} **Ranked/Approved Beatmaps:** {humanize.intcomma(user_v2.ranked_and_approved_beatmapset_count)} \n{Chars.ARROW} **Replays Watched By Others:** {humanize.intcomma(user_v2.statistics.replays_watched_by_others)}",
                 inline=False,
             )
 
@@ -343,7 +343,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         else:
             embed = discord.Embed(
                 color=Colors.EMBED_COLOR,
-                description=f"▸ **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n▸ **Level:** {int(round(user_v1.level ,2))}%\n▸ **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n▸ **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n▸ **Ranks:** {OsuEmotes.SSHD}`{user_v1.ssh_count}`{OsuEmotes.SS}`{user_v1.ss_count}`{OsuEmotes.S}`{user_v1.s_count}`{OsuEmotes.A}`{user_v1.a_count}`",
+                description=f"{Chars.ARROW} **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n{Chars.ARROW} **Level:** {int(round(user_v1.level ,2))}%\n{Chars.ARROW} **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n{Chars.ARROW} **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n{Chars.ARROW} **Ranks:** {OsuEmotes.SSHD}`{user_v1.ssh_count}`{OsuEmotes.SS}`{user_v1.ss_count}`{OsuEmotes.S}`{user_v1.s_count}`{OsuEmotes.A}`{user_v1.a_count}`",
             )
             embed.set_author(
                 name=f"Osu Standard Profile for {user_v1.username}",
@@ -366,7 +366,9 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         description="Get A user's most recent play",
         brief="osu recent Whitecat\n-osu recent\n-osu rs",
     )
-    async def recent(self, ctx: commands.Context, *, username: Optional[str]):
+    async def recent(
+        self, ctx: commands.Context, *, username: Optional[str]
+    ) -> None:
 
         if username is None:
             username = await self.fetch_db_username(ctx)
@@ -383,7 +385,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         embed = discord.Embed(
             color=Colors.EMBED_COLOR,
-            description=f"▸ {await self.parse_score(user_recent.rank)} **▸ {pp} PP** ▸ {round(user_recent.accuracy, 2)}%\n▸ {humanize.intcomma(user_recent.score)} ▸ TEST/{user_recent.max_combo}",
+            description=f"{Chars.ARROW} {await self.parse_score(user_recent.rank)} **{Chars.ARROW} {pp} PP** {Chars.ARROW} {round(user_recent.accuracy, 2)}%\n{Chars.ARROW} {humanize.intcomma(user_recent.score)} {Chars.ARROW} TEST/{user_recent.max_combo}",
         )
 
         embed.set_author(
@@ -412,7 +414,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         username: Optional[str],
         *,
         RecommendFlags: RecommendFlags,
-    ):
+    ) -> None:
         pass
 
     @commands.cooldown(1, 5, BucketType.user)
@@ -424,7 +426,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         ctx: commands.Context,
         username: Optional[str],
         beatmap: Optional[str],
-    ):
+    ) -> None:
         pass
 
     @commands.cooldown(1, 5, BucketType.user)
@@ -434,28 +436,32 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         ctx: commands.Context,
         username: Optional[str],
         username2: Optional[str],
-    ):
+    ) -> None:
         pass
 
     @commands.cooldown(1, 5, BucketType.user)
     @osu.command(
         name="top", aliases=["t"], description="Get The Top 5 Plays Of Any User"
     )
-    async def top(self, ctx: commands.Context, *, username: Optional[str]):
+    async def top(
+        self, ctx: commands.Context, *, username: Optional[str]
+    ) -> None:
         pass
 
     @commands.cooldown(1, 5, BucketType.user)
     @osu.command(
         name="map", aliases=["m"], description="Display Stats About A Map"
     )
-    async def map(self, ctx: commands.Context, *, beatmap: Optional[str]):
+    async def map(
+        self, ctx: commands.Context, *, beatmap: Optional[str]
+    ) -> None:
         pass
 
     @commands.cooldown(1, 5, BucketType.user)
     @osu.command(name="whatif", description="Get The Top 5 Plays Of Any User")
     async def whatif(
         self, ctx: commands.Context, username: Optional[str], pp: Optional[int]
-    ):
+    ) -> None:
         pass
 
     @commands.cooldown(1, 5, BucketType.user)
@@ -468,7 +474,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         ctx: commands.Context,
         username: Optional[str],
         beatmap: Optional[str],
-    ):
+    ) -> None:
         pass
 
     @commands.cooldown(1, 5, BucketType.user)
@@ -480,7 +486,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
     )
     async def osu_avatar(
         self, ctx: commands.Context, *, username: Optional[str]
-    ):
+    ) -> None:
 
         if username is None:
             username = await self.fetch_db_username(ctx)
@@ -503,7 +509,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         description="Set Your Favorite Skin",
         brief="osu skin https://skins.osuck.net/index.php?newsid=1648",
     )
-    async def skin(self, ctx: commands.Context, skin: Optional[str]):
+    async def skin(self, ctx: commands.Context, skin: Optional[str]) -> None:
 
         guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
 
@@ -553,7 +559,9 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         description="Toggle Passive Mode",
         brief="osu passive True",
     )
-    async def passive(self, ctx: commands.Context, passive: Optional[bool]):
+    async def passive(
+        self, ctx: commands.Context, passive: Optional[bool]
+    ) -> None:
 
         guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
 

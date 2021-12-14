@@ -77,6 +77,13 @@ def format_logging_model(model: ServerLogging) -> Embed:
         "role_updated",
         "server_edited",
         "server_emojis_updated",
+        "server_stickers_updated",
+        "server_webhooks_updated",
+        "invite_created",
+        "invite_deleted",
+        "stage_created",
+        "stage_deleted",
+        "stage_updated",
     }
 
     grouped = groupby(sorted(VALID_TYPES), key=lambda k: k.split("_")[0])

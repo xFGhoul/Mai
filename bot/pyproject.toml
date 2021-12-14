@@ -28,6 +28,7 @@ typer = "^0.4.0"
 roblox = "^2.0.0"
 pyfiglet = "^0.8.post1"
 "statcord.py" = "^3.1.0"
+TikTokApi = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 aerich = "^0.5.8"

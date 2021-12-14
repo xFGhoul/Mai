@@ -19,6 +19,10 @@ class Colors:
     ERROR_COLOR = 0xFF0000
 
 
+class Chars:
+    ARROW = "▸"
+
+
 # -- LINKS
 class Links:
 

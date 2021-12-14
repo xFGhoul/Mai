@@ -39,7 +39,7 @@ class FlagHandler(commands.Cog, command_attrs=dict(hidden=True)):
         )
 
     @commands.Cog.listener()
-    async def on_message(self, message: discord.Message):
+    async def on_message(self, message: discord.Message) -> None:
         guild = await Guild.c_get_or_none_by_discord_id(message.guild.id)
 
         if guild.is_bot_blacklisted:

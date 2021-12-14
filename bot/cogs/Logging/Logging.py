@@ -252,11 +252,16 @@ class Logging(
             "member_left_voice_channel",
             "server_edited",
             "server_emojis_updated",
+            "server_stickers_updated",
+            "server_webhooks_updated",
             "channel_created",
             "channel_updated",
             "channel_deleted",
             "invite_created",
             "invite_deleted",
+            "stage_created",
+            "stage_deleted",
+            "stage_updated",
         }
 
         if log not in VALID_TYPES:
@@ -621,7 +626,7 @@ class Logging(
 
             embed = discord.Embed(
                 color=Colors.EMBED_COLOR,
-                description=f"Role: **{role.name}** Created\n\n▸ **Name:** {role.mention}\n▸ **Color:** {role.color}\n▸ **Hoisted:** {role.hoist}\n▸ **Mentionable:** {role.mentionable}",
+                description=f"Role: **{role.name}** Created\n\n{Chars.ARROW} **Name:** {role.mention}\n{Chars.ARROW} **Color:** {role.color}\n{Chars.ARROW} **Hoisted:** {role.hoist}\n{Chars.ARROW} **Mentionable:** {role.mentionable}",
             )
             embed.set_thumbnail(url=role.guild.icon.url)
             embed.set_author(name=role.guild.name, icon_url=role.guild.icon.url)
@@ -642,7 +647,7 @@ class Logging(
 
             embed = discord.Embed(
                 color=Colors.EMBED_COLOR,
-                description=f"Role: **{role.name}** Deleted\n\n▸ **Name:** {role.mention}\n▸ **Color:** {role.color}\n▸ **Hoisted:** {role.hoist}\n▸ **Mentionable:** {role.mentionable}",
+                description=f"Role: **{role.name}** Deleted\n\n{Chars.ARROW} **Name:** {role.mention}\n{Chars.ARROW} **Color:** {role.color}\n{Chars.ARROW} **Hoisted:** {role.hoist}\n{Chars.ARROW} **Mentionable:** {role.mentionable}",
             )
             embed.set_thumbnail(url=role.guild.icon.url)
             embed.set_author(name=role.guild.name, icon_url=role.guild.icon.url)
@@ -664,7 +669,7 @@ class Logging(
 
             embed = discord.Embed(
                 color=Colors.EMBED_COLOR,
-                description=f"Role: **{before.name}** Updated\n\n▸ **Name:** {before.mention} -> {after.mention}\n▸ **Color:** `{before.color}` -> `{after.color}`\n▸ **Hoisted:** `{before.hoist}` -> `{after.hoist}`\n▸ **Mentionable:** `{before.mentionable}` -> `{after.mentionable}`",
+                description=f"Role: **{before.name}** Updated\n\n{Chars.ARROW} **Name:** {before.mention} -> {after.mention}\n{Chars.ARROW} **Color:** `{before.color}` -> `{after.color}`\n{Chars.ARROW} **Hoisted:** `{before.hoist}` -> `{after.hoist}`\n{Chars.ARROW} **Mentionable:** `{before.mentionable}` -> `{after.mentionable}`",
             )
             embed.set_thumbnail(url=before.guild.icon.url)
             embed.set_author(
@@ -737,6 +742,27 @@ class Logging(
             pass
 
     @commands.Cog.listener()
+    async def on_guild_stickers_update(
+        self,
+        guild: discord.Guild,
+        before: discord.GuildSticker,
+        after: discord.GuildSticker,
+    ):
+        logging = await self.get_logging_model(guild.id)
+
+        if logging.server_stickers_updated is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_webhooks_update(self, channel: discord.TextChannel):
+        logging = await self.get_logging_model(channel.guild.id)
+
+        if logging.server_webhooks_updated is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
     async def on_guild_channel_create(self, channel: discord.abc.GuildChannel):
 
         logging = await self.get_logging_model(channel.guild.id)
@@ -762,6 +788,52 @@ class Logging(
         logging = await self.get_logging_model(before.guild.id)
 
         if logging.channel_updated is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_invite_create(self, invite: discord.Invite):
+        logging = await self.get_logging_model(invite.guild.id)
+
+        if logging.invite_created is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_invite_delete(self, invite: discord.Invite):
+        logging = await self.get_logging_model(invite.guild.id)
+
+        if logging.invite_deleted is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_stage_instance_create(
+        self, stage_instance: discord.StageInstance
+    ):
+        logging = await self.get_logging_model(stage_instance.guild.id)
+
+        if logging.stage_created is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listener()
+    async def on_stage_instance_delete(
+        self, stage_instance: discord.StageInstance
+    ):
+        logging = await self.get_logging_model(stage_instance.guild.id)
+
+        if logging.stage_deleted is True and logging.enabled != False:
+
+            pass
+
+    @commands.Cog.listner()
+    async def on_stage_instance_update(
+        self, stage_instance: discord.StageInstance
+    ):
+        logging = await self.get_logging_model(stage_instance.guild.id)
+
+        if logging.stage_updated is True and logging.enabled != False:
 
             pass
 

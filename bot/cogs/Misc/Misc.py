@@ -85,7 +85,7 @@ class Misc(
     @commands.command(name="invite", description="Get An Invite To The Bot")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
-    async def invite(self, ctx: commands.Context):
+    async def invite(self, ctx: commands.Context) -> None:
         await ctx.send(
             f"Here is your link {ctx.author.mention}!", view=Invite()
         )
@@ -95,7 +95,7 @@ class Misc(
     )
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
-    async def support(self, ctx: commands.Context):
+    async def support(self, ctx: commands.Context) -> None:
         await ctx.send("Join The Support Server!", view=SupportServer())
 
     @commands.command(
@@ -105,13 +105,13 @@ class Misc(
     )
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
-    async def source(self, ctx: commands.Context):
+    async def source(self, ctx: commands.Context) -> None:
         await ctx.send("Here is your link", view=Source())
 
     @commands.command(name="ping", description="pong")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
-    async def ping(self, ctx: commands.Context):
+    async def ping(self, ctx: commands.Context) -> None:
         await ctx.trigger_typing()
         before = time.monotonic()
         loading_embed = discord.Embed(
@@ -154,7 +154,7 @@ class Misc(
     @commands.command(name="uptime", description="Get Mai's Uptime")
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.guild_only()
-    async def uptime(self, ctx: commands.Context):
+    async def uptime(self, ctx: commands.Context) -> None:
         await ctx.trigger_typing()
         now = datetime.utcnow()
 
@@ -167,9 +167,9 @@ class Misc(
         )
 
         embed = discord.Embed(
-            title="Uptime",
+            title="Bot Uptime",
             color=Colors.EMBED_COLOR,
-            description=f"`{humanized_uptime}`",
+            description=f"{Chars.ARROW} {humanized_uptime}",
         )
 
         await ctx.send(embed=embed)
@@ -177,7 +177,7 @@ class Misc(
     @commands.command(name="info", description="Get bot stats")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
-    async def stats(self, ctx: commands.Context):
+    async def stats(self, ctx: commands.Context) -> None:
 
         await ctx.trigger_typing()
 
@@ -268,7 +268,9 @@ class Misc(
 
     @commands.command()
     @commands.guild_only()
-    async def math(self, ctx, expression: str, *, vars: Optional[str]):
+    async def math(
+        self, ctx: commands.Context, expression: str, *, vars: Optional[str]
+    ) -> None:
         await ctx.trigger_typing()
 
         loading_embed = discord.Embed(

@@ -45,11 +45,14 @@ class CountingCog(
     @commands.bot_has_permissions(
         manage_channels=True, manage_messages=True, manage_webhooks=True
     )
-    @commands.group(invoke_without_command=True, aliases=["setcount"])
+    @commands.group(
+        invoke_without_command=True, description="Manage Counting Settings"
+    )
     @commands.guild_only()
-    async def counting(self, ctx: commands.Context):
+    async def counting(self, ctx: commands.Context) -> None:
 
         counting = await Counting.get_or_none(guild__discord_id=ctx.guild.id)
+
         if counting:
             if counting.enabled:
                 channel = ctx.guild.get_channel(counting.counting_channel)
@@ -67,8 +70,14 @@ class CountingCog(
             return
         await ctx.send_help(ctx.command)
 
-    @counting.command(name="stats", aliases=["info"])
-    async def counting_stats(self, ctx: commands.Context):
+    @counting.command(
+        name="stats",
+        aliases=["info"],
+        description="Get All Current Counting Stats",
+        brief="counting stats",
+    )
+    async def counting_stats(self, ctx: commands.Context) -> None:
+
         guild = await Guild.from_context(ctx)
         counting = await Counting.get_or_none(guild=guild)
 
@@ -102,15 +111,21 @@ class CountingCog(
 
         await ctx.send(embed=embed)
 
-    @counting.command(name="toggle")
+    @counting.command(
+        name="toggle",
+        description="Toggle Counting On/Off",
+        brief="counting toggle True\ncounting toggle False",
+    )
     async def counting_toggle(
         self, ctx: commands.Context, toggle: Optional[bool]
-    ):
+    ) -> None:
+
         if toggle == None:
             await ctx.send_help(ctx.command)
             return
 
         guild = await Guild.from_context(ctx)
+
         if await Counting.exists(guild=guild):
             await Counting.get(guild=guild).update(enabled=toggle)
             if toggle:
@@ -133,12 +148,19 @@ class CountingCog(
             await ctx.send(embed=embed)
             await ctx.send_help(self.counting)
 
-    @counting.command(name="channel")
+    @counting.command(
+        name="channel",
+        description="Set The Channel Counting Will Happen In",
+        brief="counting channel #counting",
+    )
     async def counting_channel(
         self, ctx: commands.Context, channel: discord.TextChannel
     ) -> None:
+
         guild = await Guild.from_context(ctx)
+
         counting, created_new = await Counting.get_or_create(guild=guild)
+
         if not created_new:
             old_channel: discord.TextChannel = ctx.guild.get_channel(
                 counting.counting_channel
@@ -170,8 +192,15 @@ class CountingCog(
         )
         await ctx.send(embed=embed)
 
-    @counting.command(name="goal")
-    async def counting_goal(self, ctx, goal: int = None):
+    @counting.command(
+        name="goal",
+        description="Set A Goal For Counting",
+        brief="counting goal 5000",
+    )
+    async def counting_goal(
+        self, ctx: commands.Context, goal: int = None
+    ) -> None:
+
         if not goal:
             embed = discord.Embed(
                 description="Please specify the goal you want!",
@@ -179,7 +208,9 @@ class CountingCog(
             )
             await ctx.send(embed=embed)
             return
+
         guild = await Guild.from_context(ctx)
+
         if await Counting.exists(guild=guild):
             await Counting.get(guild=guild).update(counting_goal=goal)
             embed = discord.Embed(
@@ -195,12 +226,20 @@ class CountingCog(
             await ctx.send(embed=embed)
             await ctx.send_help(self.counting)
 
-    @counting.command(name="start")
-    async def counting_start(self, ctx, counting_number: int = None):
+    @counting.command(
+        name="start",
+        description="Start Counting From A Number",
+        brief="counting start 69\ncounting start 420",
+    )
+    async def counting_start(self, ctx, counting_number: int = None) -> None:
+
         if not counting_number:
             counting_number = 0
+
         guild = await Guild.from_context(ctx)
+
         if await Counting.exists(guild=guild):
+
             await Counting.get(guild=guild).update(
                 counting_number=counting_number
             )
@@ -217,10 +256,14 @@ class CountingCog(
             await ctx.send(embed=embed)
             await ctx.send_help(self.counting_channel)
 
-    @counting.command(name="reset")
+    @counting.command(
+        name="reset", description="Reset Counting Back To 0", brief="counting 0"
+    )
     async def counting_reset(self, ctx):
+
         guild = await Guild.from_context(ctx)
         exists = await Counting.exists(guild=guild)
+
         if exists:
             await Counting.get(guild=guild).update(
                 counting_number=0, last_member_id=None
@@ -238,10 +281,16 @@ class CountingCog(
             await ctx.send_help(self.counting_channel)
 
     @commands.is_owner()
-    @counting.command(name="warnmsg")
+    @counting.command(
+        name="warnmsg",
+        description="Set The Message That Will Send When Someone Messes Up",
+        brief="counting warnmsg That Number Is Not Correct",
+    )
     async def counting_warnmsg(self, ctx, *, counting_warn_message: str):
         guild = await Guild.from_context(ctx)
+
         counting, created_new = await Counting.get_or_create(guild=guild)
+
         if not created_new:
             counting.counting_warn_message = counting_warn_message
             await counting.save(update_fields=["counting_warn_message"])

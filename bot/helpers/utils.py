@@ -25,7 +25,7 @@ from config.ext.parser import config
 from .logging import log
 
 
-async def shorten_url(url: str):
+async def shorten_url(url: str) -> str:
     """Shorterns A URL Using Bit.ly API
 
     Parameters

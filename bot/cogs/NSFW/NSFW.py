@@ -79,7 +79,9 @@ class NSFW(
         await ctx.send(embed=embed)
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(
+        self, ctx: commands.Context, error: commands.CommandError
+    ):
         if isinstance(error, commands.NSFWChannelRequired):
             embed = discord.Embed(
                 title="NSFW not allowed here",
@@ -91,56 +93,65 @@ class NSFW(
         else:
             traceback.print_exception(type(error), error, error.__traceback__)
 
-    @commands.command()
+    @commands.command(name="ass", description="Ass Pictures", brief="ass")
     @commands.guild_only()
     @commands.is_nsfw()
-    async def ass(self, ctx):
+    async def ass(self, ctx: commands.Context) -> None:
         await self._reddit_sender(ctx, "ass", "DRUMS")
 
-    @commands.command()
+    @commands.command(name="teen", description="Legal Teenagers", brief="teen")
     @commands.guild_only()
     @commands.is_nsfw()
-    async def teen(self, ctx):
+    async def teen(self, ctx: commands.Context) -> None:
         await self._reddit_sender(ctx, "LegalTeens", "You like them young?")
 
-    @commands.command()
+    @commands.command(name="boobs", description="Boob Pictures", brief="boobs")
     @commands.guild_only()
     @commands.is_nsfw()
-    async def boobs(self, ctx):
+    async def boobs(self, ctx: commands.Context) -> None:
         await self._reddit_sender(ctx, "boobs", "Bounce! Bounce!")
 
-    @commands.command()
+    @commands.command(name="pussy", description="Pussy Pictures", brief="pussy")
     @commands.guild_only()
     @commands.is_nsfw()
-    async def pussy(self, ctx):
+    async def pussy(self, ctx: commands.Context) -> None:
         await self._reddit_sender(ctx, "pussy", "Wet or Dry?")
 
-    @commands.command()
+    @commands.command(
+        name="cutesluts", description="Cute Pictures", brief="cutesluts"
+    )
     @commands.guild_only()
     @commands.is_nsfw()
-    async def cutesluts(self, ctx):
+    async def cutesluts(self, ctx: commands.Context) -> None:
         await self._reddit_sender(
             ctx, "TooCuteForPorn", "Too cute for porn, aren't they?"
         )
 
-    @commands.command()
+    @commands.command(name="nudes", description="nude pictures", brief="nudes")
     @commands.guild_only()
     @commands.is_nsfw()
-    async def nudes(self, ctx):
+    async def nudes(self, ctx: commands.Context) -> None:
         await self._reddit_sender(ctx, "Nudes", "Sick of pornstars? Me too!")
 
-    @commands.command(aliases=["cumsluts"])
+    @commands.command(
+        name="cum",
+        aliases=["cumsluts"],
+        description="Cumslut Pictures",
+        brief="cum",
+    )
     @commands.guild_only()
     @commands.is_nsfw()
-    async def cum(self, ctx):
+    async def cum(self, ctx: commands.Context) -> None:
         await self._reddit_sender(
             ctx, "cumsluts", "And they don't stop cumming!"
         )
 
-    @commands.command()
+    @commands.command(
+        name="hentai", description="Hentai Pictures", brief="hentai"
+    )
     @commands.guild_only()
     @commands.is_nsfw()
-    async def hentai(self, ctx):
+    async def hentai(self, ctx: commands.Context) -> None:
         await self._reddit_sender(ctx, "hentai", "AnImE iS jUsT CaRtOoN")
 
 

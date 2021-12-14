@@ -196,7 +196,7 @@ class Mai(AutoShardedBot):
         self.run(config["DISCORD_TOKEN"], reconnect=True)
 
     @tasks.loop(seconds=15)
-    async def rich_presence(self):
+    async def rich_presence(self) -> None:
         rpc_enabled = config["RPC_ENABLED"]
         if rpc_enabled == True:
             await self.RPC.update(

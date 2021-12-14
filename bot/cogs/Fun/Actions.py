@@ -47,11 +47,15 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
             f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
 
-    @commands.command()
+    @commands.command(
+        name="poptart",
+        description="Throws A Poptart At Random Members",
+        brief="poptart @Member1 @Member2",
+    )
     @commands.guild_only()
     async def poptart(
         self, ctx: commands.Context, target: Greedy[discord.Member]
-    ):
+    ) -> None:
 
         number_of_targets = len(target)
         speed_of_light = 299792458
@@ -70,11 +74,13 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
             f"{int(percentage_of_speed)} m/s, that's {rand_percentage * 100:.2f}% the speed of light!"
         )
 
-    @commands.command()
+    @commands.command(
+        name="hug", description="Hug Someone Or Yourself", brief="hug @Member1"
+    )
     @commands.guild_only()
     async def hug(
         self, ctx: commands.Context, member: Optional[discord.Member]
-    ):
+    ) -> None:
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} got hugged!",
@@ -89,11 +95,13 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         embed.set_image(url=random_link)
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(
+        name="pat", description="Pat Someone Or Yourself", brief="pat @Member1"
+    )
     @commands.guild_only()
     async def pat(
         self, ctx: commands.Context, member: Optional[discord.Member]
-    ):
+    ) -> None:
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} got patted!",
@@ -108,11 +116,15 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         embed.set_image(url=random_link)
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(
+        name="kill",
+        description="Kill Someone Or Yourself",
+        brief="kill @Member1",
+    )
     @commands.guild_only()
     async def kill(
         self, ctx: commands.Context, member: Optional[discord.Member]
-    ):
+    ) -> None:
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} is a murdurer!",
@@ -127,11 +139,15 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         embed.set_image(url=random_link)
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(
+        name="slap",
+        description="Slap Someone Or Yourself",
+        brief="slap @Member1",
+    )
     @commands.guild_only()
     async def slap(
         self, ctx: commands.Context, member: Optional[discord.Member]
-    ):
+    ) -> None:
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} slapped!",
@@ -146,11 +162,15 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         embed.set_image(url=random_link)
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(
+        name="lick",
+        description="Lick Someone Or Yourself",
+        brief="lick @Member1",
+    )
     @commands.guild_only()
     async def lick(
         self, ctx: commands.Context, member: Optional[discord.Member]
-    ):
+    ) -> None:
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} got licked.",
