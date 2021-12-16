@@ -127,7 +127,7 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
     ) -> None:
         if not member:
             embed = discord.Embed(
-                description=f"{ctx.author.mention} is a murdurer!",
+                description=f"{ctx.author.mention} is a murderer!",
                 color=Colors.SUCCESS_COLOR,
             )
         else:

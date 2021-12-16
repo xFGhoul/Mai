@@ -125,7 +125,7 @@ class ChangeLogPoster(commands.Cog):
     @changelog.command()
     @commands.is_owner()
     async def list(self, ctx: commands.Context) -> None:
-        embed = discord.Embed(color=Colors.SUCCESS_COLOR, description="helo")
+        embed = discord.Embed(color=Colors.SUCCESS_COLOR, description="hello")
         for guild in self.bot.guilds:
             model = (await Guild.get_or_create(discord_id=guild.id))[0]
             if (

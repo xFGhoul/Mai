@@ -25,7 +25,7 @@
 <h3 align="center">Files And Explanations</h3>
 
 `├──`[`ext`](https://github.com/xFGhoul/Mai/blob/dev/bot/config/ext) — Extensions For Config<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`├──`[`parser.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/config/ext) — A Parser using `pyYAML` and `configparser` to parse `config.yaml` and `mai.ini`<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`├──`[`parser.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/config/ext) — A Parser using `pyYAML` parse `config.yaml`<br>
 `├──`[`config.yaml`](https://github.com/xFGhoul/Mai/blob/dev/bot/config/config.yaml) — Your Config File, Hidden By Default<br>
 `├──`[`example.config.yaml`](https://github.com/xFGhoul/Mai/blob/dev/bot/config/example.config.yaml) — Example `config.yaml`<br>
 

@@ -19,7 +19,7 @@
 
 <h3 align="center">What Does This Folder Contain?</h3>
 <p align="center">
-  This Folder Has Utilitiy Functions Used By Mai For Faster, Better and Cleaner Development
+  This Folder Has Utility Functions Used By Mai For Faster, Better and Cleaner Development
 </p>
 
 <h3 align="center">Files And Explanations</h3>
@@ -31,6 +31,6 @@
 `├──`[`constants.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/constants.py) — Constants Used For Emojis, Links, Colors, etc<br>
 `├──`[`formatting.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/formatting.py) — formatting functions used in the bot<br>
 `├──`[`logging.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/logging.py) — Used For Logging Important Data To Terminal<br>
-`├──`[`utils.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Used For Utility Functions Like `shortern_url`, etc<br>
+`├──`[`utils.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/utils.py) — Used For Utility Functions Like `shorten_url`, etc<br>
 
 > Made With ❤️ By Ghoul & Nerd

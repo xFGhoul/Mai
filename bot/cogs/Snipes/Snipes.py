@@ -137,7 +137,7 @@ class Snipes(
     @commands.cooldown(1, 2, BucketType.user)
     @snipe.command(
         name="toggle",
-        description="Toglge Snipes On Or Off",
+        description="Toggle Snipes On Or Off",
         brief="snipe toggle on\nsnipe toggle off\nsnipe toggle True\nsnipe toggle False",
     )
     @commands.bot_has_permissions(

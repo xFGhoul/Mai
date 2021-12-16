@@ -48,7 +48,7 @@ class Logging(
         action: AuditLogAction,
         target: discord.abc.Snowflake,
     ) -> Optional[AuditLogEntry]:
-        """Retreives an audity log entry that affected a specified entity.
+        """Retrieves an audit log entry that affected a specified entity.
 
         Parameters
         ----------
@@ -99,13 +99,13 @@ class Logging(
                 else guild.text_channels
             )
 
-            loggging_channel = discord.utils.get(
+            logging_channel = discord.utils.get(
                 text_channels, id=logging_channel_id
             )
-            if loggging_channel is None:
+            if logging_channel is None:
                 pass
             else:
-                return loggging_channel
+                return logging_channel
         else:
             return
 
@@ -827,7 +827,7 @@ class Logging(
 
             pass
 
-    @commands.Cog.listner()
+    @commands.Cog.listener()
     async def on_stage_instance_update(
         self, stage_instance: discord.StageInstance
     ):

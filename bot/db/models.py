@@ -168,7 +168,7 @@ class Guild(Model):
 
 class OSU(Model):
     id = fields.BigIntField(pk=True)
-    username = fields.TextField(default=None, unqiue=False)
+    username = fields.TextField(default=None, unique=False)
     skin = fields.TextField(default="Default Skin", unique=False)
     passive = fields.BooleanField(default=True)
     discord_id = fields.BigIntField()
@@ -197,7 +197,7 @@ class Captcha(Model):
     guild = fields.ForeignKeyField("Mai.Guild", related_name="Captcha")
     type = fields.TextField(
         default="text"
-    )  # Types: Audio, Text, Picture, Arithimetic
+    )  # Types: Audio, Text, Picture, Arithmetic
 
 
 class Counting(Model):

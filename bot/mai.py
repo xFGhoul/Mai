@@ -103,7 +103,7 @@ class Mai(AutoShardedBot):
         self.documentation = Links.BOT_DOCUMENTATION_URL
         self.invite_url = Links.BOT_INVITE_URL
 
-        # Tuple of all activities the bot will display as a status
+        # -- Tuple of all activities the bot will display as a status
         self.activities = itertools.cycle(
             (
                 discord.Activity(
@@ -132,11 +132,17 @@ class Mai(AutoShardedBot):
 
         self.uptime = datetime.datetime.utcnow()
 
-        # Initalizing parent class
-        intents = Intents.all()
+        # -- Initalizing parent class
+
+        # -- Intents
+        intents = Intents.default()
+        intents.typing = False
+        intents.presences = False
+
         chunk_guilds_at_startup = False
         allowed_mentions = AllowedMentions(everyone=False, roles=False)
         stuff_to_cache = MemberCacheFlags.from_intents(intents)
+
         super().__init__(
             intents=intents,
             command_prefix=self.determine_prefix,
@@ -277,7 +283,7 @@ class Mai(AutoShardedBot):
         """Called when we have successfully connected to a gateway"""
         await Tortoise.init(tortoise_config.TORTOISE_CONFIG)
         await self.RPC.connect()
-        # await self.i18n.init_bot(bot, self.get_locale(commands.Context)) 'cahced_property' has no attribute 'id'. most likely due to how the pycordi18n uses pre_invoke, looking into it.
+        # await self.i18n.init_bot(bot, self.get_locale(commands.Context)) 'cached_property' has no attribute 'id'. most likely due to how the pycordi18n uses pre_invoke, looking into it.
 
         console.print(
             "[blue3]━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[/blue3]"
@@ -360,7 +366,7 @@ async def which(ctx: commands.Context, *, command_name: str) -> None:
         else:
             command_type = f"Subcommand of `{command.parent.qualified_name}`"
         embed = discord.Embed(
-            title="Target Aquired \U0001F3AF", color=Colors.SUCCESS_COLOR
+            title="Target Acquired \U0001F3AF", color=Colors.SUCCESS_COLOR
         )
         embed.add_field(
             name="Part of Extension",

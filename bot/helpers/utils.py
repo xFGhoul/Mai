@@ -31,7 +31,7 @@ async def shorten_url(url: str) -> str:
     Parameters
     ----------
     url : str
-        The URL to shortern
+        The URL to shorten
 
     Returns
     -------
@@ -42,6 +42,6 @@ async def shorten_url(url: str) -> str:
     try:
         shortened_url = s.bitly.short(url)
     except (BadAPIResponseException, BadURLException, ShorteningErrorException):
-        log.error("[red]ERROR WHEN TRYING TO SHORTERN URL.[/red]")
+        log.error("[red]ERROR WHEN TRYING TO SHORTEN URL.[/red]")
 
     return shortened_url

@@ -64,7 +64,7 @@ class MaiHelpCommand(commands.HelpCommand):
             icon_url=self.context.author.avatar.url,
         )
         for cog in self.context.bot.cogs.values():
-            # TODO: SEPERATE INTO CATEGORIES INSTEAD OF ALL COGS
+            # TODO: SEPARATE INTO CATEGORIES INSTEAD OF ALL COGS
             embed.add_field(
                 name=cog.qualified_name,
                 value=f"`{self.context.clean_prefix}help {cog.qualified_name}`",

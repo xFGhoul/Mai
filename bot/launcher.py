@@ -177,7 +177,7 @@ console.print(
 )
 
 if not os.path.exists("config/config.yaml"):
-    console.print("[red]> COFNIG FILE NOT FOUND.[/red]\n")
+    console.print("[red]> CONFIG FILE NOT FOUND.[/red]\n")
 
     time.sleep(1)
 
@@ -362,7 +362,7 @@ if not redis_running:
             console.print("[blue3]> REDIS IS RUNNING AND FUNCTIONING[/blue3]\n")
             time.sleep(1)
         else:
-            WaitAndExit("> An Unexpected Error Occured.")
+            WaitAndExit("> An Unexpected Error Occurred.")
     else:
         console.print(
             "[blue3]> FOUND DEFAULT_REDIS_PATH FROM CONFIG.YAML[/blue3]"

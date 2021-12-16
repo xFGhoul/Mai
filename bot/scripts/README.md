@@ -19,7 +19,7 @@
 
 <h3 align="center">What Does This Folder Contain?</h3>
 <p align="center">
-  This Folder Has Utilitiy Scripts for both Windows and Linux used for easier development
+  This Folder Has Utility Scripts for both Windows and Linux used for easier development
 </p>
 
 <h3 align="center">Files And Explanations</h3>

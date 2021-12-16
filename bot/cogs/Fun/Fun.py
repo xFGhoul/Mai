@@ -189,7 +189,7 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
                         await ctx.send(embed=embed)
                     except Exception:
                         embed = discord.Embed(
-                            title="An Unexpected error occoured :cry:",
+                            title="An Unexpected error occurred :cry:",
                             description="```Lyrics's text exceeds discord limit!```",
                             color=Colors.ERROR_COLOR,
                         )

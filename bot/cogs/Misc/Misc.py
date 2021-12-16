@@ -100,7 +100,7 @@ class Misc(
 
     @commands.command(
         name="source",
-        alises=["src"],
+        aliases=["src"],
         description="Get An Link To The Bot's Source Code",
     )
     @commands.cooldown(1, 5, commands.BucketType.user)

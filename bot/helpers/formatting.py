@@ -49,7 +49,7 @@ def format_logging_model(model: ServerLogging) -> Embed:
     Parameters
     ----------
     model : ServerLogging
-        Model retreived from a database
+        Model retrieved from a database
 
     Returns
     -------
