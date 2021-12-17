@@ -57,13 +57,13 @@ class CountingCog(
             if counting.enabled:
                 channel = ctx.guild.get_channel(counting.counting_channel)
                 embed = discord.Embed(
-                    color=Colors.SUCCESS_COLOR,
+                    color=Colors.SUCCESS,
                     description=f"Counting has been enabled in this server and the counting channel is {channel.mention}!",
                 )
                 await ctx.send(embed=embed)
             else:
                 embed = discord.Embed(
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                     description=f"Counting has been disabled in this server!",
                 )
                 await ctx.send(embed=embed)
@@ -83,7 +83,7 @@ class CountingCog(
 
         if not counting:
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description="Please set an counting channel first!",
             )
             await ctx.send(embed=embed)
@@ -94,7 +94,7 @@ class CountingCog(
 
         embed = discord.Embed(
             title=f"Counting stats for {ctx.guild}:",
-            colour=Colors.SUCCESS_COLOR,
+            colour=Colors.SUCCESS,
             timestamp=ctx.message.created_at,
         )
 
@@ -131,19 +131,19 @@ class CountingCog(
             if toggle:
                 embed = discord.Embed(
                     description=f"Counting has been `enabled`!",
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                 )
                 await ctx.send(embed=embed)
             else:
                 embed = discord.Embed(
                     description=f"Counting has been `disabled`!",
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                 )
                 await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
                 description="Please select an counting channel first!",
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
             )
             await ctx.send(embed=embed)
             await ctx.send_help(self.counting)
@@ -187,7 +187,7 @@ class CountingCog(
         )
 
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"Counting channel set to {channel.mention}",
         )
         await ctx.send(embed=embed)
@@ -204,7 +204,7 @@ class CountingCog(
         if not goal:
             embed = discord.Embed(
                 description="Please specify the goal you want!",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
             )
             await ctx.send(embed=embed)
             return
@@ -215,12 +215,12 @@ class CountingCog(
             await Counting.get(guild=guild).update(counting_goal=goal)
             embed = discord.Embed(
                 description=f"Counting goal set to `{goal}`",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
             )
             await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description="Please select a Counting Channel First!",
             )
             await ctx.send(embed=embed)
@@ -245,13 +245,13 @@ class CountingCog(
             )
             embed = discord.Embed(
                 description=f"Counting has started from base of `{counting_number}`.",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
             )
             await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
                 description="Please select counting channel first!",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
             )
             await ctx.send(embed=embed)
             await ctx.send_help(self.counting_channel)
@@ -269,13 +269,13 @@ class CountingCog(
                 counting_number=0, last_member_id=None
             )
             embed = discord.Embed(
-                description="Counting Number reset!", color=Colors.EMBED_COLOR
+                description="Counting Number reset!", color=Colors.DEFAULT
             )
             await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
                 description="Please select counting channel first!",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
             )
             await ctx.send(embed=embed)
             await ctx.send_help(self.counting_channel)
@@ -296,13 +296,13 @@ class CountingCog(
             await counting.save(update_fields=["counting_warn_message"])
             embed = discord.Embed(
                 description=f"Counting warn message set to `{counting_warn_message}`",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
             )
             await ctx.send(embed=embed)
         else:
             embed = discord.Embed(
                 description="Please select counting channel first!",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
             )
             await ctx.send(embed=embed)
             await ctx.send_help(self.counting_channel)

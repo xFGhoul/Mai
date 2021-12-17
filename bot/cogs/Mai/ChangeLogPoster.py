@@ -46,7 +46,7 @@ class ChangeLogPoster(commands.Cog):
         brief="changelog toggle on\nchangelog toggle off\nchangelog toggle True\nchangelog toggle False",
     )
     @commands.has_guild_permissions(administrator=True)
-    async def toggle(
+    async def changelog_toggle(
         self, ctx: commands.Context, toggle: Union[bool, str]
     ) -> None:
 
@@ -59,7 +59,7 @@ class ChangeLogPoster(commands.Cog):
                 toggle = False
             elif toggle != "on" or "off":
                 embed = discord.Embed(
-                    color=Colors.ERROR_COLOR,
+                    color=Colors.ERROR,
                     description=f"{Emoji.ERROR} `toggle` expects `on`/`off`, not `{str(toggle)}`",
                 )
                 await ctx.send(embed=embed)
@@ -70,7 +70,7 @@ class ChangeLogPoster(commands.Cog):
         await guild.refresh_from_db(fields=["changelog_enabled"])
 
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"**ChangeLog Toggled To:** `{toggle}`",
         )
 
@@ -82,7 +82,7 @@ class ChangeLogPoster(commands.Cog):
         brief="changelog channel 1234567\nchangelog channel #channel(mention)",
     )
     @commands.has_guild_permissions(administrator=True)
-    async def channel(
+    async def changelog_channel(
         self, ctx: commands.Context, channel: Union[discord.TextChannel, int]
     ) -> None:
         channel_id = (
@@ -99,15 +99,17 @@ class ChangeLogPoster(commands.Cog):
         channel = ctx.guild.get_channel(channel_id)
 
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"**ChangeLog Channel Updated Too:** {channel.mention}",
         )
 
         await ctx.send(embed=embed)
 
-    @changelog.command()
+    @changelog.command(name="post", hidden=True)
     @commands.is_owner()
-    async def post(self, ctx: commands.Context, *, message: str) -> None:
+    async def changelog_post(
+        self, ctx: commands.Context, *, message: str
+    ) -> None:
         for guild in self.bot.guilds:
             model = (await Guild.get_or_create(discord_id=guild.id))[0]
             if (
@@ -117,15 +119,13 @@ class ChangeLogPoster(commands.Cog):
                 changelog_channel = ctx.guild.get_channel(
                     model.changelog_channel
                 )
-                embed = discord.Embed(
-                    color=Colors.EMBED_COLOR, description=message
-                )
+                embed = discord.Embed(color=Colors.DEFAULT, description=message)
                 await changelog_channel.send(embed=embed)
 
-    @changelog.command()
+    @changelog.command(name="list", hidden=True)
     @commands.is_owner()
-    async def list(self, ctx: commands.Context) -> None:
-        embed = discord.Embed(color=Colors.SUCCESS_COLOR, description="hello")
+    async def changelog_list(self, ctx: commands.Context) -> None:
+        embed = discord.Embed(color=Colors.SUCCESS, description="hello")
         for guild in self.bot.guilds:
             model = (await Guild.get_or_create(discord_id=guild.id))[0]
             if (

@@ -74,7 +74,7 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
         if not title:
             title = str(code)
 
-        embed = discord.Embed(title=title, color=Colors.SUCCESS_COLOR)
+        embed = discord.Embed(title=title, color=Colors.SUCCESS)
         embed.set_image(url=url)
         await ctx.send(embed=embed)
 
@@ -110,7 +110,7 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
                         embed = discord.Embed(
                             title="",
                             description="❌ Error: Nothing Found!",
-                            colour=Colors.ERROR_COLOR,
+                            colour=Colors.ERROR,
                         )
                         await ctx.send(embed=embed)
                         return
@@ -128,7 +128,7 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
         embed = discord.Embed(
             title=f"Definition of **{word}**",
             description=definition,
-            colour=Colors.SUCCESS_COLOR,
+            colour=Colors.SUCCESS,
             timestamp=ctx.message.created_at,
         )
 
@@ -152,7 +152,7 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
             embed = discord.Embed(
                 title="😢 There was an error!",
                 description="Length of the text exceeds discord's limit!",
-                colour=Colors.ERROR_COLOR,
+                colour=Colors.ERROR,
             )
             await ctx.send(embed=embed)
 
@@ -191,7 +191,7 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
                         embed = discord.Embed(
                             title="An Unexpected error occurred :cry:",
                             description="```Lyrics's text exceeds discord limit!```",
-                            color=Colors.ERROR_COLOR,
+                            color=Colors.ERROR,
                         )
                         await ctx.send(embed=embed)
 

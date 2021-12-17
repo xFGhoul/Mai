@@ -143,7 +143,9 @@ class Logging(
         description="Toggle Logging on/off",
         brief="logging toggle on\nlogging toggle off\nlogging toggle True\nlogging toggle False",
     )
-    async def toggle(self, ctx: commands.Context, toggle: Union[str, bool]):
+    async def logging_toggle(
+        self, ctx: commands.Context, toggle: Union[str, bool]
+    ):
 
         guild = await Guild.from_context(ctx)
 
@@ -156,7 +158,7 @@ class Logging(
                 toggle = False
             elif toggle != "on" or "off":
                 embed = discord.Embed(
-                    color=Colors.ERROR_COLOR,
+                    color=Colors.ERROR,
                     description=f"{Emoji.ERROR} `toggle` expects `on`/`off`, not `{str(toggle)}`",
                 )
                 await ctx.send(embed=embed)
@@ -167,7 +169,7 @@ class Logging(
         await logging.refresh_from_db(fields=["enabled"])
 
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"**Logging Toggled To:** `{toggle}`",
         )
 
@@ -179,7 +181,7 @@ class Logging(
         description="Set the channel used for logging",
         brief="logging channel 1234567\nlogging channel #channel(mention)",
     )
-    async def channel(
+    async def logging_channel(
         self, ctx: commands.Context, channel: Union[discord.TextChannel, int]
     ):
         channel_id = (
@@ -198,7 +200,7 @@ class Logging(
         channel = ctx.guild.get_channel(channel_id)
 
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"**Logging Channel Updated Too:** {channel.mention}",
         )
 
@@ -209,9 +211,9 @@ class Logging(
         name="view",
         description="View all enabled/disabled logs",
     )
-    async def view(self, ctx: commands.Context):
+    async def logging_view(self, ctx: commands.Context):
         loading_embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"{Emoji.LOADING_CIRCLE} Fetching Stats...",
         )
         message = await ctx.send(embed=loading_embed)
@@ -228,7 +230,7 @@ class Logging(
         description="Set Which Events Should Be Logged",
         brief="`logging set message_edited True`\n`logging set message_edited on`\n\n**All Possible Sets**\n`message_edited`\n`message_deleted`\n`nickname_changed`\n`member_updated`\n`member_banned`\n`member_unbanned`\n`member_joined`\n`member_left`\n`role_created`\n`role_updated`\n`role_deleted`\n`member_roles_changed`\n`member_joined_voice_channel`\n`member_left_voice_channel`\n`server_edit`\n`server_emojis_updated`\n`channel_created`\n`channel_updated`\n`channel_deleted`",
     )
-    async def set(
+    async def logging_set(
         self,
         ctx: commands.Context,
         log: Optional[str],
@@ -278,7 +280,7 @@ class Logging(
             await logging.refresh_from_db(fields=[log])
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Emoji.CHECKMARK} `{log}` **Has Been Successfully Updated Too** `{toggle}`",
             )
 
@@ -290,12 +292,12 @@ class Logging(
         description="Set Channels To Be Ignored From Logging",
         brief="`logging ignore #mychannel`\n`logging ignore #mychannel1 #mychannel2 #mychannel3`",
     )
-    async def ignore(
+    async def logging_ignore(
         self, ctx: commands.Context, channels: Greedy[discord.TextChannel]
     ):
         if not channels:
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} No Valid Channels Were Provided",
             )
             await ctx.send(embed=embed)
@@ -318,14 +320,14 @@ class Logging(
 
         if already_ignored_channels:
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{', '.join([channel.mention for channel in already_ignored_channels])} Is Already Being Ignored.",
             )
             await ctx.send(embed=embed)
             return
 
         embed = discord.Embed(
-            color=Colors.SUCCESS_COLOR,
+            color=Colors.SUCCESS,
             description=f"{', '.join([channel.mention for channel in new_ignored_channels])} Are Now Being Ignored.",
         )
         await ctx.send(embed=embed)
@@ -338,7 +340,11 @@ class Logging(
 
         logging = await self.get_logging_model(guild_id=before.guild.id)
 
-        if logging.message_edited is True and logging.enabled != False:
+        if (
+            logging.message_edited is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             member = before.author
 
@@ -352,7 +358,7 @@ class Logging(
                 return
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 timestamp=datetime.utcnow(),
                 description=f":pencil: [Message]({before.jump_url}) Sent By {member.mention} Edited In {before.channel.mention}",
             )
@@ -370,7 +376,11 @@ class Logging(
 
         logging = await self.get_logging_model(guild_id=message.guild.id)
 
-        if logging.message_deleted is True and logging.enabled != False:
+        if (
+            logging.message_deleted is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             member = message.author
 
@@ -381,7 +391,7 @@ class Logging(
                     return
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 timestamp=datetime.utcnow(),
                 description=f":wastebasket: Message Sent By {member.mention} Deleted In {message.channel.mention}",
             )
@@ -403,7 +413,11 @@ class Logging(
 
         logging = await self.get_logging_model(member.guild.id)
 
-        if logging.member_joined is True and logging.enabled != False:
+        if (
+            logging.member_joined is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             if member.bot:
                 if logging.log_actions_by_bots == False:
@@ -412,7 +426,7 @@ class Logging(
                     return
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 timestamp=datetime.utcnow(),
                 description=f":e_mail: {member.mention} Has Joined The Server",
             )
@@ -429,7 +443,11 @@ class Logging(
 
         logging = await self.get_logging_model(member.guild.id)
 
-        if logging.member_left is True and logging.enabled != True:
+        if (
+            logging.member_left is True
+            and logging.enabled != True
+            and logging.channel_id is not None
+        ):
 
             if member.bot:
                 if logging.log_actions_by_bots == False:
@@ -438,7 +456,7 @@ class Logging(
                     return
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 timestamp=datetime.utcnow(),
                 description=f"{member.mention} | {member.name}",
             )
@@ -463,7 +481,11 @@ class Logging(
 
         logging = await self.get_logging_model(before.guild.id)
 
-        if logging.member_updated is True and logging.enabled != False:
+        if (
+            logging.member_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             if before.bot:
                 if logging.log_actions_by_bots == False:
@@ -473,7 +495,7 @@ class Logging(
 
             if before.avatar.url != after.avatar.url:
                 embed = discord.Embed(
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                     timestamp=datetime.utcnow(),
                     description=f"{after.mention} **Updated Their Profile.**",
                 )
@@ -489,7 +511,7 @@ class Logging(
 
             if before.name != after.name:
                 embed = discord.Embed(
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                     timestamp=datetime.utcnow(),
                     description=f"{after.mention} **Updated Their Profile.**",
                 )
@@ -505,7 +527,7 @@ class Logging(
 
             if before.discriminator != after.discriminator:
                 embed = discord.Embed(
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                     timestamp=datetime.utcnow(),
                     description=f"{after.mention} **Updated Their Profile.**",
                 )
@@ -528,7 +550,11 @@ class Logging(
 
         logging = await self.get_logging_model(before.guild.id)
 
-        if logging.member_updated is True and logging.enabled != False:
+        if (
+            logging.member_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             if before.bot:
                 if logging.log_actions_by_bots == False:
@@ -538,7 +564,7 @@ class Logging(
 
             if before.nick != after.nick:
                 embed = discord.Embed(
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                     timestamp=datetime.utcnow(),
                     description=f":pencil: {after.mention} **Nickname Edited.**",
                 )
@@ -552,7 +578,7 @@ class Logging(
             if len(before.roles) < len(after.roles):
                 log_channel = await self.get_logs_channel(before.guild.id)
                 embed = discord.Embed(
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                     timestamp=datetime.utcnow(),
                     description=f"{Emoji.MEMBERS} {before.mention} **Roles Updated**",
                 )
@@ -575,7 +601,11 @@ class Logging(
     async def on_member_ban(self, guild: discord.Guild, user: discord.User):
         logging = await self.get_logging_model(guild.id)
 
-        if logging.member_banned is True and logging.enabled != False:
+        if (
+            logging.member_banned is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             if user.bot:
                 if logging.log_actions_by_bots == False:
@@ -584,7 +614,7 @@ class Logging(
                     return
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR, description=f"{user.mention} {user}"
+                color=Colors.DEFAULT, description=f"{user.mention} {user}"
             )
             embed.set_author(name="Member Banned", url=user.avatar.url)
             embed.set_thumbnail(url=user.avatar.url)
@@ -598,7 +628,11 @@ class Logging(
     async def on_member_unban(self, guild: discord.Guild, user: discord.User):
         logging = await self.get_logging_model(guild.id)
 
-        if logging.member_unbanned is True and logging.enabled != False:
+        if (
+            logging.member_unbanned is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             if user.bot:
                 if logging.log_actions_by_bots == False:
@@ -607,7 +641,7 @@ class Logging(
                     return
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR, description=f"{user.mention} {user}"
+                color=Colors.DEFAULT, description=f"{user.mention} {user}"
             )
             embed.set_author(name="Member UnBanned", url=user.avatar.url)
             embed.set_thumbnail(url=user.avatar.url)
@@ -622,10 +656,14 @@ class Logging(
 
         logging = await self.get_logging_model(role.guild.id)
 
-        if logging.role_created is True and logging.enabled != False:
+        if (
+            logging.role_created is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"Role: **{role.name}** Created\n\n{Chars.ARROW} **Name:** {role.mention}\n{Chars.ARROW} **Color:** {role.color}\n{Chars.ARROW} **Hoisted:** {role.hoist}\n{Chars.ARROW} **Mentionable:** {role.mentionable}",
             )
             embed.set_thumbnail(url=role.guild.icon.url)
@@ -643,10 +681,14 @@ class Logging(
 
         logging = await self.get_logging_model(role.guild.id)
 
-        if logging.role_created is True and logging.enabled != False:
+        if (
+            logging.role_created is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"Role: **{role.name}** Deleted\n\n{Chars.ARROW} **Name:** {role.mention}\n{Chars.ARROW} **Color:** {role.color}\n{Chars.ARROW} **Hoisted:** {role.hoist}\n{Chars.ARROW} **Mentionable:** {role.mentionable}",
             )
             embed.set_thumbnail(url=role.guild.icon.url)
@@ -665,10 +707,14 @@ class Logging(
     ):
         logging = await self.get_logging_model(before.guild.id)
 
-        if logging.role_updated is True and logging.enabled != False:
+        if (
+            logging.role_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"Role: **{before.name}** Updated\n\n{Chars.ARROW} **Name:** {before.mention} -> {after.mention}\n{Chars.ARROW} **Color:** `{before.color}` -> `{after.color}`\n{Chars.ARROW} **Hoisted:** `{before.hoist}` -> `{after.hoist}`\n{Chars.ARROW} **Mentionable:** `{before.mentionable}` -> `{after.mentionable}`",
             )
             embed.set_thumbnail(url=before.guild.icon.url)
@@ -697,6 +743,7 @@ class Logging(
             if (
                 logging.member_joined_voice_channel is True
                 and logging.enabled != False
+                and logging.channel_id is not None
             ):
 
                 pass
@@ -704,6 +751,7 @@ class Logging(
             if (
                 logging.member_left_voice_channel is True
                 and logging.enabled != False
+                and logging.channel_id is not None
             ):
 
                 pass
@@ -718,10 +766,14 @@ class Logging(
 
         logging = await self.get_logging_model(before.id)
 
-        if logging.server_edited is True and logging.enabled != False:
+        if (
+            logging.server_edited is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{before.name} Has Been Updated",
             )
             embed.set_thumbnail(url=after.icon.url)
@@ -737,7 +789,11 @@ class Logging(
 
         logging = await self.get_logging_model(guild.id)
 
-        if logging.server_emojis_updated is True and logging.enabled != False:
+        if (
+            logging.server_emojis_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -750,7 +806,11 @@ class Logging(
     ):
         logging = await self.get_logging_model(guild.id)
 
-        if logging.server_stickers_updated is True and logging.enabled != False:
+        if (
+            logging.server_stickers_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -758,7 +818,11 @@ class Logging(
     async def on_webhooks_update(self, channel: discord.TextChannel):
         logging = await self.get_logging_model(channel.guild.id)
 
-        if logging.server_webhooks_updated is True and logging.enabled != False:
+        if (
+            logging.server_webhooks_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -767,7 +831,11 @@ class Logging(
 
         logging = await self.get_logging_model(channel.guild.id)
 
-        if logging.channel_created is True and logging.enabled != False:
+        if (
+            logging.channel_created is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -776,7 +844,11 @@ class Logging(
 
         logging = await self.get_logging_model(channel.guild.id)
 
-        if logging.channel_deleted is True and logging.enabled != False:
+        if (
+            logging.channel_deleted is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -787,7 +859,11 @@ class Logging(
 
         logging = await self.get_logging_model(before.guild.id)
 
-        if logging.channel_updated is True and logging.enabled != False:
+        if (
+            logging.channel_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -795,7 +871,11 @@ class Logging(
     async def on_invite_create(self, invite: discord.Invite):
         logging = await self.get_logging_model(invite.guild.id)
 
-        if logging.invite_created is True and logging.enabled != False:
+        if (
+            logging.invite_created is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -803,7 +883,11 @@ class Logging(
     async def on_invite_delete(self, invite: discord.Invite):
         logging = await self.get_logging_model(invite.guild.id)
 
-        if logging.invite_deleted is True and logging.enabled != False:
+        if (
+            logging.invite_deleted is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -813,7 +897,11 @@ class Logging(
     ):
         logging = await self.get_logging_model(stage_instance.guild.id)
 
-        if logging.stage_created is True and logging.enabled != False:
+        if (
+            logging.stage_created is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -823,7 +911,11 @@ class Logging(
     ):
         logging = await self.get_logging_model(stage_instance.guild.id)
 
-        if logging.stage_deleted is True and logging.enabled != False:
+        if (
+            logging.stage_deleted is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 
@@ -833,7 +925,11 @@ class Logging(
     ):
         logging = await self.get_logging_model(stage_instance.guild.id)
 
-        if logging.stage_updated is True and logging.enabled != False:
+        if (
+            logging.stage_updated is True
+            and logging.enabled != False
+            and logging.channel_id is not None
+        ):
 
             pass
 

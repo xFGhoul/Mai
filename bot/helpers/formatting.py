@@ -56,7 +56,7 @@ def format_logging_model(model: ServerLogging) -> Embed:
     Embed
         Embed representing all settings of the logging system
     """
-    embed = Embed(color=Colors.EMBED_COLOR)
+    embed = Embed(color=Colors.DEFAULT)
     VALID_TYPES = {
         "channel_created",
         "channel_deleted",

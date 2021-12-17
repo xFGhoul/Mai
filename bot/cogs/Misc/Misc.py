@@ -115,13 +115,13 @@ class Misc(
         await ctx.trigger_typing()
         before = time.monotonic()
         loading_embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"{Emoji.LOADING_CIRCLE} Pinging...",
         )
         message = await ctx.send(embed=loading_embed)
 
         ping = (time.monotonic() - before) * 1000
-        pEmbed = discord.Embed(title="Stats:", color=Colors.EMBED_COLOR)
+        pEmbed = discord.Embed(title="Stats:", color=Colors.DEFAULT)
         pEmbed.add_field(name=f"{Emoji.MAI} Latency", value=f"{int(ping)}ms")
         pEmbed.add_field(
             name=f"{Emoji.DISCORD} API",
@@ -168,7 +168,7 @@ class Misc(
 
         embed = discord.Embed(
             title="Bot Uptime",
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"{Chars.ARROW} {humanized_uptime}",
         )
 
@@ -182,12 +182,12 @@ class Misc(
         await ctx.trigger_typing()
 
         loading_embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"{Emoji.LOADING_CIRCLE} Fetching Stats...",
         )
         message = await ctx.send(embed=loading_embed)
 
-        embed = discord.Embed(title="Mai Information", color=Colors.EMBED_COLOR)
+        embed = discord.Embed(title="Mai Information", color=Colors.DEFAULT)
 
         embed.set_thumbnail(url=Links.BOT_AVATAR_URL)
 
@@ -274,7 +274,7 @@ class Misc(
         await ctx.trigger_typing()
 
         loading_embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"{Emoji.LOADING_CIRCLE} Calculating...",
         )
         message = await ctx.send(embed=loading_embed)
@@ -296,7 +296,7 @@ class Misc(
         )
         embed = discord.Embed(
             title=f"Math Calculated {Emoji.BRAIN}",
-            color=Colors.SUCCESS_COLOR,
+            color=Colors.SUCCESS,
             timestamp=datetime.utcnow(),
         )
         embed.add_field(name="Expression", value=expression, inline=False)

@@ -84,12 +84,12 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} got hugged!",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         else:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} hugged {member.mention}",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         random_link = random.choice(self.hugs)
         embed.set_image(url=random_link)
@@ -105,12 +105,12 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} got patted!",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         else:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} pats {member.mention}",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         random_link = random.choice(self.pats)
         embed.set_image(url=random_link)
@@ -128,12 +128,12 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} is a murderer!",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         else:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} KILLED {member.mention}",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         random_link = random.choice(self.kills)
         embed.set_image(url=random_link)
@@ -151,12 +151,12 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} slapped!",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         else:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} slapped {member.mention}",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         random_link = random.choice(self.slaps)
         embed.set_image(url=random_link)
@@ -174,12 +174,12 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
         if not member:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} got licked.",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         else:
             embed = discord.Embed(
                 description=f"{ctx.author.mention} licked {member.mention}",
-                color=Colors.SUCCESS_COLOR,
+                color=Colors.SUCCESS,
             )
         random_link = random.choice(self.licks)
         embed.set_image(url=random_link)

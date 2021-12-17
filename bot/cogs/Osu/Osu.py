@@ -187,7 +187,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             )
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Chars.ARROW} **Bancho Rank:** #{humanize.intcomma(user.rank)} ({user.country}#{humanize.intcomma(user.country_rank)})\n{Chars.ARROW} **Level:** {int(round(user.level ,2))}%\n{Chars.ARROW} **PP:** {humanize.intcomma(user.pp)} **Acc:** {round(user.accuracy, 2)}%\n{Chars.ARROW} **Playcount:** {humanize.intcomma(user.play_count)} ({playtime})\n{Chars.ARROW} **Ranks:** {OsuEmotes.SSHD}`{user.ssh_count}`{OsuEmotes.SS}`{user.ss_count}`{OsuEmotes.S}`{user.s_count}`{OsuEmotes.A}`{user.a_count}`",
             )
             embed.set_author(
@@ -231,7 +231,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             )
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Emoji.CHECKMARK_EMOJI} **Successfully Updated Username To:** `{username}`",
             )
             await ctx.send(embed=embed)
@@ -240,7 +240,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
                 guild=guild, discord_id=ctx.author.id, username=username
             )
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Emoji.CHECKMARK_EMOJI} **Successfully Created Username:** `{username}`",
             )
             await ctx.send(embed=embed)
@@ -266,7 +266,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         if user_v1 is None:
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} **The user {username} was not found!**",
             )
             await ctx.send(embed=embed)
@@ -299,7 +299,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             user_v2 = osu_v2.user(username)
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Chars.ARROW} **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n{Chars.ARROW} **Level:** {int(round(user_v1.level ,2))}%\n{Chars.ARROW} **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n{Chars.ARROW} **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n{Chars.ARROW} **Ranks:** {OsuEmotes.SSHD}`{user_v1.ssh_count}`{OsuEmotes.SS}`{user_v1.ss_count}`{OsuEmotes.S}`{user_v1.s_count}`{OsuEmotes.A}`{user_v1.a_count}`\n{Chars.ARROW} **Ranked Score:** {humanize.intcomma(user_v1.ranked_score)}\n{Chars.ARROW} **Total Score:** {humanize.intcomma(user_v1.total_score)}\n{Chars.ARROW} **Total Hits:** {humanize.intcomma(user_v1.num_300 + user_v1.num_100 + user_v1.num_50)}\n{Chars.ARROW} **Max Combo:** {humanize.intcomma(user_v2.statistics.maximum_combo)}",
             )
 
@@ -342,7 +342,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             return
         else:
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Chars.ARROW} **Bancho Rank:** #{humanize.intcomma(user_v1.rank)} ({user_v1.country}#{humanize.intcomma(user_v1.country_rank)})\n{Chars.ARROW} **Level:** {int(round(user_v1.level ,2))}%\n{Chars.ARROW} **PP:** {humanize.intcomma(user_v1.pp)} **Acc:** {round(user_v1.accuracy, 2)}%\n{Chars.ARROW} **Playcount:** {humanize.intcomma(user_v1.play_count)} ({playtime})\n{Chars.ARROW} **Ranks:** {OsuEmotes.SSHD}`{user_v1.ssh_count}`{OsuEmotes.SS}`{user_v1.ss_count}`{OsuEmotes.S}`{user_v1.s_count}`{OsuEmotes.A}`{user_v1.a_count}`",
             )
             embed.set_author(
@@ -384,7 +384,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         pp = round(user_recent.pp, 2) if user_recent.pp is not None else "0"
 
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"{Chars.ARROW} {await self.parse_score(user_recent.rank)} **{Chars.ARROW} {pp} PP** {Chars.ARROW} {round(user_recent.accuracy, 2)}%\n{Chars.ARROW} {humanize.intcomma(user_recent.score)} {Chars.ARROW} TEST/{user_recent.max_combo}",
         )
 
@@ -493,7 +493,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         user = osu_v1.fetch_user(username=username)
 
-        embed = discord.Embed(color=Colors.EMBED_COLOR)
+        embed = discord.Embed(color=Colors.DEFAULT)
         embed.set_author(
             name=f"{user}",
             url=f"https://osu.ppy.sh/users/{user.id}",
@@ -520,7 +520,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             skin = osu.skin
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"**Your Current Skin:** {skin}",
             )
             await ctx.send(embed=embed)
@@ -528,7 +528,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
         if not skin.startswith("https://skins.osuck.net/"):
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} `skin` **REQUIRES A `https://skins.osuck.net/` URL.**",
             )
             await ctx.send(embed=embed)
@@ -543,7 +543,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             )
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Emoji.CHECKMARK_EMOJI} **Successfully Updated Skin**.",
             )
             embed.set_author(
@@ -572,7 +572,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             passive = osu.passive
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"**Passive Enabled:** `{passive}`",
             )
             await ctx.send(embed=embed)
@@ -583,7 +583,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             await OSU.filter(guild=guild).update(passive=passive)
 
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"{Emoji.CHECKMARK_EMOJI} **Passive set to {passive}**.",
             )
             embed.set_author(

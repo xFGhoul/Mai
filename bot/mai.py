@@ -136,6 +136,7 @@ class Mai(AutoShardedBot):
 
         # -- Intents
         intents = Intents.default()
+        intents.members = True
         intents.typing = False
         intents.presences = False
 
@@ -340,8 +341,6 @@ async def on_guild_join(guild: discord.Guild):
         log.info(f"[blue3]{guild.name} ({guild.id}) Has Reinvited Mai.[/blue3]")
 
 
-# DEVELOPER ONLY COMMANDS :)
-
 # -- COG RELATED COMMANDS
 
 
@@ -353,7 +352,7 @@ async def which(ctx: commands.Context, *, command_name: str) -> None:
     if command is None:
         embed = discord.Embed(
             description=f"{Emoji.ERROR} `{command_name}` **does not exist.**",
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
         )
     else:
         inner_command = command.callback
@@ -366,7 +365,7 @@ async def which(ctx: commands.Context, *, command_name: str) -> None:
         else:
             command_type = f"Subcommand of `{command.parent.qualified_name}`"
         embed = discord.Embed(
-            title="Target Acquired \U0001F3AF", color=Colors.SUCCESS_COLOR
+            title="Target Acquired \U0001F3AF", color=Colors.SUCCESS
         )
         embed.add_field(
             name="Part of Extension",
@@ -394,7 +393,7 @@ async def load(ctx: commands.Context, *, extentions: str) -> None:
 
     if bot.development_mode != "development":
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} `bot.development_mode` set to `{bot.development_mode}`, commands such as `load`, `reload` and `unload` require `bot.development_mode` to be **development**",
         )
         await ctx.send(embed=embed)
@@ -402,7 +401,7 @@ async def load(ctx: commands.Context, *, extentions: str) -> None:
 
     if extentions is None:
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} `extention` argument missing",
         )
         await ctx.send(embed=embed)
@@ -415,7 +414,7 @@ async def load(ctx: commands.Context, *, extentions: str) -> None:
         loaded_extentions.append(extention)
 
     embed = discord.Embed(
-        color=Colors.SUCCESS_COLOR,
+        color=Colors.SUCCESS,
         description=f"{', '.join(extention)} Are Now Loaded!",
     )
 
@@ -430,18 +429,18 @@ async def load_error(
 ) -> None:
     if isinstance(error, commands.NotOwner):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Can Only Be Used By The Bot's Owners.",
         )
     elif isinstance(error, ExtensionAlreadyLoaded):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Extension Is Already Loaded.",
         )
         await ctx.send(embed=embed)
     elif isinstance(error, ExtensionNotFound):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Extension Does Not Exist.",
         )
         await ctx.send(embed=embed)
@@ -455,7 +454,7 @@ async def unload(ctx: commands.Context, *, extentions: str) -> None:
     """Unloads an extension, owners only"""
     if bot.development_mode != "development":
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} `bot.development_mode` set to `{bot.development_mode}`, commands such as `load`, `reload` and `unload` require `bot.development_mode` to be **development**",
         )
         await ctx.send(embed=embed)
@@ -463,7 +462,7 @@ async def unload(ctx: commands.Context, *, extentions: str) -> None:
 
     if extentions is None:
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} `extention` argument missing",
         )
         await ctx.send(embed=embed)
@@ -476,7 +475,7 @@ async def unload(ctx: commands.Context, *, extentions: str) -> None:
         loaded_extentions.append(extention)
 
     embed = discord.Embed(
-        color=Colors.SUCCESS_COLOR,
+        color=Colors.SUCCESS,
         description=f"{', '.join(loaded_extentions)} Are Now UnLoaded!",
     )
 
@@ -491,19 +490,19 @@ async def unload_error(
 ) -> None:
     if isinstance(error, commands.NotOwner):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Can Only Be Used By The Bot's Owners.",
         )
         await ctx.send(embed=embed)
     elif isinstance(error, ExtensionNotLoaded):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Extension Is Not Loaded.",
         )
         await ctx.send(embed=embed)
     elif isinstance(error, ExtensionNotFound):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Extension Does Not Exist.",
         )
         await ctx.send(embed=embed)
@@ -521,7 +520,7 @@ async def cogs(ctx: commands.Context) -> None:
 
     cogs_str = ", ".join(cogs)
     embed = discord.Embed(
-        title=f"All Cogs", description=cogs_str, colour=Colors.EMBED_COLOR
+        title=f"All Cogs", description=cogs_str, colour=Colors.DEFAULT
     )
     await ctx.send(embed=embed)
 
@@ -532,7 +531,7 @@ async def cogs_error(
 ) -> None:
     if isinstance(error, commands.NotOwner):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Can Only Be Used By The Bot's Owners.",
         )
         await ctx.send(embed=embed)
@@ -546,7 +545,7 @@ async def reload(ctx: commands.Context, *, extension: str) -> None:
     bot.unload_extension(f"cogs.{extension}")
     bot.load_extension(f"cogs.{extension}")
     embed = discord.Embed(
-        color=Colors.SUCCESS_COLOR,
+        color=Colors.SUCCESS,
         description=f"{Emoji.CHECKMARK} Successfully Reloaded {extension}",
     )
     await ctx.send(embed=embed)
@@ -558,18 +557,18 @@ async def reload_error(
 ) -> None:
     if isinstance(error, commands.NotOwner):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Can Only Be Used By The Bot's Owners.",
         )
     elif isinstance(error, ExtensionNotLoaded):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Extension Is Not Loaded.",
         )
         await ctx.send(embed=embed)
     elif isinstance(error, ExtensionNotFound):
         embed = discord.Embed(
-            color=Colors.ERROR_COLOR,
+            color=Colors.ERROR,
             description=f"{Emoji.ERROR} This Extension Does Not Exist.",
         )
         await ctx.send(embed=embed)

@@ -14,9 +14,9 @@ Made With ❤️ By Ghoul & Nerd
 # -- COLORS
 class Colors:
 
-    EMBED_COLOR = 0x4620F1
-    SUCCESS_COLOR = 0x31D85B
-    ERROR_COLOR = 0xFF0000
+    DEFAULT = 0x4620F1
+    SUCCESS = 0x31D85B
+    ERROR = 0xFF0000
 
 
 class Chars:

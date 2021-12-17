@@ -64,7 +64,7 @@ class FlagHandler(commands.Cog, command_attrs=dict(hidden=True)):
                     )
 
                     embed = discord.Embed(
-                        color=Colors.EMBED_COLOR,
+                        color=Colors.DEFAULT,
                         title="Command Spam Warning",
                         description=f"**{self.bot.user.name} has Automatically Flagged {message.author.mention} for spamming more than `{bucket.rate}` commands in `{bucket.per}` seconds**\n**Here is the list of data:**",
                         timestamp=datetime.datetime.utcnow(),
@@ -89,7 +89,7 @@ class FlagHandler(commands.Cog, command_attrs=dict(hidden=True)):
                     await flag_spamming_channel.send(embed=embed)
 
                     user_warn_embed = discord.Embed(
-                        color=Colors.ERROR_COLOR,
+                        color=Colors.ERROR,
                         description=f" {Emoji.ERROR} {message.author.mention}, You Are Using Commands Too Fast!",
                     )
                     await message.channel.send(embed=user_warn_embed)

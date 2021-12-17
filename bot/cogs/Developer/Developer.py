@@ -62,7 +62,7 @@ class Developer(
 
         if guild.is_bot_blacklisted:
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} Guild Already Blacklisted. refer to `-help blacklist remove`",
             )
             await ctx.send(embed=embed)
@@ -73,7 +73,7 @@ class Developer(
             await guild.refresh_from_db(fields=["is_bot_blacklisted"])
             await Guild.create(blacklisted_reason=reason)
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"`{Emoji.CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted` for `{reason}`",
             )
             await ctx.send(embed=embed)
@@ -97,7 +97,7 @@ class Developer(
 
         if not guild.blacklisted:
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} Guild Not Blacklisted. refer to `-help blacklist add`",
             )
             await ctx.send(embed=embed)
@@ -107,7 +107,7 @@ class Developer(
             await guild.save(update_fields=["blacklisted"])
             await guild.refresh_from_db(fields=["blacklisted"])
             embed = discord.Embed(
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"`{Emoji.CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted`",
             )
             await ctx.send(embed=embed)
@@ -128,7 +128,7 @@ class Developer(
             else "`No Blacklisted Servers`"
         )
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"**Guild ID's:** {blacklisted_ids}",
         )
         await ctx.send(embed=embed)

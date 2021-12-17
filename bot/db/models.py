@@ -200,6 +200,16 @@ class Captcha(Model):
     )  # Types: Audio, Text, Picture, Arithmetic
 
 
+class Warns(Model):
+    key = fields.IntField(pk=True)
+    warn_id = fields.TextField()
+    warned_id = fields.BigIntField()
+    enabled = fields.BooleanField(default=True)
+    warner_id = fields.BigIntField()
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="Warns")
+    reason = fields.TextField(null=True)
+
+
 class Counting(Model):
     discord_id = fields.BigIntField(pk=True)
     guild = fields.ForeignKeyField("Mai.Guild", related_name="Counting")

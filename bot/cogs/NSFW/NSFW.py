@@ -86,7 +86,7 @@ class NSFW(
             embed = discord.Embed(
                 title="NSFW not allowed here",
                 description="Use NSFW commands in a NSFW marked channel.",
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
             )
             embed.set_image(url=Links.NSFW_CHANNEL_REQUIRED)
             await ctx.send(embed=embed)

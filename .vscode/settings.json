@@ -5,6 +5,7 @@
         "aiofiles",
         "aiohttp",
         "aioredis",
+        "Anilist",
         "ASGI",
         "asyncpraw",
         "awatch",

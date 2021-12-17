@@ -70,7 +70,7 @@ class Snipes(
 
         if not snipe_enabled:
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} `Snipe` Module Disabled.",
             )
             await ctx.send(embed=embed, delete_after=15)
@@ -81,14 +81,14 @@ class Snipes(
                 sniped_message = self.delete_snipes[ctx.channel]
             except KeyError:
                 embed = discord.Embed(
-                    color=Colors.ERROR_COLOR,
+                    color=Colors.ERROR,
                     description=f"{Emoji.ERROR} There are no deleted messages to snipe!",
                 )
                 await ctx.send(embed=embed, delete_after=15)
                 return
             else:
                 result = discord.Embed(
-                    color=Colors.EMBED_COLOR,
+                    color=Colors.DEFAULT,
                     description=sniped_message.content,
                     timestamp=sniped_message.created_at,
                 )
@@ -111,7 +111,7 @@ class Snipes(
 
         if not snipe_enabled:
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} `Snipe` Module Disabled.",
             )
             await ctx.send(embed=embed, delete_after=15)
@@ -125,7 +125,7 @@ class Snipes(
             )
         else:
             result = discord.Embed(
-                color=Colors.EMBED_COLOR, timestamp=after.edited_at
+                color=Colors.DEFAULT, timestamp=after.edited_at
             )
             result.add_field(name="Before", value=before.content, inline=False)
             result.add_field(name="After", value=after.content, inline=False)
@@ -162,7 +162,7 @@ class Snipes(
                 toggle = False
             elif toggle != "on" or "off":
                 embed = discord.Embed(
-                    color=Colors.ERROR_COLOR,
+                    color=Colors.ERROR,
                     description=f"{Emoji.ERROR} `toggle` expects `on`/`off`, not `{str(toggle)}`",
                 )
                 await ctx.send(embed=embed)
@@ -176,7 +176,7 @@ class Snipes(
         await snipe.save(update_fields=["enabled"])
         await snipe.refresh_from_db(fields=["enabled"])
         embed = discord.Embed(
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
             description=f"**Snipe Toggled To:** `{toggle}`",
         )
         await ctx.send(embed=embed)

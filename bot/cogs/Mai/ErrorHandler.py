@@ -37,7 +37,7 @@ class ErrorHandler(commands.Cog, command_attrs=dict(hidden=True)):
 
             embed = discord.Embed(
                 title="Active Cooldown",
-                color=Colors.EMBED_COLOR,
+                color=Colors.DEFAULT,
                 description=f"Please wait `{precise}` before reusing `{ctx.command}`\n\n__**Cooldown Reductions**__\n`•` Buy [Premium](https://google.com) for an **50%** Reduction\n`•` Vote on [top.gg](https://google.com) for a **20%** Reduction\n`•` Join Our [Support Server]({Links.SUPPORT_SERVER_INVITE}) for a **20%** Reduction",
             )
             embed.set_thumbnail(url=ctx.author.avatar.url)
@@ -51,7 +51,7 @@ class ErrorHandler(commands.Cog, command_attrs=dict(hidden=True)):
             await ctx.send(embed=embed)
         if isinstance(error, commands.CommandNotFound):
             embed = discord.Embed(
-                color=Colors.ERROR_COLOR,
+                color=Colors.ERROR,
                 description=f"{Emoji.ERROR} The command `{ctx.prefix}{ctx.command}` was not found!, If you would like this command to be added suggest it in our [support server]({Links.SUPPORT_SERVER_INVITE})",
             )
             embed.set_thumbnail(url=ctx.author.avatar.url)

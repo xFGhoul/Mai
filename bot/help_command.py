@@ -39,7 +39,7 @@ class MaiHelpCommand(commands.HelpCommand):
 
     async def send_error_message(self, error: str) -> None:
         embed = Embed(
-            title="Error :\\", description=f"{error}", color=Colors.ERROR_COLOR
+            title="Error :\\", description=f"{error}", color=Colors.ERROR
         )
         await self.dispatch_help(embed)
 
@@ -47,11 +47,9 @@ class MaiHelpCommand(commands.HelpCommand):
         self, mapping: Mapping[Optional[commands.Cog], List[commands.Command]]
     ) -> None:
         bot = self.context.bot
-        latest_news = f"`•` Dashboard Coming Soon\n`•` [Nerd](https://github.com/FrostByte266) Is Now A Core Developer\n`•` Updates Are Going To Be Slower Because Of School"
         embed = Embed(
-            title=f"{bot.user.name} Help",
-            description=f"__**{Emoji.NOTIFICATION} {bot.user.name} News**__\n{latest_news}\n\n**{Emoji.CHECKMARK} Here are all my modules!**",
-            color=Colors.EMBED_COLOR,
+            description=f"{Emoji.CHECKMARK} **Here are all my modules!**",
+            color=Colors.DEFAULT,
         )
         embed.set_author(
             name=bot.user.name,
@@ -64,6 +62,7 @@ class MaiHelpCommand(commands.HelpCommand):
             icon_url=self.context.author.avatar.url,
         )
         for cog in self.context.bot.cogs.values():
+            print(cog)
             # TODO: SEPARATE INTO CATEGORIES INSTEAD OF ALL COGS
             embed.add_field(
                 name=cog.qualified_name,
@@ -72,9 +71,7 @@ class MaiHelpCommand(commands.HelpCommand):
         await self.dispatch_help(embed)
 
     async def send_command_help(self, command: commands.Command) -> None:
-        embed = Embed(
-            title=f"Help For: `{command.name}`", color=Colors.EMBED_COLOR
-        )
+        embed = Embed(title=f"Help For: `{command.name}`", color=Colors.DEFAULT)
         embed.add_field(
             name=f"{Emoji.QUESTION} What does this command do?",
             value=command.description
@@ -111,7 +108,7 @@ class MaiHelpCommand(commands.HelpCommand):
 
     async def send_group_help(self, group: commands.Group) -> None:
         embed = Embed(
-            title=f"Help For Command: `{group.name}`", color=Colors.EMBED_COLOR
+            title=f"Help For Command: `{group.name}`", color=Colors.DEFAULT
         )
         embed.add_field(
             name=f"{Emoji.QUESTION} What does this command do?",
@@ -141,7 +138,7 @@ class MaiHelpCommand(commands.HelpCommand):
     async def send_cog_help(self, cog: commands.Cog) -> None:
         embed = Embed(
             title=f"Help For Module: `{cog.qualified_name}`",
-            color=Colors.EMBED_COLOR,
+            color=Colors.DEFAULT,
         )
         embed.add_field(
             name=f"{Emoji.QUESTION} What does this category do?",
