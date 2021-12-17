@@ -262,7 +262,9 @@ class Misc(
             inline=False,
         )
 
-        embed.set_footer(text="Made With ❤️", icon_url=ctx.author.avatar.url)
+        embed.set_footer(
+            text="Made With ❤️ By Ghoul & Nerd", icon_url=ctx.author.avatar.url
+        )
 
         await message.edit(content=None, embed=embed)
 

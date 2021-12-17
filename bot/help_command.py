@@ -61,9 +61,15 @@ class MaiHelpCommand(commands.HelpCommand):
             text=f"Requested By {self.context.author.name}",
             icon_url=self.context.author.avatar.url,
         )
-        for cog in self.context.bot.cogs.values():
-            print(cog)
-            # TODO: SEPARATE INTO CATEGORIES INSTEAD OF ALL COGS
+        usable_commands = await self.filter_commands(
+            self.context.bot.commands, sort=True
+        )
+        usable_cogs = {
+            command.cog
+            for command in usable_commands
+            if command.cog is not None
+        }
+        for cog in usable_cogs:
             embed.add_field(
                 name=cog.qualified_name,
                 value=f"`{self.context.clean_prefix}help {cog.qualified_name}`",
