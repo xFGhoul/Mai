@@ -268,7 +268,11 @@ class Misc(
 
         await message.edit(content=None, embed=embed)
 
-    @commands.command()
+    @commands.command(
+        name="math",
+        description="Execute Math",
+        brief="math 1 + 1\nmath 3p p=43",
+    )
     @commands.guild_only()
     async def math(
         self, ctx: commands.Context, expression: str, *, vars: Optional[str]

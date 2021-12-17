@@ -48,7 +48,9 @@ class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
             f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
 
-    @commands.group(name="emoji", aliases=["emote"])
+    @commands.group(
+        name="emoji", aliases=["emote"], description="Manage Guild Emojis"
+    )
     async def emoji(self, ctx: commands.Context) -> None:
         if ctx.invoked_subcommand is None:
             await self.bot.send_help(ctx.command)

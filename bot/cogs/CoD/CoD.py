@@ -20,7 +20,7 @@ from helpers.logging import log
 
 class CoD(
     commands.Cog,
-    name="coD",
+    name="CoD",
     description="Get Information About CoD Players",
 ):
     def __init__(self, bot):
