@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+ujson = "*"
+fastapi-cache2 = {extras = ["redis"], version = "*"}
+fastapi-limiter = {git = "https://github.com/long2ice/fastapi-limiter.git"}
+fastapi-discord = "*"
+fastapi-mail = "*"
+fastapi-events = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+
+[dev-packages]
+pyyaml = "*"
+rich = "*"
+itsdangerous = "*"
+
+[requires]
+python_version = "3.10"
