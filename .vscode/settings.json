@@ -49,6 +49,7 @@
         "uvicorn",
         "venv",
         "vmem",
-        "whatif"
+        "whatif",
+        "whois"
     ]
 }

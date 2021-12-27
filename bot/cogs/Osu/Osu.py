@@ -554,6 +554,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             await ctx.send(embed=embed)
 
     @commands.cooldown(1, 10, BucketType.user)
+    @commands.has_permissions(administrator=True)
     @osu.command(
         name="passive",
         description="Toggle Passive Mode",

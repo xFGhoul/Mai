@@ -17,7 +17,7 @@ from rich.logging import RichHandler
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(message)s",
+    format="[MAI] %(message)s",
     datefmt="%d/%m/%Y %I:%M:%S %p",
     handlers=[
         RichHandler(

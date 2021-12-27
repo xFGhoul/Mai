@@ -23,6 +23,7 @@ from typing import Optional
 from db.models import Guild, redis
 from helpers.constants import *
 from helpers.logging import log
+from helpers.formatting import determine_user_badges
 
 from config.ext.parser import config
 

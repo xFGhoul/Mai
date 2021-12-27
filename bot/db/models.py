@@ -166,6 +166,15 @@ class Guild(Model):
         return await cls.from_id(ctx.guild.id)
 
 
+class GuildEvent(Model):
+    id = fields.BigIntField(pk=True)
+    description = fields.TextField(default=None, unique=False)
+    old = fields.TextField(default=None, unique=False)
+    new = fields.TextField(default=None, unique=False)
+    timestamp = fields.DatetimeField(auto_now_add=True)
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="GuildEvent")
+
+
 class OSU(Model):
     id = fields.BigIntField(pk=True)
     username = fields.TextField(default=None, unique=False)
@@ -294,3 +303,18 @@ class ServerLogging(Model):
     stage_created = fields.BooleanField(default=True)
     stage_deleted = fields.BooleanField(default=True)
     stage_updated = fields.BooleanField(default=True)
+
+
+class Users(Model):
+    user_id = fields.BigIntField(pk=True)
+    api_key = fields.ForeignKeyField(
+        "Mai.Keys", related_name="Users", null=True
+    )
+
+
+class Keys(Model):
+    key_id = fields.UUIDField(pk=True)
+    enabled = fields.BooleanField(default=False)
+    level = fields.TextField(
+        default="0"
+    )  # 0 = Normal | 1 = Premium | 2 = Bot Owner

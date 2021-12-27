@@ -12,6 +12,7 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+import datetime
 
 from discord.ext import commands
 
@@ -27,7 +28,7 @@ from config.ext.parser import config
 
 class Server(
     commands.Cog,
-    name="Server Management",
+    name="Server",
     description="Manage how Mai interacts with your server",
 ):
     def __init__(self, bot):
@@ -83,6 +84,14 @@ class Server(
         if guild is not None:
             guild.prefix = prefix
             await guild.c_save(update_fields=["prefix"])
+            self.bot.dispatch(
+                "prefix_update",
+                "Guild Prefix Updated",
+                ctx.guild,
+                prefix,
+                guild.prefix,
+                datetime.datetime.utcnow(),
+            )
 
             embed = discord.Embed(
                 color=Colors.DEFAULT,
@@ -108,9 +117,18 @@ class Server(
     async def prefix_reset(self, ctx: commands.Context):
 
         guild = await Guild.c_get_or_none_by_discord_id(ctx.guild.id)
+        old_prefix = guild.prefix
         if guild is not None:
             guild.prefix = config["DEFAULT_PREFIX"]
             await guild.c_save(update_fields=["prefix"])
+            self.bot.dispatch(
+                "prefix_update",
+                "Guild Prefix Reset",
+                ctx.guild,
+                old_prefix,
+                "-",
+                datetime.datetime.utcnow(),
+            )
             embed = discord.Embed(
                 color=Colors.DEFAULT,
                 description=f"I resetted this guild's prefix to `{guild.prefix}`",

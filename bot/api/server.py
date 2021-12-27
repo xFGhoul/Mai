@@ -1,0 +1,1 @@
+# Me and Nerd(Other Core Developer) Have Decided To Switch The Way We Code The Dashboard, So The Bot Will Have An Internal API Builtin With Support For Other Users, The Backend Of The Dashboard Will Just Make Requests To This Internal API that eventually axios will represent in the frontend.
