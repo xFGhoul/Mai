@@ -21,7 +21,7 @@ from helpers.logging import log
 class TikTok(
     commands.Cog, name="TikTok", description="Get TikTok Notifications"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

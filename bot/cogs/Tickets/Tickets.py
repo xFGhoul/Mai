@@ -19,7 +19,7 @@ from helpers.logging import log
 
 
 class Tickets(commands.Cog, name="Tickets", description="Manage Tickets"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

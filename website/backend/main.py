@@ -116,7 +116,8 @@ async def discord_login():
 @cache(expire=60)
 async def discord_callback(request: Request, code: str):
     token, refresh_token = await discord.get_access_token(code)
-    return token, refresh_token
+    request.session["discord_token"] = token
+    return RedirectResponse("/api/v1/users/me")
 
 
 @app.get(
@@ -147,12 +148,21 @@ async def rate_limit_error_handler(_, e: RateLimited):
 
 @app.get(
     "/api/v1/users/me",
-    dependencies=[Depends(discord.requires_authorization)],
-    response_model=User,
+    # dependencies=[Depends(discord.requires_authorization)],
+    # response_model=User,
 )
 @cache(expire=60)
-async def get_user(request: Request, user: User = Depends(discord.user)):
-    return user
+async def get_user(request: Request):
+
+    token = request.session.get("discord_token")
+
+    if token:
+        request.headers.__dict__["_list"].append(
+            (b"authorization", f"Bearer {token}".encode())
+        )
+        return token
+    else:
+        return RedirectResponse("/auth/discord/login")
 
 
 @app.get(

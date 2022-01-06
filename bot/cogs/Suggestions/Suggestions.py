@@ -21,7 +21,7 @@ from helpers.logging import log
 class Suggestions(
     commands.Cog, name="Suggestions", description="Manage Server Suggestions"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

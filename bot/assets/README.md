@@ -27,6 +27,5 @@
 `├──`[`Images`](https://github.com/xFGhoul/Mai/blob/dev/bot/assets/Images) — Images<br>
 `├──`[`Icons`](https://github.com/xFGhoul/Mai/blob/dev/bot/assets/Icons) — Icons<br>
 `├──`[`Templates`](https://github.com/xFGhoul/Mai/blob/dev/bot/assets/Templates) — Templates(Image Manipulation)<br>
-`├──`[`json.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers/ASCII.py) — JSON Of Animated GIFS<br>
 
 > Made With ❤️ By Ghoul & Nerd

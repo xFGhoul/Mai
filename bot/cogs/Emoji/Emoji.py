@@ -36,7 +36,7 @@ from asyncio import Event
 
 
 class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.emoji_extraction_pattern = re.compile(
             r"<(a?):([a-zA-Z0-9\_]+):([0-9]+)>"
@@ -152,6 +152,72 @@ class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
                 color=0xFFFF00,
             )
         await ctx.send(embed=summary)
+
+    @emoji.command(
+        name="remove",
+        aliases=["delete", "del"],
+        description="Remove Emojis from your guild",
+        brief="emoji remove :emoji: :emoji2: :emoji3:",
+    )
+    @commands.bot_has_guild_permissions(manage_emojis=True)
+    @commands.has_guild_permissions(manage_emojis=True)
+    async def emoji_remove(
+        self, ctx: commands.Context, emojis: Greedy[discord.Emoji]
+    ) -> None:
+        for emoji in emojis:
+            await emoji.delete()
+        embed = discord.Embed(
+            color=Colors.SUCCESS, description="Removed Selected Emojis."
+        )
+        await ctx.send(embed=embed)
+
+    @emoji.command(
+        name="export",
+        description="Export ALL emojis to a zip",
+        brief="emoji export",
+    )
+    async def emoji_export(self, ctx: commands.Context) -> None:
+        pass
+
+    @emoji.command(
+        name="import", description="Import Emojis From A Zip/Tar File"
+    )
+    async def emoji_import(self, ctx: commands.Context) -> None:
+        pass
+
+    @emoji.command(
+        name="enlarge",
+        aliases=["big"],
+        description="Enlarge An Emoji To It's Original Content",
+        brief="emoji enlarge :emoji1:",
+    )
+    @commands.cooldown(1, 3, BucketType.user)
+    async def emoji_enlarge(
+        self, ctx: commands.Context, emoji: discord.PartialEmoji
+    ) -> None:
+        embed = discord.Embed(
+            color=Colors.SUCCESS, description=f"[Open In Browser]({emoji.url})"
+        )
+        embed.set_image(url=emoji.url)
+        await ctx.send(embed=embed)
+
+    @emoji.command(name="list", description="List All Server Emojis")
+    async def emoji_list(self, ctx: commands.Context) -> None:
+        pass
+
+    @emoji.command(name="rename", description="Rename An Emoji")
+    @commands.bot_has_guild_permissions(manage_emojis=True)
+    @commands.has_guild_permissions(manage_emojis=True)
+    async def emoji_rename(
+        self, ctx: commands.Context, emoji: discord.Emoji, name: str
+    ) -> None:
+        old_name = emoji.name
+        await emoji.edit(name=name)
+        embed = discord.Embed(
+            color=Colors.SUCCESS,
+            description=f"Successfully Updated Emoji:\n\n**{old_name}** -> **{emoji.name}**",
+        )
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

@@ -12,22 +12,24 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+
+from typing import Optional, Union
 from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
 
-from typing import Union
-
 from db.models import Guild
+from config.ext.parser import config
 
 
 class Developer(
     commands.Cog,
     command_attrs=dict(hidden=True),
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.blacklist_channel_id = config["SERVER_BLACKLIST_CHANNEL_ID"]
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -49,10 +51,11 @@ class Developer(
     async def add(
         self,
         ctx: commands.Context,
-        guild: Union[discord.Guild, int],
+        guild: Optional[Union[discord.Guild, int]],
         *,
-        reason: str,
+        reason: str = "No Reason Provided",
     ) -> None:
+
         if guild is None:
             await ctx.send_help(ctx.command)
             return
@@ -67,17 +70,21 @@ class Developer(
             )
             await ctx.send(embed=embed)
             return
+
         else:
-            guild.blacklisted = True
+            guild.is_bot_blacklisted = True
             await guild.save(update_fields=["is_bot_blacklisted"])
             await guild.refresh_from_db(fields=["is_bot_blacklisted"])
             await Guild.create(blacklisted_reason=reason)
+
             embed = discord.Embed(
                 color=Colors.DEFAULT,
-                description=f"`{Emoji.CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted` for `{reason}`",
+                description=f"{Emoji.CHECKMARK} `{guild.discord_id}` Has been  `blacklisted` for `{reason}`",
             )
-            await ctx.send(embed=embed)
-            await ctx.message.add_reaction(Emoji.CHECKMARK_EMOJI)
+            channel = self.bot.get_channel(self.blacklist_channel_id)
+            message = await channel.send(embed=embed)
+            await ctx.message.add_reaction(Emoji.CHECKMARK)
+            await message.add_reaction(Emoji.CHECKMARK)
 
     @blacklist.command(
         name="remove",
@@ -95,7 +102,7 @@ class Developer(
         guild_id = guild if type(guild) is int else guild.id
         guild = await Guild.get(discord_id=guild_id)
 
-        if not guild.blacklisted:
+        if not guild.is_bot_blacklisted:
             embed = discord.Embed(
                 color=Colors.ERROR,
                 description=f"{Emoji.ERROR} Guild Not Blacklisted. refer to `-help blacklist add`",
@@ -103,15 +110,18 @@ class Developer(
             await ctx.send(embed=embed)
             return
         else:
-            guild.blacklisted = False
-            await guild.save(update_fields=["blacklisted"])
-            await guild.refresh_from_db(fields=["blacklisted"])
+            guild.is_bot_blacklisted = False
+            await guild.save(update_fields=["is_bot_blacklisted"])
+            await guild.refresh_from_db(fields=["is_bot_blacklisted"])
+
             embed = discord.Embed(
                 color=Colors.DEFAULT,
-                description=f"`{Emoji.CHECKMARK_EMOJI} {guild.discord_id}` Has been successfully `blacklisted`",
+                description=f"{Emoji.CHECKMARK} `{guild.discord_id}` Has been successfully removed from `blacklist`",
             )
-            await ctx.send(embed=embed)
-            await ctx.message.add_reaction(Emoji.CHECKMARK_EMOJI)
+            channel = self.bot.get_channel(self.blacklist_channel_id)
+            message = await channel.send(embed=embed)
+            await ctx.message.add_reaction(Emoji.CHECKMARK)
+            await message.add_reaction(Emoji.CHECKMARK)
 
     @blacklist.command(
         name="list", description="List All Blacklisted Server ID's"
@@ -132,12 +142,6 @@ class Developer(
             description=f"**Guild ID's:** {blacklisted_ids}",
         )
         await ctx.send(embed=embed)
-
-    @commands.command()
-    @commands.is_owner()
-    async def createguild(self, ctx):
-        await Guild.create(discord_id=ctx.guild.id)
-        await ctx.send("ok done.")
 
 
 def setup(bot):

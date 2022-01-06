@@ -31,7 +31,7 @@ class NSFW(
     name="NSFW",
     description="NSFW(Not Safe For Work) Commands :smirk:",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.subreddits = (
             "ass",

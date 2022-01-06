@@ -23,7 +23,7 @@ class Invites(
     name="Invite Manager",
     description="See Who Really Invited Who.",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

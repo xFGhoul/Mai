@@ -21,7 +21,7 @@ from helpers.logging import log
 class Genshin(
     commands.Cog, name="Genshin", description="Get Stats About Genshin Impact"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

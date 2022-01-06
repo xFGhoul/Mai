@@ -12,10 +12,11 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import os
-import inspect
 import sys
 import discord
+import aiohttp
 import watchgod
+import inspect
 import itertools
 import traceback
 import datetime
@@ -90,6 +91,10 @@ class Mai(AutoShardedBot):
                 "__init__ expects development_mode to be provided, got None"
             )
 
+        self.session = aiohttp.ClientSession()
+
+        self.bot_owners = config["BOT_OWNERS"]
+
         self.RPC = AioPresence(config["DISCORD_ID"])
 
         self.development_mode = development_mode
@@ -138,7 +143,7 @@ class Mai(AutoShardedBot):
         intents = Intents.default()
         intents.members = True
         intents.typing = False
-        intents.presences = False
+        intents.presences = True
 
         chunk_guilds_at_startup = False
         allowed_mentions = AllowedMentions(everyone=False, roles=False)
@@ -325,20 +330,55 @@ class Mai(AutoShardedBot):
 # Defining root level commands
 bot = Mai(development_mode="development")
 
-
+# -- Base Events
 @bot.event
 async def on_guild_join(guild: discord.Guild):
     try:
         guild = await Guild.create(
             discord_id=guild.id, language="en", prefix="-"
         )
-        await ServerLogging.create(guild=guild)
-        await OSU.create(guild=guild)
         log.info(
             f"[blue3][GUILD] JOINED GUILD {guild.name}) (ID: {guild.id}) [/blue3]"
         )
     except IntegrityError:
         log.info(f"[blue3]{guild.name} ({guild.id}) Has Reinvited Mai.[/blue3]")
+
+
+# -- Bot Checks
+
+
+@bot.check
+async def is_bot_on_maintenance_mode(ctx: commands.Context):
+
+    maintenance_mode = config["MAINTENANCE_MODE"]
+    bot_name = config["BOT_NAME"]
+
+    if maintenance_mode and ctx.author.id not in bot.bot_owners:
+        embed = discord.Embed(
+            color=Colors.ERROR,
+            description=f"{Emoji.INFORMATION} {bot_name} Is Currently In Maintenance Mode, Try Again Later.",
+        )
+        await ctx.send(embed=embed)
+        return False
+    else:
+        return True
+
+
+@bot.check
+async def is_guild_blacklisted(ctx: commands.Context):
+    guild = await Guild.get(discord_id=ctx.guild.id)
+    blacklisted = guild.is_bot_blacklisted
+    bot_name = config["BOT_NAME"]
+
+    if blacklisted and ctx.author.id not in bot.bot_owners:
+        embed = discord.Embed(
+            color=Colors.ERROR,
+            description=f"{ctx.author.mention}, {ctx.guild.name} Is blacklisted from using {bot_name} for breaking [{bot_name} TOS](https://soontobeourtoslink.com)",
+        )
+        await ctx.send(embed=embed)
+        return False
+    else:
+        return True
 
 
 # -- COG RELATED COMMANDS

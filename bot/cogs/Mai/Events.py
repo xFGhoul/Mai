@@ -17,11 +17,11 @@ from discord.ext import commands
 from helpers.constants import *
 from helpers.logging import log
 
-from db.models import Guild, GuildEvent
+from db.models import Guild, GuildEvent, ServerLogging
 
 
 class Events(commands.Cog, command_attrs=dict(hidden=True)):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

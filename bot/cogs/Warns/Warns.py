@@ -26,7 +26,7 @@ from db.models import Warns, Guild
 
 
 class Warn(commands.Cog, name="Warns", description="Warn Misbehaving Members"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

@@ -29,6 +29,9 @@ roblox = "^2.0.0"
 pyfiglet = "^0.8.post1"
 "statcord.py" = "^3.1.0"
 TikTokApi = "^4.1.0"
+"nekos.py" = "^1.0.3"
+jeyyapi = {git = "https://github.com/JeyyGit/jeyyapi.git", rev = "main"}
+asyncdagpi = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 aerich = "^0.5.8"

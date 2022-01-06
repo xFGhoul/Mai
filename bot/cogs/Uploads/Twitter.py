@@ -21,7 +21,7 @@ from helpers.logging import log
 class Twitter(
     commands.Cog, name="Twitter", description="Get Tweet Notifications"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

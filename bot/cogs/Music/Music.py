@@ -21,7 +21,7 @@ from helpers.logging import log
 class Music(
     commands.Cog, name="Music", description="Play Spotify, Youtube, SoundCloud"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

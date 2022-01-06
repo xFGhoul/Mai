@@ -28,7 +28,7 @@ from db.models import Guild, Snipe
 class Snipes(
     commands.Cog, name="Snipes", description="Snipe Deleted or Edited Messages"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.delete_snipes = {}
         self.edit_snipes = {}

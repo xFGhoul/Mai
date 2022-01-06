@@ -21,7 +21,7 @@ from helpers.constants import *
 
 
 class ErrorHandler(commands.Cog, command_attrs=dict(hidden=True)):
-    def __init__(self, bot) -> None:
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     @commands.Cog.listener()

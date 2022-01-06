@@ -23,7 +23,7 @@ class CoD(
     name="CoD",
     description="Get Information About CoD Players",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

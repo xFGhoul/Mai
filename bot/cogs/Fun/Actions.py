@@ -12,9 +12,9 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
-import os
+import aiohttp
 import random
-import json
+import nekos
 
 from typing import Optional
 
@@ -24,22 +24,22 @@ from discord.ext.commands import Greedy
 from helpers.constants import *
 from helpers.logging import log
 
-from config.ext.parser import ROOT_DIR
+from config.ext.parser import config
 
 
 class Actions(commands.Cog, name="Actions", description="Fun Commands"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.json_path = "assets/actions.json"
+        self.kawaii_red_token = config["KAWAII_RED_API_TOKEN"]
 
-        with open(os.path.join(ROOT_DIR, self.json_path), "r") as json_file:
-            self.links = json.load(json_file)
-
-        self.hugs = self.links["hugs"]
-        self.slaps = self.links["slaps"]
-        self.kills = self.links["kills"]
-        self.pats = self.links["pats"]
-        self.licks = self.links["licks"]
+    async def kawaii_request(self, target: str) -> str:
+        MAIN_ENDPOINT = "https://kawaii.red/api/gif"
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                f"{MAIN_ENDPOINT}/{target}/token={self.kawaii_red_token}&type=json/"
+            ) as response:
+                json = await response.json()
+                return json["response"]
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -91,8 +91,7 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
                 description=f"{ctx.author.mention} hugged {member.mention}",
                 color=Colors.SUCCESS,
             )
-        random_link = random.choice(self.hugs)
-        embed.set_image(url=random_link)
+        embed.set_image(url=nekos.img("hug"))
         await ctx.send(embed=embed)
 
     @commands.command(
@@ -112,8 +111,7 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
                 description=f"{ctx.author.mention} pats {member.mention}",
                 color=Colors.SUCCESS,
             )
-        random_link = random.choice(self.pats)
-        embed.set_image(url=random_link)
+        embed.set_image(url=nekos.img("pat"))
         await ctx.send(embed=embed)
 
     @commands.command(
@@ -135,8 +133,7 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
                 description=f"{ctx.author.mention} KILLED {member.mention}",
                 color=Colors.SUCCESS,
             )
-        random_link = random.choice(self.kills)
-        embed.set_image(url=random_link)
+        embed.set_image(url=await self.kawaii_request("kill"))
         await ctx.send(embed=embed)
 
     @commands.command(
@@ -158,8 +155,7 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
                 description=f"{ctx.author.mention} slapped {member.mention}",
                 color=Colors.SUCCESS,
             )
-        random_link = random.choice(self.slaps)
-        embed.set_image(url=random_link)
+        embed.set_image(url=nekos.img("slap"))
         await ctx.send(embed=embed)
 
     @commands.command(
@@ -181,8 +177,7 @@ class Actions(commands.Cog, name="Actions", description="Fun Commands"):
                 description=f"{ctx.author.mention} licked {member.mention}",
                 color=Colors.SUCCESS,
             )
-        random_link = random.choice(self.licks)
-        embed.set_image(url=random_link)
+        embed.set_image(url=await self.kawaii_request("lick"))
         await ctx.send(embed=embed)
 
 

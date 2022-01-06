@@ -20,7 +20,7 @@ from helpers.logging import log
 
 
 class Leveling(commands.Cog, name="Leveling", description="Leveling System"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

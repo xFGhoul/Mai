@@ -23,7 +23,7 @@ class Automod(
     name="Auto Mod",
     description="Keep Your Server Safe From Trolls",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

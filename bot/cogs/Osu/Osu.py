@@ -63,7 +63,7 @@ class RecommendFlags(commands.FlagConverter, delimiter=" ", prefix="-"):
 
 
 class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     async def fetch_db_username(self, ctx: commands.Context) -> str:
@@ -232,7 +232,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed = discord.Embed(
                 color=Colors.DEFAULT,
-                description=f"{Emoji.CHECKMARK_EMOJI} **Successfully Updated Username To:** `{username}`",
+                description=f"{Emoji.CHECKMARK} **Successfully Updated Username To:** `{username}`",
             )
             await ctx.send(embed=embed)
         else:
@@ -241,7 +241,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
             )
             embed = discord.Embed(
                 color=Colors.DEFAULT,
-                description=f"{Emoji.CHECKMARK_EMOJI} **Successfully Created Username:** `{username}`",
+                description=f"{Emoji.CHECKMARK} **Successfully Created Username:** `{username}`",
             )
             await ctx.send(embed=embed)
 
@@ -544,7 +544,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed = discord.Embed(
                 color=Colors.DEFAULT,
-                description=f"{Emoji.CHECKMARK_EMOJI} **Successfully Updated Skin**.",
+                description=f"{Emoji.CHECKMARK} **Successfully Updated Skin**.",
             )
             embed.set_author(
                 name=ctx.author.name, icon_url=ctx.author.avatar.url
@@ -585,7 +585,7 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
 
             embed = discord.Embed(
                 color=Colors.DEFAULT,
-                description=f"{Emoji.CHECKMARK_EMOJI} **Passive set to {passive}**.",
+                description=f"{Emoji.CHECKMARK} **Passive set to {passive}**.",
             )
             embed.set_author(
                 name=ctx.author.name, icon_url=ctx.author.avatar.url

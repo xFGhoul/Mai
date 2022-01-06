@@ -23,7 +23,7 @@ class Captcha(
     name="Captcha",
     description="Prevent Bots From Raiding Your Server",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

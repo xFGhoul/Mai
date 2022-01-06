@@ -26,7 +26,7 @@ from config.ext.parser import config
 
 
 class FlagHandler(commands.Cog, command_attrs=dict(hidden=True)):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.spam_control = commands.CooldownMapping.from_cooldown(
             10, 10, commands.BucketType.user

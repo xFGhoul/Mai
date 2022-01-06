@@ -23,7 +23,7 @@ from config.ext.parser import config
 
 
 class StatCord(commands.Cog, command_attrs=dict(hidden=True)):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.statcord_api_key = config["STATCORD_API_KEY"]
         self.api = statcord.Client(self.bot, self.statcord_api_key)

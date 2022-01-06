@@ -27,7 +27,7 @@ class Roblox(
     name="Roblox",
     description="Get Player Roblox Stats, or Verify Through Roblox",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.client = Client()
 

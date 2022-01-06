@@ -19,7 +19,7 @@ from helpers.logging import log
 
 
 class Modmail(commands.Cog, name="Modmail", description="Set Up Modmail"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

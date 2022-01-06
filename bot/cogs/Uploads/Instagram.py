@@ -21,7 +21,7 @@ from helpers.logging import log
 class Instagram(
     commands.Cog, name="Instagram", description="Get Instagram Notifications"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

@@ -31,7 +31,7 @@ class Server(
     name="Server",
     description="Manage how Mai interacts with your server",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

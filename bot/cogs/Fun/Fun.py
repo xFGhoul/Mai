@@ -25,7 +25,7 @@ from config.ext.parser import config
 
 
 class Fun(commands.Cog, name="Fun", description="Fun Commands"):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.HTTP_ERROR_VALID_RANGES = (
             (100, 102),
@@ -194,25 +194,6 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
                             color=Colors.ERROR,
                         )
                         await ctx.send(embed=embed)
-
-    @commands.command(
-        name="triggered",
-        description="Return Triggered Image Of Someones Avatar",
-        brief="triggered (works with no mention)\ntriggered @Member",
-    )
-    async def triggered(
-        self, ctx: commands.Context, member: Optional[discord.Member]
-    ) -> None:
-        if not member:
-            member = ctx.author
-
-        async with ctx.channel.typing():
-            async with aiohttp.ClientSession() as session:
-                avatar = member.avatar.with_static_format("png")
-                async with session.get(
-                    f'https://some-random-api.ml/canvas/triggered?avatar={avatar}&key={config["SOME_RANDOM_API_KEY"]}'
-                ) as resp:
-                    await ctx.send(resp.url)
 
 
 def setup(bot):

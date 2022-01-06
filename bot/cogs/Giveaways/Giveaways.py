@@ -21,7 +21,7 @@ from helpers.logging import log
 class Giveaways(
     commands.Cog, name="Giveaways", description="Create Awesome Giveaways"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

@@ -23,7 +23,7 @@ class ReactionRoles(
     name="Reaction Roles",
     description="Set Up Reaction Roles Easily and Efficiently",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

@@ -32,7 +32,7 @@ class AFK(
     name="AFK",
     description="Let People Know You're Away From Discord",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

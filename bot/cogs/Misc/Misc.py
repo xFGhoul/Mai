@@ -20,10 +20,10 @@ import platform
 from discord.ext import commands
 from typing import Optional
 
-from db.models import Guild, redis
+from db.models import Guild
+from db.models import redis
 from helpers.constants import *
 from helpers.logging import log
-from helpers.formatting import determine_user_badges
 
 from config.ext.parser import config
 
@@ -74,7 +74,7 @@ class Misc(
     name="Miscellaneous",
     description="Miscellaneous commands about Mai",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

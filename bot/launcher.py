@@ -187,10 +187,12 @@ if not os.path.exists("config/config.yaml"):
         "DISCORD_TOKEN": "",
         "DISCORD_ID": "",
         "DATABASE_URI": "",
-        "BATABASE_MODEL_PATH": "",
+        "DATABASE_MODEL_PATH": "",
         "DATABASE_TIMEZONE": "",
         "DATABASE_USE_TZ": "",
         "BOT_NAME": "",
+        "BOT_OWNERS": "",
+        "SERVER_BLACKLIST_CHANNEL_ID": "",
         "RUN_LAUNCHER_WITH_EXTRA_SYS_INFO": "",
         "DEFAULT_REDIS_PATH": "",
         "REDIS_URI": "",
@@ -216,6 +218,8 @@ if not os.path.exists("config/config.yaml"):
         "X_RAPID_API_HOST": "",
         "SOME_RANDOM_API_KEY": "",
         "STATCORD_API_KEY": "",
+        "DAGPI_API_KEY": "",
+        "KAWAII_RED_API_TOKEN": "",
     }
 
     if (

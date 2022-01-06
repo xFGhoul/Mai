@@ -148,6 +148,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "asyncdagpi"
+version = "4.0.0"
+description = "An Asynchronos API wrapper for https://dagpi.xyz"
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+
+[package.dependencies]
+aiohttp = ">=3.7.3,<4.0.0"
+
+[[package]]
 name = "asyncio-extras"
 version = "1.3.2"
 description = "Asynchronous generators, context managers and more for asyncio"
@@ -751,6 +762,24 @@ test = ["pytest", "pytest-trio", "pytest-asyncio", "testpath", "trio", "async-ti
 trio = ["trio", "async-generator"]
 
 [[package]]
+name = "jeyyapi"
+version = "1.0"
+description = ""
+category = "main"
+optional = false
+python-versions = "*"
+develop = false
+
+[package.dependencies]
+aiohttp = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/JeyyGit/jeyyapi.git"
+reference = "main"
+resolved_reference = "2c5d582778fd749ded6810f4320be1919ae6686c"
+
+[[package]]
 name = "jinja2"
 version = "3.0.3"
 description = "A very fast and expressive template engine."
@@ -934,6 +963,17 @@ description = "Experimental type system extensions for programs checked with the
 category = "dev"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "nekos.py"
+version = "1.0.3"
+description = "A Python module that uses Nekos API"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = "*"
 
 [[package]]
 name = "nodeenv"
@@ -1130,7 +1170,7 @@ test = ["ipaddress", "mock", "unittest2", "enum34", "pywin32", "wmi"]
 
 [[package]]
 name = "py-cord"
-version = "2.0.0a4671+g51dd856e"
+version = "2.0.0a4748+gc602bc45"
 description = "A Python wrapper for the Discord API"
 category = "main"
 optional = false
@@ -1150,7 +1190,7 @@ voice = ["PyNaCl (>=1.3.0,<1.5)"]
 type = "git"
 url = "https://github.com/Pycord-Development/pycord.git"
 reference = "master"
-resolved_reference = "51dd856e9e07b16440790812a64eac0bf451633f"
+resolved_reference = "c602bc453450d018c5c4b876f9203431e7b5ff3b"
 
 [[package]]
 name = "py-cpuinfo"
@@ -1899,7 +1939,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "c574e1ffc6198cd30efa923deb0e9b91b8d6f565a71652962bc06a6db8a2a844"
+content-hash = "bc8101d7bf554f4489560421a7860664f931d93948526347bfb20d920ed525c3"
 
 [metadata.files]
 aerich = [
@@ -2018,6 +2058,10 @@ async-generator = [
 async-timeout = [
     {file = "async-timeout-4.0.2.tar.gz", hash = "sha256:2163e1640ddb52b7a8c80d0a67a08587e5d245cc9c553a74a847056bc2976b15"},
     {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
+]
+asyncdagpi = [
+    {file = "asyncdagpi-4.0.0-py3-none-any.whl", hash = "sha256:addad00cfb6b563606ec192cbb19ce696df5d3b671d1e4bcf0c4e54277857328"},
+    {file = "asyncdagpi-4.0.0.tar.gz", hash = "sha256:aa3c39505a163df4c6012ce76034a49b6df427d34eb9b7ac15fe63d5150faaed"},
 ]
 asyncio-extras = [
     {file = "asyncio_extras-1.3.2-py3-none-any.whl", hash = "sha256:839568ba07c3470c9aa2c441aa2417c108f7d3755862bc2bd39d69b524303993"},
@@ -2454,6 +2498,7 @@ jeepney = [
     {file = "jeepney-0.7.1-py3-none-any.whl", hash = "sha256:1b5a0ea5c0e7b166b2f5895b91a08c14de8915afda4407fb5022a195224958ac"},
     {file = "jeepney-0.7.1.tar.gz", hash = "sha256:fa9e232dfa0c498bd0b8a3a73b8d8a31978304dcef0515adc859d4e096f96f4f"},
 ]
+jeyyapi = []
 jinja2 = [
     {file = "Jinja2-3.0.3-py3-none-any.whl", hash = "sha256:077ce6014f7b40d03b47d1f1ca4b0fc8328a692bd284016f806ed0eaca390ad8"},
     {file = "Jinja2-3.0.3.tar.gz", hash = "sha256:611bb273cd68f3b993fabdc4064fc858c5b47a973cb5aa7999ec1ba405c87cd7"},
@@ -2662,6 +2707,10 @@ multidict = [
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
+]
+"nekos.py" = [
+    {file = "nekos.py-1.0.3-py3.7.egg", hash = "sha256:a47d07c7190af701851fd4f2335da319989c5ddb65b8baa3207b4bbdee05be4c"},
+    {file = "nekos.py-1.0.3.tar.gz", hash = "sha256:a909bf771799c8837f431e6980001c95fab5254508fb3317fa2ffdddfe08c04d"},
 ]
 nodeenv = [
     {file = "nodeenv-1.6.0-py2.py3-none-any.whl", hash = "sha256:621e6b7076565ddcacd2db0294c0381e01fd28945ab36bcf00f41c5daf63bef7"},

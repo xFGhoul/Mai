@@ -33,7 +33,7 @@ from db.models import Guild, ServerLogging
 class Logging(
     commands.Cog, name="Logging", description="Manage Server Logging"
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()
@@ -331,7 +331,7 @@ class Logging(
             description=f"{', '.join([channel.mention for channel in new_ignored_channels])} Are Now Being Ignored.",
         )
         await ctx.send(embed=embed)
-        await ctx.message.add_reaction(Emoji.CHECKMARK_EMOJI)
+        await ctx.message.add_reaction(Emoji.CHECKMARK)
 
     @commands.Cog.listener()
     async def on_message_edit(

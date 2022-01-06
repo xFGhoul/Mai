@@ -18,7 +18,9 @@ from helpers.constants import *
 from helpers.logging import log
 
 
-class Welcome(commands.Cog, name="Welcome", description="Welcome Members"):
+class Tags(
+    commands.Cog, name="Tags", description="Create and Manage Server Tags"
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -30,4 +32,4 @@ class Welcome(commands.Cog, name="Welcome", description="Welcome Members"):
 
 
 def setup(bot):
-    bot.add_cog(Welcome(bot))
+    bot.add_cog(Tags(bot))

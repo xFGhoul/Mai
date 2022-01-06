@@ -23,7 +23,7 @@ class Minecraft(
     name="Minecraft",
     description="Get Minecraft Player, Server and Other Stats",
 ):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.Cog.listener()
