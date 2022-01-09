@@ -21,7 +21,6 @@ from discord.ext import commands
 from typing import Optional
 
 from db.models import Guild
-from db.models import redis
 from helpers.constants import *
 from helpers.logging import log
 
@@ -139,6 +138,8 @@ class Misc(
         )
 
         redis_time_start = time.time()
+        from db.models import redis
+
         redis.ping()
         redis_time_end = time.time()
         redis_time = redis_time_end - redis_time_start

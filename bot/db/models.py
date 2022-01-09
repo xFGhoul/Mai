@@ -147,7 +147,10 @@ class Guild(Model):
     # Some Checks (soon™)
     is_bot_blacklisted = fields.BooleanField(default=False)
     blacklisted_reason = fields.TextField(default="Violating TOS", unique=False)
+
+    # Premium
     is_premium = fields.BooleanField(default=False)
+    premium_ends = fields.DatetimeField(auto_now_add=True)
 
     # Some Fields When Doing Global Checks (soon™)
     blacklisted_channels = fields.BigIntField(null=True)
