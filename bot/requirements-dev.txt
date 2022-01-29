@@ -105,7 +105,7 @@ pyee==8.2.2; python_version >= "3.7"
 pyfiglet==0.8.post1
 pygments==2.10.0; python_full_version >= "3.6.2" and python_full_version < "4.0.0" and python_version >= "3.5"
 pymdown-extensions==9.1; python_version >= "3.6"
-pynacl==1.4.0; python_full_version >= "3.8.0"
+pynacl==1.5.0; python_full_version >= "3.8.0"
 pyopenssl==21.0.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0" and python_version < "4"
 pyparsing==3.0.6; python_version >= "3.7" and python_version < "4.0"
 pypika-tortoise==0.1.2; python_version >= "3.7" and python_version < "4.0"
