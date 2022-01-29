@@ -138,7 +138,7 @@ sympy==1.9; python_version >= "3.6"
 termcolor==1.1.0; python_version >= "3.4"
 tiktokapi==4.1.0
 toml==0.10.2; python_full_version >= "3.6.1"
-tomli==1.2.3; python_version >= "3.6" and python_full_version >= "3.6.2"
+tomli==2.0.0; python_version >= "3.6" and python_full_version >= "3.6.2"
 topggpy @ git+https://github.com/top-gg/python-sdk/@master ; python_version >= "3.6"
 tortoise-orm==0.17.8; python_version >= "3.7" and python_version < "4.0"
 tqdm==4.62.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
