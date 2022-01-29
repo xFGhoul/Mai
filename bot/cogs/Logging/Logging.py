@@ -237,36 +237,7 @@ class Logging(
         toggle: Optional[Union[str, bool]],
     ):
 
-        VALID_TYPES = {
-            "message_edited",
-            "message_deleted",
-            "nickname_changed",
-            "member_updated",
-            "member_banned",
-            "member_unbanned",
-            "member_joined",
-            "member_left",
-            "role_created",
-            "role_updated",
-            "role_deleted",
-            "member_roles_changed",
-            "member_joined_voice_channel",
-            "member_left_voice_channel",
-            "server_edited",
-            "server_emojis_updated",
-            "server_stickers_updated",
-            "server_webhooks_updated",
-            "channel_created",
-            "channel_updated",
-            "channel_deleted",
-            "invite_created",
-            "invite_deleted",
-            "stage_created",
-            "stage_deleted",
-            "stage_updated",
-        }
-
-        if log not in VALID_TYPES:
+        if log not in ValidTypes.Logging:
             await ctx.send_help(ctx.command)
 
         else:

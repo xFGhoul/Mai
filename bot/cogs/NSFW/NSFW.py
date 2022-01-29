@@ -13,17 +13,16 @@ Made With ❤️ By Ghoul & Nerd
 
 import discord
 import traceback
-import pickle
-import random
-import aiofiles
 
-
+from typing import Union
 from discord.ext import commands
 from discord.ext.commands import BucketType
 
 from helpers.constants import *
 from helpers.logging import log
 from helpers.cache.reddit import RedditPostCacher
+
+from db.models import Guild
 
 
 class NSFW(
@@ -67,6 +66,15 @@ class NSFW(
         title : str
                 The title to use in the embed
         """
+        guild_model = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
+
+        if guild_model.is_nsfw_disabled:
+            embed = discord.Embed(
+                description=f"{Emoji.ERROR} `NSFW` Has Been Disabled By Sever Admins."
+            )
+            await ctx.send(embed=embed)
+            return
+
         submission = await self.cache.get_random_post(subrd)
 
         embed = discord.Embed(
@@ -153,6 +161,50 @@ class NSFW(
     @commands.is_nsfw()
     async def hentai(self, ctx: commands.Context) -> None:
         await self._reddit_sender(ctx, "hentai", "AnImE iS jUsT CaRtOoN")
+
+    @commands.group(
+        name="nsfw", invoke_without_subcommand=True, description="Manage NSFW"
+    )
+    async def nsfw(self, ctx: commands.Context) -> None:
+        if ctx.invoked_subcommand is None:
+            await ctx.send_help(ctx.command)
+            return
+
+    @commands.guild_only()
+    @commands.bot_has_permissions(manage_guild=True)
+    @nsfw.command(
+        name="toggle",
+        description="Toggle NSFW On/Off",
+        brief="nsfw toggle on\nnsfw toggle off\nnsfw toggle True\nnsfw toggle False",
+    )
+    async def nsfw_toggle(
+        self, ctx: commands.Context, toggle: Union[bool, str]
+    ) -> None:
+        guild = await Guild.get_or_none(discord_id=ctx.guild.id)
+
+        if type(toggle) is str:
+            if toggle == "on":
+                toggle = True
+            elif toggle == "off":
+                toggle = False
+            elif toggle != "on" or "off":
+                embed = discord.Embed(
+                    color=Colors.ERROR,
+                    description=f"{Emoji.ERROR} `toggle` expects `on`/`off`, not `{str(toggle)}`",
+                )
+                await ctx.send(embed=embed)
+                return
+
+        guild.is_nsfw_disabled = toggle
+        await guild.save(update_fields=["is_nsfw_disabled"])
+        await guild.refresh_from_db(fields=["is_nsfw_disabled"])
+
+        embed = discord.Embed(
+            color=Colors.DEFAULT,
+            description=f"`NSFW` **Toggled To:** `{toggle}`",
+        )
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

@@ -12,6 +12,8 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+import PycordUtils
+
 from discord.ext import commands
 
 from helpers.constants import *
@@ -23,6 +25,7 @@ class Music(
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.music = PycordUtils.Music()
 
     @commands.Cog.listener()
     async def on_ready(self):

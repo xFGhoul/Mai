@@ -1,24 +1,34 @@
 @echo off
 
-cls
+echo [*] Starting Build Process
 
 cd ..
 
 cd ..
 
 echo -------------------------------------
+
+echo [*] Initializing TORTOISE_CONFIG
 
 aerich init -t db.tortoise.config.tortoise_config.TORTOISE_CONFIG
 
-echo .
+echo [*] TORTOISE_CONFIG Initialized
 
 echo -------------------------------------
+
+echo [*] Monkeypatching Aerich Error
 
 fart.exe aerich.ini ./migrations migrations
 
+echo [*] Aerich Error Monkeypatched
+
 echo -------------------------------------
 
+echo [*] Initializing Database
+
 aerich init-db
+
+echo [*] Database Initialized
 
 echo -------------------------------------
 

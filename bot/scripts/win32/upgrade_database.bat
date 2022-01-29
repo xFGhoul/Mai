@@ -1,18 +1,30 @@
 @echo off
 
-cls
+echo [*] Starting Upgrade Process
 
 cd ..
 
 cd ..
 
 echo -------------------------------------
+
+echo [*] Starting Migrate Process
 
 aerich migrate
 
-aerich upgrade
+echo [*] Migrating Done
 
 echo -------------------------------------
+
+echo [*] Starting Upgrade Process
+
+aerich upgrade
+
+echo [*] Upgrade Done
+
+echo -------------------------------------
+
+echo [*] Database Upgraded
 
 PAUSE
 EXIT

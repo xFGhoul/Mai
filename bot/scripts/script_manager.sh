@@ -1,4 +1,3 @@
 #!/bin/bash
 
-
-poetry run python script_manager.py
+python script_manager.py

@@ -152,6 +152,7 @@ class Misc(
             text="Developer: Ghoul#6066", icon_url=Links.BOT_AVATAR_URL
         )
         await message.edit(content=None, embed=pEmbed)
+        await message.add_reaction(Emoji.WHITE_CHECKMARK)
 
     @commands.command(name="uptime", description="Get Mai's Uptime")
     @commands.cooldown(1, 2, commands.BucketType.user)

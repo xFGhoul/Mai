@@ -1,3 +1,3 @@
 #!/bin/bash
 
-poetry run python launcher.py
+python launcher.py

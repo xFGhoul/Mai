@@ -1,3 +1,3 @@
 @echo off
 
-poetry run python script_manager.py
+python script_manager.py

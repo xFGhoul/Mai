@@ -31,7 +31,9 @@ from InquirerPy import inquirer
 from helpers import ASCII
 
 from config.ext.parser import config
+
 from helpers.console import console
+from helpers.constants import ConfigMapping
 
 ascii = ASCII()
 
@@ -183,44 +185,7 @@ if not os.path.exists("config/config.yaml"):
 
     console.print("[blue3]> STARTING CONFIG GENERATOR[/blue3]\n")
 
-    conf = {
-        "DISCORD_TOKEN": "",
-        "DISCORD_ID": "",
-        "DATABASE_URI": "",
-        "DATABASE_MODEL_PATH": "",
-        "DATABASE_TIMEZONE": "",
-        "DATABASE_USE_TZ": "",
-        "BOT_NAME": "",
-        "BOT_OWNERS": "",
-        "SERVER_BLACKLIST_CHANNEL_ID": "",
-        "RUN_LAUNCHER_WITH_EXTRA_SYS_INFO": "",
-        "DEFAULT_REDIS_PATH": "",
-        "REDIS_URI": "",
-        "OSU_API_V1_KEY": "",
-        "OSU_API_V2_CLIENT_ID": "",
-        "OSU_API_V2_CLIENT_SECRET": "",
-        "OSU_API_V2_CLIENT_CALLBACK_URL": "",
-        "BITLY_API_TOKEN": "",
-        "DEFAULT_PREFIX": "",
-        "BOT_VERSION": "",
-        "BOT_LOGS_CHANNEL_ID": "",
-        "RPC_ENABLED": "",
-        "RPC_LARGE_IMAGE": "",
-        "RPC_LARGE_TEXT": "",
-        "RPC_SMALL_IMAGE": "",
-        "RPC_SMALL_TEXT": "",
-        "PRAW_ID": "",
-        "PRAW_SECRET": "",
-        "YOUTUBE_API_KEY": "",
-        "TWITCH_API_ID": "",
-        "TWITCH_API_SECRET": "",
-        "X_RAPID_API_KEY": "",
-        "X_RAPID_API_HOST": "",
-        "SOME_RANDOM_API_KEY": "",
-        "STATCORD_API_KEY": "",
-        "DAGPI_API_KEY": "",
-        "KAWAII_RED_API_TOKEN": "",
-    }
+    conf = ConfigMapping.YAML
 
     if (
         str(

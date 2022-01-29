@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clear
+echo [*] Starting Upgrade Process
 
 cd ..
 
@@ -8,13 +8,22 @@ cd ..
 
 echo -------------------------------------
 
+echo [*] Starting Migrate Process
 
 aerich migrate
 
-aerich upgrade
-
+echo [*] Migrating Done
 
 echo -------------------------------------
 
-sleep 5
+echo [*] Starting Upgrade Process
+
+aerich upgrade
+
+echo [*] Upgrade Done
+
+echo -------------------------------------
+
+echo [*] Database Upgraded
+
 exit

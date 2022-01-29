@@ -146,6 +146,7 @@ class Guild(Model):
 
     # Some Checks (soon™)
     is_bot_blacklisted = fields.BooleanField(default=False)
+    is_nsfw_disabled = fields.BooleanField(default=True)
     blacklisted_reason = fields.TextField(default="Violating TOS", unique=False)
 
     # Premium
@@ -176,6 +177,18 @@ class GuildEvent(Model):
     new = fields.TextField(default=None, unique=False)
     timestamp = fields.DatetimeField(auto_now_add=True)
     guild = fields.ForeignKeyField("Mai.Guild", related_name="GuildEvent")
+
+
+class Invite(Model):
+    id = fields.BigIntField(pk=True)
+    inviter_id = fields.BigIntField()
+    invite_count_total = fields.IntField(default=0)
+    invite_count_bonus = fields.IntField(default=0)
+    invite_count_left = fields.IntField(default=0)
+    max_account_age = fields.IntField(default=3)  # 3 = 3 days
+    channel_id = fields.BigIntField(default=None, null=True)
+    enabled = fields.BooleanField(default=True)
+    guild = fields.ForeignKeyField("Mai.Guild", related_name="Invites")
 
 
 class OSU(Model):

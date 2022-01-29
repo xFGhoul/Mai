@@ -28,10 +28,14 @@
     &nbsp;&nbsp;&nbsp;`├──`[`build_database.bat`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/win32/build_database.bat) — Builds Tortoise Database<br>
     &nbsp;&nbsp;&nbsp;`├──`[`rebuild_database.bat`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/win32/rebuild_database.bat) — Cleans Old Files And Builds Database<br>
     &nbsp;&nbsp;&nbsp;`├──`[`upgrade_database.bat`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/win32/upgrade_database.bat) — Updates Tables<br>
+    &nbsp;&nbsp;&nbsp;`├──`[`update_requirements.bat`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/win32/update_database.bat) - Update Requirements<br>
+    &nbsp;&nbsp;&nbsp;`├──`[`update_requirements_dev.bat`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/win32/update_database_dev.bat) - Update Requirements (Dev Version)<br>
 `├──`[`linux`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/linux) — Linux Scripts<br>
     &nbsp;&nbsp;&nbsp;`├──`[`build_database.sh`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/linux/build_database.sh) — Builds Tortoise Database<br>
     &nbsp;&nbsp;&nbsp;`├──`[`rebuild_database.sh`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/linux/rebuild_database.sh) — Cleans Old Files And Builds Database<br>
     &nbsp;&nbsp;&nbsp;`├──`[`upgrade_database.sh`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/linux/upgrade_database.sh) — Updates Tables<br>
+    &nbsp;&nbsp;&nbsp;`├──`[`update_requirements.sh`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/linux/update_database.sh) - Update Requirements<br>
+    &nbsp;&nbsp;&nbsp;`├──`[`update_requirements_dev.sh`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/linux/update_database_dev.sh) - Update Requirements (Dev Version)<br>
 `├──`[`script_manager.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/script_manager.py) — Script Manager<br>
     `├──`[`script_manager.sh`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/script_manager.sh) — Shell Script To Execute `script_manager.py`<br>
     `├──`[`script_manager.bat`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts/script_manager.bat) — Batch Script To Execute `script_manager.py`<br>

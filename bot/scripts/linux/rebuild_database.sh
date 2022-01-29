@@ -1,54 +1,51 @@
 #!/bin/bash
 
-clear
-
-echo Rebuilding Database
+echo [*] Starting Rebuild Process
 
 cd ..
 
 cd ..
 
-echo --------------------------------------
+echo -------------------------------------
 
-echo REMOVING MIGRATIONS DIRECTORY
+echo [*] Removing Migrations Directory
 
 rmdir migrations
 
-echo REMOVED MIGRATIONS DIRECTORY
+echo [*] Migrations Directory Removed
 
 echo -------------------------------------
 
-echo DELETING AERICH.INI
+echo [*] Remvoing aerich.ini
 
 rm aerich.ini
 
-echo REMOVED AERICH.INI
+echo [*] aerich.ini Removed
 
 echo -------------------------------------
 
-echo INITALIZING TORTOISE_CONFIG
+echo [*] Initializing TORTOISE_CONFIG
 
 aerich init -t db.tortoise.config.tortoise_config.TORTOISE_CONFIG
 
-echo INITALIZED TORTOISE_CONFIG
+echo [*] TORTOISE_CONFIG Intialized
 
 echo -------------------------------------
 
-echo MONKEYPATCHING AERICH ERROR
+echo [*] Monkeypatching aerich.ini Error
 
-fart.ext aerich.ini ./migrations migrations
+fart.exe aerich.ini ./migrations migrations
 
-echo MONKEYPATCHED AERICH ERROR
+echo [*] aerich.ini Error Monkeypatched
 
 echo -------------------------------------
 
-echo INITALIZING DATABASE
+echo [*] Initializing Database
 
 aerich init-db
 
-echo INITALIZED DATABASE.
+echo [*] Database Intialized
 
 echo -------------------------------------
 
-sleep 5
 exit

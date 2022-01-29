@@ -57,36 +57,7 @@ def format_logging_model(model: ServerLogging) -> Embed:
         Embed representing all settings of the logging system
     """
     embed = Embed(color=Colors.DEFAULT)
-    VALID_TYPES = {
-        "channel_created",
-        "channel_deleted",
-        "channel_updated",
-        "member_banned",
-        "member_joined",
-        "member_joined_voice_channel",
-        "member_left",
-        "member_left_voice_channel",
-        "member_roles_changed",
-        "member_unbanned",
-        "member_updated",
-        "message_deleted",
-        "message_edited",
-        "nickname_changed",
-        "role_created",
-        "role_deleted",
-        "role_updated",
-        "server_edited",
-        "server_emojis_updated",
-        "server_stickers_updated",
-        "server_webhooks_updated",
-        "invite_created",
-        "invite_deleted",
-        "stage_created",
-        "stage_deleted",
-        "stage_updated",
-    }
-
-    grouped = groupby(sorted(VALID_TYPES), key=lambda k: k.split("_")[0])
+    grouped = groupby(sorted(ValidTypes.Logging), key=lambda k: k.split("_")[0])
     for group_name, contents in grouped:
         group_title = group_name.title()
         settings = "\n".join(

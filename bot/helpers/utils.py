@@ -10,7 +10,7 @@
 Made With ❤️ By Ghoul & Nerd
 
 """
-
+import aiohttp
 import pyshorteners
 
 from pyshorteners.exceptions import (
@@ -45,3 +45,30 @@ async def shorten_url(url: str) -> str:
         log.error("[red]ERROR WHEN TRYING TO SHORTEN URL.[/red]")
 
     return shortened_url
+
+
+async def get_scam_links() -> str:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            "https://raw.githubusercontent.com/DevSpen/scam-links/master/src/links.txt"
+        ) as response:
+            text = await response.text()
+            return text
+
+
+async def get_malicious_links() -> str:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            "https://raw.githubusercontent.com/DevSpen/scam-links/master/src/malicious-terms.txt"
+        ) as response:
+            text = await response.text()
+            return text
+
+
+async def get_trailing_links() -> str:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            "https://raw.githubusercontent.com/DevSpen/scam-links/master/src/trailing-slashes.txt"
+        ) as response:
+            text = await response.text()
+            return text

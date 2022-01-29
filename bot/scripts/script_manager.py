@@ -61,7 +61,13 @@ if terminal == "CMD/Powershell":
 
     script = inquirer.select(
         message="What Script Would You Like To Execute?",
-        choices=["build_database", "rebuild_database", "upgrade_database"],
+        choices=[
+            "build_database",
+            "rebuild_database",
+            "upgrade_database",
+            "update_requirements",
+            "update_requirements_dev",
+        ],
     ).execute()
 
     console.print(
@@ -82,7 +88,13 @@ elif terminal == "Bash":
 
     script = inquirer.select(
         message="What Script Would You Like To Execute?",
-        choices=["build_database", "rebuild_database", "upgrade_database"],
+        choices=[
+            "build_database",
+            "rebuild_database",
+            "upgrade_database",
+            "update_requirements",
+            "update_requirements_dev",
+        ],
     ).execute()
 
     console.print(

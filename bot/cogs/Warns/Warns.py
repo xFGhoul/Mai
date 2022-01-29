@@ -63,7 +63,7 @@ class Warn(commands.Cog, name="Warns", description="Warn Misbehaving Members"):
 
         guild = (await Guild.get_or_create(discord_id=ctx.guild.id))[0]
 
-        if len(reason) > 350:
+        if len(reason) > Limitations.MAX_WARNING_REASON:
             embed = discord.Embed(
                 color=Colors.ERROR,
                 description=f"{Emoji.ERROR} Reason Must Be Below `350` Characters.",
