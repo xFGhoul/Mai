@@ -24,7 +24,6 @@
 
 <h3 align="center">Files And Explanations</h3>
 
-Folders
 `├──`[`.github`](https://github.com/xFGhoul/Mai/blob/dev/bot/.github) — GitHub configuration including CI/CD workflows<br>
 `├──`[`.vscode`](https://github.com/xFGhoul/Mai/blob/dev/bot/.vscode) — VSCode Related Settings and Extension Recommendations<br>
 `├──`[`assets`](https://github.com/xFGhoul/Mai/blob/dev/bot/assets) — Icons, Images, Templates<br>
@@ -34,7 +33,7 @@ Folders
 `├──`[`docs`](https://github.com/xFGhoul/Mai/blob/dev/bot/docs) — Documentation<br>
 `├──`[`helpers`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers) — Utilities<br>
 `├──`[`locales`](https://github.com/xFGhoul/Mai/blob/dev/bot/locales) — Translations<br>
-`├──`[`scripts`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts) — Utility Scripts><br
+`├──`[`scripts`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts) — Utility Scripts><br>
 `├──`[`views`](https://github.com/xFGhoul/Mai/blob/dev/bot/views) — discord UI Views<br>
 
 `├──`[`mai.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/mai.py) — Bread and Butter<br>
