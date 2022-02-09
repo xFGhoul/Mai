@@ -35,37 +35,7 @@ from sympy.parsing.sympy_parser import (
     implicit_multiplication,
 )
 
-
-class Invite(discord.ui.View):
-    def __init__(self):
-        super().__init__()
-
-        self.add_item(
-            discord.ui.Button(label="Invite the Bot!", url=Links.BOT_INVITE_URL)
-        )
-
-
-class SupportServer(discord.ui.View):
-    def __init__(self):
-        super().__init__()
-
-        self.add_item(
-            discord.ui.Button(
-                label="Support Server", url=Links.SUPPORT_SERVER_INVITE
-            )
-        )
-
-
-class Source(discord.ui.View):
-    def __init__(self):
-        super().__init__()
-
-        self.add_item(
-            discord.ui.Button(
-                label="View The Source Code",
-                url=Links.BOT_SOURCE_CODE_URL,
-            )
-        )
+from views.info import Invite, SupportServer, Source
 
 
 class Misc(
@@ -318,6 +288,25 @@ class Misc(
             )
         embed.add_field(name="Result", value=result, inline=False)
         await message.edit(content=None, embed=embed)
+
+    @commands.command(
+        name="avatar", description="Get Avatar of a User", aliases=["av"]
+    )
+    async def avatar(self, ctx: commands.Context, user: discord.Member = None):
+        if not user:
+            user = ctx.author
+
+        embed = discord.Embed(
+            description=f"[[Open In Browser]({user.avatar.url})]",
+            colour=Colors.DEFAULT,
+        )
+        embed.set_author(
+            name=user, url=user.avatar.url, icon_url=user.avatar.url
+        )
+        embed.set_image(url=user.avatar.url)
+        embed.set_footer(text=f"Requested by {ctx.author}")
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):

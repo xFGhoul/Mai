@@ -1,6 +1,7 @@
 # Cache
 __pycache__
 cogs/NSFW/cache
+.cache
 
 # Database
 migrations/

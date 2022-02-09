@@ -156,45 +156,6 @@ class Fun(commands.Cog, name="Fun", description="Fun Commands"):
             )
             await ctx.send(embed=embed)
 
-    @commands.command(
-        name="lyrics",
-        description="Get Lyrics To A Song",
-        brief="lyrics Rap God\nlyrics This Side Of Paradise",
-    )
-    async def lyrics(
-        self, ctx: commands.Context, *, song_name: Optional[str]
-    ) -> None:
-
-        async with ctx.channel.typing():
-            async with aiohttp.ClientSession() as session:
-                async with session.get(
-                    f'https://some-random-api.ml/lyrics?title={song_name}&key={config["SOME_RANDOM_API_KEY"]}'
-                ) as resp:
-                    response = await resp.json()
-                    lyrics = response["lyrics"]
-                    author = response["author"]
-                    title = response["title"]
-
-                    embed = discord.Embed(
-                        title=f"Lyrics for the song **{title}**",
-                        description=lyrics,
-                        colour=discord.Colour.red(),
-                        timestamp=ctx.message.created_at,
-                    )
-                    embed.set_footer(text=f"Author: {author}")
-                    embed.set_author(
-                        name=ctx.author.name, icon_url=ctx.author.avatar.url
-                    )
-                    try:
-                        await ctx.send(embed=embed)
-                    except Exception:
-                        embed = discord.Embed(
-                            title="An Unexpected error occurred :cry:",
-                            description="```Lyrics's text exceeds discord limit!```",
-                            color=Colors.ERROR,
-                        )
-                        await ctx.send(embed=embed)
-
 
 def setup(bot):
     bot.add_cog(Fun(bot))

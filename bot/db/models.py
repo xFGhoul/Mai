@@ -151,7 +151,6 @@ class Guild(Model):
 
     # Premium
     is_premium = fields.BooleanField(default=False)
-    premium_ends = fields.DatetimeField(auto_now_add=True)
 
     # Some Fields When Doing Global Checks (soon™)
     blacklisted_channels = fields.BigIntField(null=True)

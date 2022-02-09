@@ -72,6 +72,9 @@ class Emoji:
     REDIS = "<:redis:919271191569637426>"
     DISCORD = "<:discord:919271214097235978>"
     POSTGRESQL = "<:postgresql:919271276265226290>"
+    YOUTUBE = "<:youtube:938807020059000842>"
+    SPOTIFY = "<:spotify:938804909913018438>"
+    SOUNDCLOUD = "<:soundcloud:938804829659222036>"
 
 
 # -- OSU EMOJIS
@@ -127,6 +130,8 @@ class ConfigMapping:
         "PRAW_ID": "",
         "PRAW_SECRET": "",
         "YOUTUBE_API_KEY": "",
+        "SPOTIFY_CLIENT_ID": "",
+        "SPOTIFY_CLIENT_SECRET": "",
         "TWITCH_API_ID": "",
         "TWITCH_API_SECRET": "",
         "X_RAPID_API_KEY": "",

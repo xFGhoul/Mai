@@ -51,6 +51,7 @@ pyshorteners = "^1.0.1"
 halo = "^0.0.31"
 py-cpuinfo = "^8.0.0"
 rich = "^10.10.0"
+spotbee = "^0.6.0"
 tortoise-orm = {extras = ["asyncpg"], version = "^0.17.7"}
 fuzzywuzzy = {extras = ["speedup"], version = "^0.18.0"}
 jishaku = {git = "https://github.com/Gorialis/jishaku", rev = "master"}
