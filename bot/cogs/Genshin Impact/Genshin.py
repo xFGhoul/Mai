@@ -16,10 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class Genshin(
-    commands.Cog, name="Genshin", description="Get Stats About Genshin Impact"
+    Cog,
+    name="Genshin",
+    description="Get Stats About Genshin Impact",
+    emoji=Emoji.GENSHIN_IMPACT,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

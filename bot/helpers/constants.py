@@ -45,6 +45,8 @@ class Emoji:
     LOADING_DOTS = "<a:loading_dots:879815965234311238>"
     QUESTION = "<a:what:891444829668667432>"
     NOTIFICATION = "<a:notification:897869079086514227>"
+    TWITCH_ANIMATION = "<a:twitchstreaming:945721261265408070>"
+    GIVEAWAY = "<a:giveaway:945751649652191293>"
 
     # STATIC EMOJIS
     CHANNEL = "<:channel:897868496443158639>"
@@ -75,6 +77,31 @@ class Emoji:
     YOUTUBE = "<:youtube:938807020059000842>"
     SPOTIFY = "<:spotify:938804909913018438>"
     SOUNDCLOUD = "<:soundcloud:938804829659222036>"
+    TWITTER = "<:twitter:945720710783971338>"
+    INSTAGRAM = "<:instagram:945720858268291182>"
+    TWITCH = "<:twitch:945721231603281970>"
+    TIKTOK = "<:tiktok:945721504597934080>"
+    GENSHIN_IMPACT = "<:genshinimpact:945747628891725834>"
+    ANILIST = "<:Anilist:945747535807529021>"
+    MY_ANIME_LIST = "<:MyAnimeList:945747485291319397>"
+    ECONOMY = "<:economy:945747383092912188>"
+    AFK = "<:AFK:945747339212128287>"
+    SNIPER = "<:sniper:945728578677506128>"
+    TAG = "<:tag:945728326000066600>"
+    POLLS = "<:polls:945729635105251388>"
+    ROBLOX = "<:roblox:945729388333383690>"
+    OSU = "<:osu:945730029827031102>"
+    MINECRAFT = "<:minecraft:945731420880535652>"
+    MUSIC = "<:music:945730564978245682>"
+    NSFW = "<:nsfwchannel:945730258332680223>"
+    LEVELING = "<:leveling:945750872992923738>"
+    IMAGE = "<:image:945751323272437800>"
+    COUNTING = "<:counting:945752433005588552>"
+    CAPTCHA = "<:captcha:945752861290139759>"
+    COD = "<:CoD:945752936888287253>"
+    TOPGG = "<:topgg:945754227102351400>"
+    STATCORD = "<:statcord:945754289521963079>"
+    CHANGELOGS = "<:changelogs:945754392190132245>"
 
 
 # -- OSU EMOJIS
@@ -171,6 +198,8 @@ class ValidTypes:
         "stage_created",
         "stage_deleted",
         "stage_updated",
+        "warn_created",
+        "warn_deleted",
     }
 
 
@@ -196,3 +225,7 @@ class Limitations:
             MAX_FIELD_VALUE = 1024
             MAX_FOOTER_SIZE = 4096
             MAX_DESCRIPTION_SIZE = 4096
+
+
+class Mai:
+    SUPPORT_SERVER_ID = 889542746027741194

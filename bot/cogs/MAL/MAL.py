@@ -16,12 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class MyAnimeList(
-    commands.Cog,
+    Cog,
     name="MAL",
     description="Get Info About Your Favorite Anime, Characters And Other Stuff!",
+    emoji=Emoji.MY_ANIME_LIST,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

@@ -16,12 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class ReactionRoles(
-    commands.Cog,
+    Cog,
     name="Reaction Roles",
     description="Set Up Reaction Roles Easily and Efficiently",
+    emoji=Emoji.MEMBERS,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

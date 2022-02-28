@@ -16,10 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class Suggestions(
-    commands.Cog, name="Suggestions", description="Manage Server Suggestions"
+    Cog,
+    name="Suggestions",
+    description="Manage Server Suggestions",
+    emoji=Emoji.WHITE_CHECKMARK,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

@@ -21,11 +21,17 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 from db.models import Warns, Guild
 
 
-class Warn(commands.Cog, name="Warns", description="Warn Misbehaving Members"):
+class Warn(
+    Cog,
+    name="Warns",
+    description="Warn Misbehaving Members",
+    emoji=Emoji.DISCORD_OFFICIAL_MODERATOR,
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -71,12 +77,23 @@ class Warn(commands.Cog, name="Warns", description="Warn Misbehaving Members"):
             await ctx.send(embed=embed, delete_after=15)
             return
 
+        warn_id = str(uuid.uuid4())
+
         warn = await Warns.create(
             guild=guild,
             warned_id=member.id,
             warner_id=ctx.author.id,
             reason=reason,
-            warn_id=str(uuid.uuid4()),
+            warn_id=warn_id,
+        )
+
+        self.bot.dispatch(
+            "warn_create",
+            guild=ctx.guild,
+            warned=member,
+            warner=ctx.author,
+            reason=reason,
+            warn_id=warn_id,
         )
 
         embed = discord.Embed(
@@ -114,6 +131,13 @@ class Warn(commands.Cog, name="Warns", description="Warn Misbehaving Members"):
         else:
             await Warns.filter(guild=guild, warn_id=to_clear).delete()
             clear_message = f"Cleared Warning: `{to_clear}`"
+
+        self.bot.dispatch(
+            "warn_delete",
+            guild=ctx.guild,
+            warned=to_clear.id if type(to_clear) is discord.Member else "None",
+            warner=ctx.author,
+        )
 
         embed.add_field(
             name="Warning Cleared", value=clear_message, inline=False

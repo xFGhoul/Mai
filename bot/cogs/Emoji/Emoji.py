@@ -31,11 +31,14 @@ from discord.ext.commands import Greedy, BucketType
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 from asyncio import Event
 
 
-class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
+class Emojis(
+    Cog, name="Emoji", description="Helpful Emoji Utilities", emoji=Emoji.IMAGE
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.emoji_extraction_pattern = re.compile(
@@ -221,4 +224,4 @@ class Emoji(commands.Cog, name="Emoji", description="Helpful Emoji Utilities"):
 
 
 def setup(bot):
-    bot.add_cog(Emoji(bot))
+    bot.add_cog(Emojis(bot))

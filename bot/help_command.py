@@ -10,6 +10,7 @@
 Made With ❤️ By Ghoul & Nerd
 
 """
+import re
 
 import humanize
 import datetime
@@ -20,6 +21,7 @@ from discord import Embed
 from discord.ext import commands
 
 from helpers.constants import *
+from helpers.custommeta import CustomCog
 
 from config.ext.parser import config
 
@@ -44,7 +46,7 @@ class MaiHelpCommand(commands.HelpCommand):
         await self.dispatch_help(embed)
 
     async def send_bot_help(
-        self, mapping: Mapping[Optional[commands.Cog], List[commands.Command]]
+        self, mapping: Mapping[Optional[CustomCog], List[commands.Command]]
     ) -> None:
         bot = self.context.bot
         embed = Embed(
@@ -71,7 +73,7 @@ class MaiHelpCommand(commands.HelpCommand):
         }
         for cog in usable_cogs:
             embed.add_field(
-                name=cog.qualified_name,
+                name=f"{cog.emoji} {cog.qualified_name}",
                 value=f"`{self.context.clean_prefix}help {cog.qualified_name}`",
             )
         await self.dispatch_help(embed)
@@ -141,9 +143,9 @@ class MaiHelpCommand(commands.HelpCommand):
         )
         await self.dispatch_help(embed)
 
-    async def send_cog_help(self, cog: commands.Cog) -> None:
+    async def send_cog_help(self, cog: CustomCog) -> None:
         embed = Embed(
-            title=f"Help For Module: `{cog.qualified_name}`",
+            title=f"Help For Module: {cog.emoji} `{cog.qualified_name}`",
             color=Colors.DEFAULT,
         )
         embed.add_field(

@@ -16,9 +16,15 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
-class Modmail(commands.Cog, name="Modmail", description="Set Up Modmail"):
+class Modmail(
+    Cog,
+    name="Modmail",
+    description="Set Up Modmail",
+    emoji=Emoji.DISCORD_OFFICIAL_MODERATOR,
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 

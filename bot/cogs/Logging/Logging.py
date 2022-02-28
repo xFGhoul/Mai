@@ -26,12 +26,13 @@ from discord import AuditLogAction, AuditLogEntry
 from helpers.constants import *
 from helpers.logging import log
 from helpers.formatting import format_logging_model
+from helpers.custommeta import CustomCog as Cog
 
 from db.models import Guild, ServerLogging
 
 
 class Logging(
-    commands.Cog, name="Logging", description="Manage Server Logging"
+    Cog, name="Logging", description="Manage Server Logging", emoji=":pencil:"
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -122,11 +123,11 @@ class Logging(
         [ServerLogging]
             The Specified Guild Model
         """
-        guild = await Guild.get_or_none(discord_id=guild_id)
+        guild = (await Guild.get_or_create(discord_id=guild_id))[0]
 
-        logging = (await ServerLogging.get_or_create(guild=guild))[0]
+        logging_model = (await ServerLogging.get_or_create(guild=guild))[0]
 
-        return logging
+        return logging_model
 
     @commands.group(
         invoke_without_subcommand=True, description="Manage Logging"

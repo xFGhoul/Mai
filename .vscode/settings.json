@@ -1,5 +1,7 @@
 {
     "python.formatting.provider": "black",
+    "python.languageServer": "Pylance",
+    "python.analysis.completeFunctionParens": true,
     "cSpell.words": [
         "aerich",
         "aiofiles",
@@ -62,6 +64,8 @@
         "STATCORD",
         "subrd",
         "sympy",
+        "TIKTOK",
+        "TOPGG",
         "topggpy",
         "typer",
         "unban",

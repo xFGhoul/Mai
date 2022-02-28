@@ -13,13 +13,17 @@ Made With ❤️ By Ghoul & Nerd
 
 
 import discord
+
 from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
-class Leveling(commands.Cog, name="Leveling", description="Leveling System"):
+class Leveling(
+    Cog, name="Leveling", description="Leveling System", emoji=Emoji.LEVELING
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 

@@ -21,14 +21,16 @@ from discord.ext.commands import BucketType
 from helpers.constants import *
 from helpers.logging import log
 from helpers.cache.reddit import RedditPostCacher
+from helpers.custommeta import CustomCog as Cog
 
 from db.models import Guild
 
 
 class NSFW(
-    commands.Cog,
+    Cog,
     name="NSFW",
     description="NSFW(Not Safe For Work) Commands :smirk:",
+    emoji=Emoji.NSFW,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

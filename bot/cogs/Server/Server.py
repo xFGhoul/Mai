@@ -24,12 +24,14 @@ from helpers.logging import log
 from db.models import Guild
 
 from config.ext.parser import config
+from helpers.custommeta import CustomCog as Cog
 
 
 class Server(
-    commands.Cog,
+    Cog,
     name="Server",
     description="Manage how Mai interacts with your server",
+    emoji=Emoji.DISCORD_EMPLOYEE,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

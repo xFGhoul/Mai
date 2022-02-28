@@ -33,7 +33,7 @@
 `├──`[`docs`](https://github.com/xFGhoul/Mai/blob/dev/bot/docs) — Documentation<br>
 `├──`[`helpers`](https://github.com/xFGhoul/Mai/blob/dev/bot/helpers) — Utilities<br>
 `├──`[`locales`](https://github.com/xFGhoul/Mai/blob/dev/bot/locales) — Translations<br>
-`├──`[`scripts`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts) — Utility Scripts><br>
+`├──`[`scripts`](https://github.com/xFGhoul/Mai/blob/dev/bot/scripts) — Utility Scripts<br>
 `├──`[`views`](https://github.com/xFGhoul/Mai/blob/dev/bot/views) — discord UI Views<br>
 
 `├──`[`mai.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/mai.py) — Bread and Butter<br>

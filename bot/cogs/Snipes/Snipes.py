@@ -21,12 +21,16 @@ from typing import Union
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 from db.models import Guild, Snipe
 
 
 class Snipes(
-    commands.Cog, name="Snipes", description="Snipe Deleted or Edited Messages"
+    Cog,
+    name="Snipes",
+    description="Snipe Deleted or Edited Messages",
+    emoji=Emoji.SNIPER,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

@@ -21,8 +21,10 @@ from discord.ext import commands
 from typing import Optional
 
 from db.models import Guild
+
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 from config.ext.parser import config
 
@@ -38,10 +40,11 @@ from sympy.parsing.sympy_parser import (
 from views.info import Invite, SupportServer, Source
 
 
-class Misc(
-    commands.Cog,
-    name="Miscellaneous",
+class Miscellaneous(
+    Cog,
+    name="Misc",
     description="Miscellaneous commands about Mai",
+    emoji=Emoji.QUESTION,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -52,7 +55,9 @@ class Misc(
             f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
 
-    @commands.command(name="invite", description="Get An Invite To The Bot")
+    @commands.command(
+        name="invite", description="Get An Invite To The Bot", brief="invite"
+    )
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def invite(self, ctx: commands.Context) -> None:
@@ -61,7 +66,9 @@ class Misc(
         )
 
     @commands.command(
-        name="support", description="Get An Invite To The Bot Support Server"
+        name="support",
+        description="Get An Invite To The Bot Support Server",
+        brief="invite",
     )
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
@@ -72,13 +79,14 @@ class Misc(
         name="source",
         aliases=["src"],
         description="Get An Link To The Bot's Source Code",
+        brief="source",
     )
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def source(self, ctx: commands.Context) -> None:
         await ctx.send("Here is your link", view=Source())
 
-    @commands.command(name="ping", description="pong")
+    @commands.command(name="ping", description="pong", brief="ping")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def ping(self, ctx: commands.Context) -> None:
@@ -124,7 +132,9 @@ class Misc(
         await message.edit(content=None, embed=pEmbed)
         await message.add_reaction(Emoji.WHITE_CHECKMARK)
 
-    @commands.command(name="uptime", description="Get Mai's Uptime")
+    @commands.command(
+        name="uptime", description="Get Mai's Uptime", brief="uptime"
+    )
     @commands.cooldown(1, 2, commands.BucketType.user)
     @commands.guild_only()
     async def uptime(self, ctx: commands.Context) -> None:
@@ -147,7 +157,7 @@ class Misc(
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="info", description="Get bot stats")
+    @commands.command(name="info", description="Get bot stats", brief="stats")
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def stats(self, ctx: commands.Context) -> None:
@@ -290,7 +300,10 @@ class Misc(
         await message.edit(content=None, embed=embed)
 
     @commands.command(
-        name="avatar", description="Get Avatar of a User", aliases=["av"]
+        name="avatar",
+        description="Get Avatar of a User",
+        aliases=["av"],
+        brief="av",
     )
     async def avatar(self, ctx: commands.Context, user: discord.Member = None):
         if not user:
@@ -308,6 +321,109 @@ class Misc(
 
         await ctx.send(embed=embed)
 
+    @commands.command(
+        name="banner",
+        description="Get Banner of User",
+        brief="banner @Member\nbanner",
+    )
+    async def banner(self, ctx: commands.Context, user: discord.Member = None):
+        if not user:
+            user = ctx.author
+
+        user = await self.bot.fetch_user(user.id)
+
+        if not user.banner:
+            embed = discord.Embed(
+                color=Colors.ERROR,
+                description=f"{Emoji.ERROR} {user.mention} has no banner!",
+            )
+            await ctx.send(embed=embed)
+            return
+
+        if user.banner.is_animated():
+            gif = user.banner.with_format("gif").url
+            embed = discord.Embed(
+                description=f"[[Open In Browser]({gif})]", color=Colors.DEFAULT
+            )
+            embed.set_image(url=gif)
+            embed.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=ctx.author.avatar.url,
+            )
+            await ctx.send(embed=embed)
+        else:
+            static = user.banner.with_format("png").url
+            embed = discord.Embed(
+                description=f"[[Open In Browser]({static})]",
+                color=Colors.DEFAULT,
+            )
+            embed.set_image(url=static)
+            embed.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=ctx.author.avatar.url,
+            )
+            await ctx.send(embed=embed)
+
+    @commands.command(
+        name="serverbanner",
+        description="Get Server Banner",
+        brief="serverbanner",
+    )
+    @commands.guild_only()
+    async def serverbanner(self, ctx: commands.Context):
+        if not ctx.guild.banner:
+            embed = discord.Embed(
+                color=Colors.ERROR,
+                description=f"{Emoji.ERROR} `{ctx.guild.name}` has no banner!",
+            )
+            await ctx.send(embed=embed)
+            return
+
+        if ctx.guild.banner.is_animated():
+            gif = ctx.guild.banner.with_format("gif").url
+            embed = discord.Embed(
+                description=f"[[Open In Browser]({gif})]", color=Colors.DEFAULT
+            )
+            embed.set_image(url=gif)
+            embed.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=ctx.author.avatar.url,
+            )
+            await ctx.send(embed=embed)
+        else:
+            static = ctx.guild.banner.with_format("png").url
+            embed = discord.Embed(
+                description=f"[[Open In Browser]({static})]",
+                color=Colors.DEFAULT,
+            )
+            embed.set_image(url=static)
+            embed.set_footer(
+                text=f"Requested by {ctx.author}",
+                icon_url=ctx.author.avatar.url,
+            )
+            await ctx.send(embed=embed)
+
+    @commands.command(
+        name="servericon", description="Get Server Icon", brief="servericon"
+    )
+    @commands.guild_only()
+    async def servericon(self, ctx: commands.Context):
+        embed = discord.Embed(
+            description=f"[[Open In Browser]({ctx.guild.icon.url})]",
+            colour=Colors.DEFAULT,
+        )
+        embed.set_author(
+            name=ctx.guild.name,
+            url=ctx.guild.icon.url,
+            icon_url=ctx.guild.icon.url,
+        )
+        embed.set_image(url=ctx.guild.icon.url)
+        embed.set_footer(
+            text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url
+        )
+
+        await ctx.send(embed=embed)
+
 
 def setup(bot):
-    bot.add_cog(Misc(bot))
+    bot.add_cog(Miscellaneous(bot))

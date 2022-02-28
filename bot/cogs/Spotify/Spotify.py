@@ -21,9 +21,14 @@ from jeyyapi import JeyyAPIClient
 from helpers.constants import *
 from helpers.logging import log
 
+from helpers.custommeta import CustomCog as Cog
+
 
 class Spotify(
-    commands.Cog, name="Spotify", description="Get Spotify Information"
+    Cog,
+    name="Spotify",
+    description="Get Spotify Information",
+    emoji=Emoji.SPOTIFY,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -46,23 +51,24 @@ class Spotify(
         if member is None:
             member = ctx.author
 
-        spotify = discord.utils.find(
-            lambda a: isinstance(a, discord.Spotify), member.activities
-        )
-
-        if spotify is None:
-            embed = discord.Embed(
-                color=Colors.ERROR,
-                description=f"{Emoji.ERROR} **{member}** is not listening or connected to Spotify.",
+        async with ctx.channel.typing():
+            spotify = discord.utils.find(
+                lambda a: isinstance(a, discord.Spotify), member.activities
             )
-            return await ctx.send(embed=embed)
 
-        image = await self.jeyyapi_client.spotify_from_object(spotify)
+            if spotify is None:
+                embed = discord.Embed(
+                    color=Colors.ERROR,
+                    description=f"{Emoji.ERROR} **{member}** is not listening or connected to Spotify.",
+                )
+                return await ctx.send(embed=embed)
 
-        await ctx.send(
-            f"> **{member}** is listening to **{spotify.title}**",
-            file=discord.File(image, f"{member.name}-spotify.png"),
-        )
+            image = await self.jeyyapi_client.spotify_from_object(spotify)
+
+            await ctx.send(
+                f"> **{member}** is listening to **{spotify.title}**",
+                file=discord.File(image, f"{member.name}-spotify.png"),
+            )
 
 
 def setup(bot):

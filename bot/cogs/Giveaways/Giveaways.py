@@ -16,10 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class Giveaways(
-    commands.Cog, name="Giveaways", description="Create Awesome Giveaways"
+    Cog,
+    name="Giveaways",
+    description="Create Awesome Giveaways",
+    emoji=Emoji.GIVEAWAY,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

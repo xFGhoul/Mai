@@ -12,6 +12,9 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+import datetime
+
+from typing import Union
 from discord.ext import commands
 
 from helpers.constants import *
@@ -48,6 +51,68 @@ class Events(commands.Cog, command_attrs=dict(hidden=True)):
             new=new_prefix,
             timestamp=timestamp,
         )
+
+    @commands.Cog.listener()
+    async def on_warn_create(
+        self,
+        guild: discord.Guild,
+        warned: discord.Member,
+        warner: discord.Member,
+        reason: str,
+        warn_id: str,
+    ) -> None:
+        _guild = await Guild.get_or_none(discord_id=guild.id)
+
+        logging = await ServerLogging.get_or_none(guild=_guild)
+
+        channel_id = logging.channel_id
+
+        channel = self.bot.get_channel(channel_id)
+
+        embed = discord.Embed(
+            color=Colors.DEFAULT,
+            timestamp=datetime.datetime.utcnow(),
+            description=f"{Emoji.DISCORD_OFFICIAL_MODERATOR} {warned.mention} Has Been Warned By {warner.mention}",
+        )
+        embed.set_author(name=warned.name, icon_url=warned.avatar.url)
+        embed.set_thumbnail(url=guild.icon.url)
+        embed.add_field(name="Moderator", value=warner.mention)
+        embed.add_field(name="Reason", value=reason)
+        embed.add_field(name="Warn ID", value=f"`{warn_id}`", inline=False)
+        embed.set_footer(
+            icon_url=warner.avatar.url, text=f"Mod ID: {warner.id}"
+        )
+        await channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_warn_delete(
+        self,
+        guild: discord.Guild,
+        warned: Union[str, int],
+        warner: discord.Member,
+    ) -> None:
+        _guild = await Guild.get_or_none(discord_id=guild.id)
+
+        logging = await ServerLogging.get_or_none(guild=_guild)
+
+        channel_id = logging.channel_id
+
+        channel = self.bot.get_channel(channel_id)
+
+        warned = await self.bot.get_or_fetch_user(warned)
+
+        embed = discord.Embed(
+            color=Colors.DEFAULT,
+            timestamp=datetime.datetime.utcnow(),
+            description=f"{Emoji.DISCORD_OFFICIAL_MODERATOR} {warner.mention} Removed All Warns For {warned.mention}",
+        )
+        embed.set_author(name=warned.name, icon_url=warned.avatar.url)
+        embed.set_thumbnail(url=guild.icon.url)
+        embed.add_field(name="Moderator", value=warner.mention)
+        embed.set_footer(
+            icon_url=warner.avatar.url, text=f"Mod ID: {warner.id}"
+        )
+        await channel.send(embed=embed)
 
 
 def setup(bot):

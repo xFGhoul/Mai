@@ -22,15 +22,17 @@ from discord.ext.commands import BucketType
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 from db.models import Guild, AFKModel
 
 
 class AFK(
-    commands.Cog,
+    Cog,
     name="AFK",
     description="Let People Know You're Away From Discord",
+    emoji=Emoji.AFK,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

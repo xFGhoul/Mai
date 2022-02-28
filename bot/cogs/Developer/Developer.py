@@ -18,14 +18,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 from db.models import Guild
 from config.ext.parser import config
 
 
 class Developer(
-    commands.Cog,
-    command_attrs=dict(hidden=True),
+    Cog, command_attrs=dict(hidden=True), emoji=Emoji.DISCORD_EMPLOYEE
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

@@ -18,11 +18,17 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 from db.models import Guild
 
 
-class ChangeLogPoster(commands.Cog):
+class ChangeLogs(
+    Cog,
+    name="ChangeLogs",
+    description="View Changelogs of Mai",
+    emoji=Emoji.CHANGELOGS,
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -144,4 +150,4 @@ class ChangeLogPoster(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(ChangeLogPoster(bot))
+    bot.add_cog(ChangeLogs(bot))

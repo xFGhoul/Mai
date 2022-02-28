@@ -20,11 +20,12 @@ from typing import Optional, Union
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 from config.ext.parser import config
 
 
-class Fun(commands.Cog, name="Fun", description="Fun Commands"):
+class Fun(Cog, name="Fun", description="Fun Commands", emoji=Emoji.INFORMATION):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.HTTP_ERROR_VALID_RANGES = (

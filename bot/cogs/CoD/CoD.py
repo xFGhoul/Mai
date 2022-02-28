@@ -12,16 +12,19 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import discord
+
 from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class CoD(
-    commands.Cog,
+    Cog,
     name="CoD",
     description="Get Information About CoD Players",
+    emoji=Emoji.COD,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

@@ -16,9 +16,12 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
-class Tickets(commands.Cog, name="Tickets", description="Manage Tickets"):
+class Tickets(
+    Cog, name="Tickets", description="Manage Tickets", emoji=":tickets:"
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 

@@ -16,12 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class Automod(
-    commands.Cog,
+    Cog,
     name="Auto Mod",
     description="Keep Your Server Safe From Trolls",
+    emoji=Emoji.DISCORD_OFFICIAL_MODERATOR,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

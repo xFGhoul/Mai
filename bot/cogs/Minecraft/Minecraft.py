@@ -16,12 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class Minecraft(
-    commands.Cog,
+    Cog,
     name="Minecraft",
     description="Get Minecraft Player, Server and Other Stats",
+    emoji=Emoji.MINECRAFT,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

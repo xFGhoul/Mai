@@ -144,6 +144,7 @@ class Mai(AutoShardedBot):
         intents.members = True
         intents.typing = False
         intents.presences = True
+        intents.message_content = True
 
         chunk_guilds_at_startup = False
         allowed_mentions = AllowedMentions(everyone=False, roles=False)
@@ -162,7 +163,6 @@ class Mai(AutoShardedBot):
             **kwargs,
         )
         self.load_extensions()
-        self.load_extension("jishaku")
 
     async def determine_prefix(
         self, bot: commands.Bot, message: discord.Message

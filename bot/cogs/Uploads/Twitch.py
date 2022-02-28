@@ -16,12 +16,14 @@ from discord.ext import commands
 
 from helpers.constants import *
 from helpers.logging import log
+from helpers.custommeta import CustomCog as Cog
 
 
 class Twitch(
-    commands.Cog,
+    Cog,
     name="Twitch",
     description="See When Your Favorite Twitch Streamer Goes Live",
+    emoji=Emoji.TWITCH,
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

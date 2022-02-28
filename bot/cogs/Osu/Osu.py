@@ -35,6 +35,7 @@ from db.models import OSU, Guild
 from helpers.constants import *
 from helpers.logging import log
 from helpers.utils import shorten_url
+from helpers.custommeta import CustomCog as Cog
 
 from tortoise.exceptions import TransactionManagementError
 
@@ -62,7 +63,9 @@ class RecommendFlags(commands.FlagConverter, delimiter=" ", prefix="-"):
     mods: Optional[str]  # DTHDHRFL
 
 
-class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
+class Osu(
+    Cog, name="Osu!", description="Helpful osu! Commands.", emoji=Emoji.OSU
+):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -378,8 +381,6 @@ class Osu(commands.Cog, name="Osu!", description="Helpful osu! Commands."):
         user_recents_v2 = osu_v2.user_scores(user.id, type_="recent")
 
         user_recent = user_recents_v2[0]
-
-        print(user_recent)
 
         pp = round(user_recent.pp, 2) if user_recent.pp is not None else "0"
 

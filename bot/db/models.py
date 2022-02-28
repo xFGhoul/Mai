@@ -319,6 +319,10 @@ class ServerLogging(Model):
     stage_deleted = fields.BooleanField(default=True)
     stage_updated = fields.BooleanField(default=True)
 
+    # Warn Events
+    warn_created = fields.BooleanField(default=True)
+    warn_deleted = fields.BooleanField(default=True)
+
 
 class Users(Model):
     user_id = fields.BigIntField(pk=True)
