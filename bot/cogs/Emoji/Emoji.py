@@ -51,10 +51,8 @@ class Emojis(
             f"[bright_green][EXTENSION][/bright_green][blue3] {type(self).__name__} READY[/blue3]"
         )
 
-    @commands.group(
-        name="emoji", aliases=["emote"], description="Manage Guild Emojis"
-    )
-    async def emoji(self, ctx: commands.Context) -> None:
+    @commands.group(name="emote", description="Manage Guild Emojis")
+    async def emote(self, ctx: commands.Context) -> None:
         if ctx.invoked_subcommand is None:
             await self.bot.send_help(ctx.command)
 
@@ -91,7 +89,7 @@ class Emojis(
         return match is not None
 
     @commands.has_guild_permissions(manage_emojis=True)
-    @emoji.command(
+    @emote.command(
         name="add",
         description="Add Multiple Emojis To A Server",
         brief="add :emoji1: :emoji2: :emoji3:",
@@ -156,7 +154,7 @@ class Emojis(
             )
         await ctx.send(embed=summary)
 
-    @emoji.command(
+    @emote.command(
         name="remove",
         aliases=["delete", "del"],
         description="Remove Emojis from your guild",
@@ -174,7 +172,7 @@ class Emojis(
         )
         await ctx.send(embed=embed)
 
-    @emoji.command(
+    @emote.command(
         name="export",
         description="Export ALL emojis to a zip",
         brief="emoji export",
@@ -182,13 +180,13 @@ class Emojis(
     async def emoji_export(self, ctx: commands.Context) -> None:
         pass
 
-    @emoji.command(
+    @emote.command(
         name="import", description="Import Emojis From A Zip/Tar File"
     )
     async def emoji_import(self, ctx: commands.Context) -> None:
         pass
 
-    @emoji.command(
+    @emote.command(
         name="enlarge",
         aliases=["big"],
         description="Enlarge An Emoji To It's Original Content",
@@ -204,11 +202,11 @@ class Emojis(
         embed.set_image(url=emoji.url)
         await ctx.send(embed=embed)
 
-    @emoji.command(name="list", description="List All Server Emojis")
+    @emote.command(name="list", description="List All Server Emojis")
     async def emoji_list(self, ctx: commands.Context) -> None:
         pass
 
-    @emoji.command(name="rename", description="Rename An Emoji")
+    @emote.command(name="rename", description="Rename An Emoji")
     @commands.bot_has_guild_permissions(manage_emojis=True)
     @commands.has_guild_permissions(manage_emojis=True)
     async def emoji_rename(
