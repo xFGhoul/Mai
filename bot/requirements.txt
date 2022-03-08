@@ -40,7 +40,7 @@ inquirerpy==0.3.1; python_version >= "3.7" and python_version < "4.0"
 jeepney==0.7.1; sys_platform == "linux" and python_version >= "3.7"
 jeyyapi @ git+https://github.com/JeyyGit/jeyyapi.git@main
 keyring==23.4.0; python_version >= "3.7"
-lz4==3.1.10; python_version >= "3.7"
+lz4==4.0.0; python_version >= "3.7"
 mpmath==1.2.1; python_version >= "3.6"
 multidict==5.2.0; python_version >= "3.6"
 nekos.py==1.0.3
