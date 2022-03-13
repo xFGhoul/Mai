@@ -31,6 +31,12 @@ class Links:
     BOT_SOURCE_CODE_URL = "https://github.com/xFGhoul/Mai"
     SUPPORT_SERVER_INVITE = "https://discord.gg/AZQpDFFtqK"
     BOT_DOCUMENTATION_URL = "https://xfghoul.github.io/Mai/"
+    TERMS_OF_SERVICE = (
+        "https://gist.github.com/xFGhoul/51b5bb0991cb55853dcf5b97da5bff77"
+    )
+    PRIVACY_POLICY = (
+        "https://gist.github.com/xFGhoul/390a9f57fa9393f7f0ca62ffc6c68b59"
+    )
     NSFW_CHANNEL_REQUIRED = "https://i.imgur.com/oe4iK5i.gif"
 
 
@@ -135,6 +141,7 @@ class ConfigMapping:
         "DATABASE_MODEL_PATH": "",
         "DATABASE_TIMEZONE": "",
         "DATABASE_USE_TZ": "",
+        "USE_DOCKER": "",
         "BOT_NAME": "",
         "BOT_OWNERS": "",
         "SERVER_BLACKLIST_CHANNEL_ID": "",
@@ -167,6 +174,8 @@ class ConfigMapping:
         "STATCORD_API_KEY": "",
         "DAGPI_API_KEY": "",
         "KAWAII_RED_API_TOKEN": "",
+        "GENIUS_API_TOKEN": "",
+        "API_FLASH_TOKEN": "",
     }
 
 
@@ -229,3 +238,5 @@ class Limitations:
 
 class Mai:
     SUPPORT_SERVER_ID = 889542746027741194
+    GHOUL_DISCORD_ID = 433026067050266634
+    NERD_DISCORD_ID = 186202944461471745

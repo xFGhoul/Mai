@@ -5,15 +5,12 @@ from typing import Optional
 
 from fastapi import FastAPI
 
-from ..db.models import Guild
-
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    guild = await Guild.get_or_none(discord_id=806599466604953641).values()
-    return {"Guild Information": guild}
+    return {"Content": "Hello World"}
 
 
 if __name__ == "__main__":

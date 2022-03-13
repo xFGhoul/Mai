@@ -41,11 +41,17 @@ from tortoise.exceptions import TransactionManagementError
 
 osu_v1 = osutools.OsuClientV1(config["OSU_API_V1_KEY"])
 
-osu_v2 = OssapiV2(
-    config["OSU_API_V2_CLIENT_ID"],
-    config["OSU_API_V2_CLIENT_SECRET"],
-    config["OSU_API_V2_CLIENT_CALLBACK_URL"],
-)
+if config["USE_DOCKER"]:
+    osu_v2 = OssapiV2(
+        config["OSU_API_V2_CLIENT_ID"],
+        config["OSU_API_V2_CLIENT_SECRET"],
+    )
+else:
+    osu_v2 = OssapiV2(
+        config["OSU_API_V2_CLIENT_ID"],
+        config["OSU_API_V2_CLIENT_SECRET"],
+        config["OSU_API_V2_CLIENT_CALLBACK_URL"],
+    )
 
 
 class StatsFlags(commands.FlagConverter, delimiter=" ", prefix="-"):

@@ -11,6 +11,8 @@ Made With ❤️ By Ghoul & Nerd
 
 """
 
+import io
+import aiohttp
 import discord
 import humanize
 import time
@@ -48,6 +50,7 @@ class Miscellaneous(
 ):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.SS_FORMAT = "jpeg"
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -157,7 +160,12 @@ class Miscellaneous(
 
         await ctx.send(embed=embed)
 
-    @commands.command(name="info", description="Get bot stats", brief="stats")
+    @commands.command(
+        name="info",
+        aliases=["stats"],
+        description="Get bot stats",
+        brief="stats",
+    )
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.guild_only()
     async def stats(self, ctx: commands.Context) -> None:
@@ -174,7 +182,12 @@ class Miscellaneous(
 
         embed.set_thumbnail(url=Links.BOT_AVATAR_URL)
 
-        developers = "Developers: `Ghoul#6066`, `Nerd#4271`"
+        if ctx.guild.id == Mai.SUPPORT_SERVER_ID:
+            ghoul = ctx.guild.get_member(Mai.GHOUL_DISCORD_ID)
+            nerd = ctx.guild.get_member(Mai.NERD_DISCORD_ID)
+            developers = f"Developers: {ghoul.mention}, {nerd.mention}"
+        else:
+            developers = "Developers: `Ghoul#6066`, `Nerd#4271`"
 
         embed.add_field(
             name=f"{Emoji.OWNER} Developers",
@@ -423,6 +436,48 @@ class Miscellaneous(
         )
 
         await ctx.send(embed=embed)
+
+    @commands.command(
+        name="screenshot",
+        aliases=["ss"],
+        description="Take A Screenshot Of An Website",
+        brief="screenshot https://google.com\nss https://google.com",
+        extras={"Notes": "**ONLY** `http://` and `https://` are supported."},
+    )
+    @commands.guild_only()
+    async def screenshot(
+        self, ctx: commands.Context, url: str, delay: Optional[int]
+    ) -> None:
+        if delay is None:
+            delay = 1
+
+        embed = discord.Embed(
+            color=Colors.DEFAULT,
+            description=f"[`{url}`]({url})",
+            timestamp=datetime.utcnow(),
+        )
+        embed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+
+        async with ctx.typing():
+            async with aiohttp.ClientSession() as session:
+                params = {
+                    "access_key": config["API_FLASH_TOKEN"],
+                    "url": url,
+                    "format": self.SS_FORMAT,
+                    "fresh": "true",
+                    "quality": 100,
+                    "delay": delay,
+                    "response_type": "json",
+                }
+                async with session.get(
+                    "https://api.apiflash.com/v1/urltoimage", params=params
+                ) as response:
+
+                    json = await response.json()
+                    url = json["url"]
+
+                    embed.set_image(url=url)
+                    await ctx.send(embed=embed)
 
 
 def setup(bot):

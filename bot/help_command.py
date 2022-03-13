@@ -93,13 +93,23 @@ class MaiHelpCommand(commands.HelpCommand):
             inline=False,
         )
 
-        examples = (
-            f"`{command.brief}`"
-            if command.brief is not None
-            else "No Examples."
-        )
+        examples = f"`{command.brief}`"
 
-        embed.add_field(name="Examples", value=examples, inline=False)
+        if command.brief:
+            has_examples = True
+        else:
+            has_examples = False
+
+        if command.extras["Notes"]:
+            has_notes = True
+        else:
+            has_notes = False
+
+        if has_examples:
+            embed.add_field(name="Examples", value=examples, inline=False)
+
+        if has_notes:
+            embed.add_field(name="Extra Notes", value=command.extras["Notes"])
 
         if command._buckets._cooldown is None:
             embed.add_field(

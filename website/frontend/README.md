@@ -21,9 +21,7 @@
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [Yarn](https://yarnpkg.com/)
-
-> Webpack, Jest, Emotion soon™
-
+- [TailWindCSS](https://tailwindcss.com)
 ## Requirements
 
 - [Node.js](https://nodejs.org/) v14 or newer, [Yarn](https://yarnpkg.com/) package manager

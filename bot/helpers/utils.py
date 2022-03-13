@@ -13,6 +13,8 @@ Made With ❤️ By Ghoul & Nerd
 import aiohttp
 import pyshorteners
 
+from typing import Tuple, List
+
 from pyshorteners.exceptions import (
     BadAPIResponseException,
     BadURLException,
@@ -72,3 +74,28 @@ async def get_trailing_links() -> str:
         ) as response:
             text = await response.text()
             return text
+
+
+async def is_scam_link(link: str) -> bool:
+    async with aiohttp.ClientSession() as session:
+        params = {"link": link}
+        async with session.get(
+            "https://spen.tk/api/v1/isScamLink", params=params
+        ) as response:
+            json = await response.json()
+
+            if json["result"] == "true":
+                return True
+            else:
+                return False
+
+
+async def get_malicious_terms(text: str) -> Tuple[bool, List]:
+    async with aiohttp.ClientSession() as session:
+        params = {"text": text}
+        async with session.get(
+            "https://spen.tk/api/v1/isMaliciousTerm", params=params
+        ) as response:
+            json = await response.json()
+
+            return json["hasMatch"], json["matches"]

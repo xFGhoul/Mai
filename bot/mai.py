@@ -210,7 +210,8 @@ class Mai(AutoShardedBot):
     @tasks.loop(seconds=15)
     async def rich_presence(self) -> None:
         rpc_enabled = config["RPC_ENABLED"]
-        if rpc_enabled == True:
+        docker_enabled = config["USE_DOCKER"]
+        if rpc_enabled == True and docker_enabled == False:
             await self.RPC.update(
                 details=f"{len(self.guilds)} Guilds",
                 state=f"{len(self.users)} Users",

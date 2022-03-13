@@ -35,6 +35,18 @@ from config.ext.parser import config
 from helpers.console import console
 from helpers.constants import ConfigMapping
 
+
+console.print(
+    "[red]-----------------------------------------------------------------[/red"
+)
+raise DeprecationWarning(
+    "[MAI] THIS LAUNCHER IS DEPRECATED AND SHOULD NOT BE USED"
+)
+console.print(
+    "[red]-----------------------------------------------------------------[/red"
+)
+
+
 ascii = ASCII()
 
 
