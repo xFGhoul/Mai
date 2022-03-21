@@ -12,13 +12,11 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import os
-import sys
 import subprocess
-
-from InquirerPy import inquirer
+import sys
 
 from helpers.console import console
-
+from InquirerPy import inquirer
 
 WINDOW_TITLE = "[Mai] - Script Manager"
 
@@ -65,8 +63,6 @@ if terminal == "CMD/Powershell":
             "build_database",
             "rebuild_database",
             "upgrade_database",
-            "update_requirements",
-            "update_requirements_dev",
         ],
     ).execute()
 
@@ -92,8 +88,6 @@ elif terminal == "Bash":
             "build_database",
             "rebuild_database",
             "upgrade_database",
-            "update_requirements",
-            "update_requirements_dev",
         ],
     ).execute()
 

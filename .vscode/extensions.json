@@ -30,6 +30,7 @@
         "gruntfuggly.todo-tree",
         "visualstudioexptteam.intellicode-api-usage-examples",
         "tushortz.python-extended-snippets",
-        "twixes.pypi-assistant"
+        "twixes.pypi-assistant",
+        "njqdev.vscode-python-typehint"
 	]
 }

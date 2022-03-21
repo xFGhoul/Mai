@@ -16,11 +16,11 @@ echo [*] Migrations Directory Removed
 
 echo -------------------------------------
 
-echo [*] Remvoing aerich.ini
+echo [*] Remvoing pyproject.toml
 
-del aerich.ini
+del pyproject.toml
 
-echo [*] aerich.ini Removed
+echo [*] pyproject.toml Removed
 
 echo -------------------------------------
 
@@ -32,11 +32,11 @@ echo [*] TORTOISE_CONFIG Intialized
 
 echo -------------------------------------
 
-echo [*] Monkeypatching aerich.ini Error
+echo [*] Monkeypatching Aerich Error
 
-fart.exe aerich.ini ./migrations migrations
+fart.exe pyproject.toml ./migrations migrations
 
-echo [*] aerich.ini Error Monkeypatched
+echo [*] Aerich Error Monkeypatched
 
 echo -------------------------------------
 

@@ -12,17 +12,14 @@ Made With ❤️ By Ghoul & Nerd
 """
 
 import asyncio
-import aioredis
 
+import aioredis
+from config.ext.parser import config
 from discord import Guild as GuildModel
 from discord.ext.commands import Context
-
-
 from tortoise import fields
 from tortoise.expressions import F
 from tortoise.models import Model
-
-from config.ext.parser import config
 
 aioredis.util._converters[bool] = lambda x: b"1" if x else b"0"
 redis: aioredis.Redis
@@ -326,9 +323,17 @@ class ServerLogging(Model):
 
 class Users(Model):
     user_id = fields.BigIntField(pk=True)
+    commands_run = fields.BigIntField(default=0, null=True)
+    tracking_enabled = fields.BooleanField(default=True)
     api_key = fields.ForeignKeyField(
         "Mai.Keys", related_name="Users", null=True
     )
+
+    async def increment(self, increase_no: int = 1):
+        self.commands_run = F("commands_run") + increase_no
+        await self.save(update_fields=["commands_run"])
+        await self.refresh_from_db(fields=["commands_run"])
+        return self.commands_run
 
 
 class Keys(Model):
@@ -337,3 +342,12 @@ class Keys(Model):
     level = fields.TextField(
         default="0"
     )  # 0 = Normal | 1 = Premium | 2 = Bot Owner
+
+
+class Reports(Model):
+    id = fields.BigIntField(pk=True)
+    report_message = fields.TextField(default=None, null=True)
+    report_type = fields.TextField(
+        default=None, null=True
+    )  # Guild | User | Bug
+    report_id = fields.TextField(default=None, null=True)

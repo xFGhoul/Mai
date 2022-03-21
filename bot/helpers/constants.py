@@ -108,6 +108,7 @@ class Emoji:
     TOPGG = "<:topgg:945754227102351400>"
     STATCORD = "<:statcord:945754289521963079>"
     CHANGELOGS = "<:changelogs:945754392190132245>"
+    REPORT = "<:CH_BadgeBugHunter:795849415993720832>"
 
 
 # -- OSU EMOJIS
@@ -176,6 +177,7 @@ class ConfigMapping:
         "KAWAII_RED_API_TOKEN": "",
         "GENIUS_API_TOKEN": "",
         "API_FLASH_TOKEN": "",
+        "AZREAL_API_TOKEN": "",
     }
 
 
@@ -240,3 +242,9 @@ class Mai:
     SUPPORT_SERVER_ID = 889542746027741194
     GHOUL_DISCORD_ID = 433026067050266634
     NERD_DISCORD_ID = 186202944461471745
+
+    SUPPORT_SERVER_BAN_APPEAL = "https://docs.google.com/forms/d/e/1FAIpQLSe3-YwwlFPiWecKL73Y8YQyFHlrgThHfy544okQ7hD34b3kQw/viewform"
+    USER_BAN_APPEAL = "https://docs.google.com/forms/d/e/1FAIpQLSdI-NW2dtvLx5s7JIInGtUnhGw5Hqbfrl1Xdw_VNYLWWWohAg/viewform"
+    GUILD_BAN_APPEAL = "https://docs.google.com/forms/d/e/1FAIpQLSfaW0A8LnzWCmQblkwS_uve_grnYz97ZJQIw9BkeUpLQB27xg/viewform"
+
+    REPORT_CHANNEL_ID = 955258448981942322

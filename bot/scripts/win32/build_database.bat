@@ -18,7 +18,7 @@ echo -------------------------------------
 
 echo [*] Monkeypatching Aerich Error
 
-fart.exe aerich.ini ./migrations migrations
+fart.exe pyproject.toml ./migrations migrations
 
 echo [*] Aerich Error Monkeypatched
 

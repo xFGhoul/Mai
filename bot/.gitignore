@@ -5,7 +5,7 @@ cogs/NSFW/cache
 
 # Database
 migrations/
-aerich.ini
+pyproject.toml
 
 # Config
 config/config.yaml
