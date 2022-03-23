@@ -20,7 +20,7 @@ augmentor==0.2.9
 backoff==1.11.1; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "4.0" or python_version >= "3.6" and python_version < "4.0" and python_full_version >= "3.5.0"
 backports.entry-points-selectable==1.1.1; python_version >= "2.7" and python_full_version >= "3.6.1"
 beautifulsoup4==4.10.0; python_full_version > "3.0.0"
-black==21.12b0; python_full_version >= "3.6.2"
+black==22.1.0; python_full_version >= "3.6.2"
 braceexpand==0.1.7; python_full_version >= "3.8.0"
 browser-cookie3==0.13.0; python_version >= "3.7"
 bs4==0.0.1
