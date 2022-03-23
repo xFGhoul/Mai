@@ -336,6 +336,7 @@ class Users(Model):
         return self.commands_run
 
 
+
 class Keys(Model):
     key_id = fields.UUIDField(pk=True)
     enabled = fields.BooleanField(default=False)
