@@ -342,12 +342,3 @@ class Keys(Model):
     level = fields.TextField(
         default="0"
     )  # 0 = Normal | 1 = Premium | 2 = Bot Owner
-
-
-class Reports(Model):
-    id = fields.BigIntField(pk=True)
-    report_message = fields.TextField(default=None, null=True)
-    report_type = fields.TextField(
-        default=None, null=True
-    )  # Guild | User | Bug
-    report_id = fields.TextField(default=None, null=True)

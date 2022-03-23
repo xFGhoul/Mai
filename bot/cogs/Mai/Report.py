@@ -11,16 +11,14 @@ Made With ❤️ By Ghoul & Nerd
 
 """
 
-import uuid
 from typing import Union
 
 import discord
-from click import pass_context
-from db.models import Reports
 from discord.ext import commands
 from helpers.constants import *
 from helpers.custommeta import CustomCog as Cog
 from helpers.logging import log
+from views.report import ReportDropdown
 
 
 class Report(
@@ -41,23 +39,16 @@ class Report(
     @commands.command(
         name="report",
         description="Report A Bug, User, or Guild",
-        brief="report @Member doing illegal stuff\nreport bug ping doesn't work\nreport AGuildName doing illegal things",
+        brief="report",
     )
     async def report(
         self,
         ctx: commands.Context,
-        kind: Union[str, discord.Member, discord.Guild],
-        reason: str,
     ) -> None:
-        if reason is None:
-            embed = discord.Embed(
-                color=Colors.ERROR,
-                description=f"{Emoji.ERROR} `reason` value needs to be passed",
-            )
-            await ctx.send(embed=embed, delete_after=15)
-            return
 
-        pass
+        view = ReportDropdown(self.bot)
+
+        await ctx.send(view=view)
 
 
 def setup(bot):

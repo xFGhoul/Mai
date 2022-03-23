@@ -25,5 +25,6 @@
 <h3 align="center">Files And Explanations</h3>
 
 `├──`[`info.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/views/info.py) — Info Views like `Invite`, `SupportServer`, etc<br>
+`├──`[`report.py`](https://github.com/xFGhoul/Mai/blob/dev/bot/views/report.py) - Report Views like `ReportDropdown` or `BugModal`, etc<br>
 
 > Made With ❤️ By Ghoul & Nerd
