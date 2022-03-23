@@ -1,0 +1,14 @@
+# Project Related
+*.md
+
+# Docker
+Dockerfile
+
+# Github
+.git
+.git
+.gitattributes
+.gitignore
+
+# Python
+__pycache__

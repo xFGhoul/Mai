@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+    Redis:
+      image: bitnami/redis:latest
+      container_name: Redis
+      restart: on_failure
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+        - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      ports:
+        - '6379:6379'
+      volumes:
+        - 'redis_data:/bitnami/redis/data'
+
+
+    Postgres:
+      image: postgres:13
+      container_name: PostgreSQL
+      restart: always
+      environment:
+        POSTGRES_USER: Mai
+        POSTGRES_PASSWORD: donotenter
+      ports:
+        - '5432:5432'
+      volumes:
+       - db-data:/var/lib/postgresql/data:cached
+
+    API:
+      build: bot/api
+      restart: always
+      depends_on:
+        - "Bot"
+
+    Dashboard-Frontend:
+      build: website/frontend
+      container_name: Dashboard-Frontend
+      depends_on:
+        - "Dashboard-Backend"
+
+
+    Dashboard-Backend:
+      build: website/backend
+      container_name: Dashboard-Backend
+      depends_on:
+        - "Redis"
+        - "API"
+
+    Bot:
+      build: .
+      restart: always
+      container_name: Mai
+      depends_on:
+        - "Redis"
+        - "Postgres"
+
+
+volumes:
+  redis-data:
+  db-data:
