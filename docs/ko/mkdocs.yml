@@ -1,0 +1,110 @@
+site_name: Mai
+site_author: Ghoul
+site_url: https://xfghoul.github.io/Mai/ko/
+site_description: A Discord Bot That Transcends Normality
+copyright: Copyright &copy; 2021 Ghoul
+repo_name: Mai
+repo_url: https://github.com/xFGhoul/Mai
+edit_uri: ''
+theme:
+  name: material
+  language: en
+  icon:
+    repo: fontawesome/brands/github
+  logo: https://xfghoul.github.io/Mai/assets/icon.svg
+  favicon: https://xfghoul.github.io/Mai/assets/favicon.png
+  palette:
+  - scheme: default
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Switch to dark mode
+  - scheme: slate
+    toggle:
+      icon: material/toggle-switch
+      name: Switch to light mode
+  - media: '(prefers-color-scheme: light)'
+    scheme: default
+    toggle:
+      icon: material/toggle-switch-off-outline
+      name: Switch to dark mode
+  - media: '(prefers-color-scheme: dark)'
+    scheme: slate
+    toggle:
+      icon: material/toggle-switch
+      name: Switch to light mode
+  features:
+  - navigation.instant
+  - search.highlight
+  - search.share
+  - search.suggest
+markdown_extensions:
+- abbr
+- attr_list
+- md_in_html
+- admonition
+- codehilite
+- footnotes
+- tables
+- pymdownx.keys
+- pymdownx.highlight
+- pymdownx.superfences
+- pymdownx.snippets
+- pymdownx.tabbed
+- pymdownx.details
+- pymdownx.smartsymbols
+- pymdownx.betterem
+- pymdownx.mark
+- pymdownx.tilde
+- pymdownx.critic
+- pymdownx.caret
+- pymdownx.highlight
+- pymdownx.inlinehilite
+- pymdownx.tasklist:
+    custom_checkbox: true
+- toc:
+    permalink: true
+    separator: _
+plugins:
+- search:
+    separator: '[\s\-\.]+'
+    lang:
+    - en
+nav:
+- Mai: index.md
+- Languages:
+  - en: /
+  - de: /de/
+  - es: /es/
+  - fr: /fr/
+  - ja: /ja/
+  - ko: /ko/
+  - ru: /ru/
+  - tr: /tr/
+- features.md
+- User Guide:
+  - User/index.md
+- Developer Guide:
+  - Developer/index.md
+extra:
+  social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/xFGhoul
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/xghouldev
+  alternate:
+  - link: /
+    name: en
+  - link: /de/
+    name: Deutsch
+  - link: /es/
+    name: es
+  - link: /fr/
+    name: français
+  - link: /ja/
+    name: 日本語
+  - link: /ko/
+    name: 한국어
+  - link: /ru/
+    name: русский
+  - link: /tr/
+    name: Türkçe
