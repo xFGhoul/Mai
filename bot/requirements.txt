@@ -130,7 +130,7 @@ soupsieve==2.3.1; python_version >= "3.6" and python_full_version > "3.0.0"
 spinners==0.0.24; python_version >= "3.4"
 spotify==0.10.2; python_version >= "3.6" and python_version < "4.0"
 statcord.py==3.1.0; python_version >= "3.5"
-spotbee==0.6.0; python_version >= "3.5"
+spotbee==1.0.0; python_version >= "3.5"
 sympy==1.10.1; python_version >= "3.6"
 termcolor==1.1.0; python_version >= "3.4"
 tiktokapi==5.1.1
