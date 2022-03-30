@@ -109,6 +109,7 @@ class Emoji:
     STATCORD = "<:statcord:945754289521963079>"
     CHANGELOGS = "<:changelogs:945754392190132245>"
     REPORT = "<:CH_BadgeBugHunter:795849415993720832>"
+    VALORANT = "<:valorant:957331465174147112>"
 
 
 # -- OSU EMOJIS
