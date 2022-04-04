@@ -3,7 +3,7 @@ aiohttp==3.8.1; python_version >= "3.8" and python_version < "4.0" and python_fu
 aioredis==1.3.1
 aiosignal==1.2.0; python_version >= "3.6"
 aiosqlite==0.17.0; python_version >= "3.7" and python_version < "4.0"
-animec==0.4
+animec==0.4.2
 anyio==3.5.0; python_full_version >= "3.6.2" and python_version >= "3.6"
 apraw==0.6.9a0; python_version >= "3.6"
 astunparse==1.6.3; python_full_version >= "3.8.0"
