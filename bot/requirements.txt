@@ -155,4 +155,4 @@ websockets==10.2; python_version >= "3.7"
 wsproto==1.1.0; python_version >= "3.7" and python_version < "4.0" and python_full_version >= "3.6.1"
 yarl==1.7.2; python_version >= "3.6"
 youtube-dl==2021.12.17
-zipp==3.7.0; python_version >= "3.7"
+zipp==3.8.0; python_version >= "3.7"
