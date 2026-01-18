@@ -1,33 +1,26 @@
-[tool.pdm]
-
 [project]
-name = ""
-version = ""
-description = ""
-authors = [
-    {name = "xFGhoul", email = "none"},
-]
+name = "mai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
 dependencies = [
-    "aiocache[redis]",
-    "py-cord",
-    "watchfiles",
-    "jishaku",
-    "loguru",
-    "pyshorteners",
-    "humanize",
-    "asyncpg",
-    "rich",
-    "PyYAML",
-    "aiohttp",
-    "click>=8.1.3",
-    "PycordUtils>=0.0.2",
-    "jeyyapi @ git+https://github.com/JeyyGit/jeyyapi.git",
-    "sympy>=1.11.1",
-    "psutil>=5.9.4",
+    "aiocache[redis]>=0.12.3",
+    "aiohttp>=3.13.3",
+    "asyncpg>=0.31.0",
+    "click>=8.3.1",
+    "humanize>=4.15.0",
+    "jishaku>=2.6.3",
+    "loguru>=0.7.3",
+    "psutil>=7.2.1",
+    "pycordutils>=0.0.2",
+    "pyshorteners>=1.0.1",
+    "pyyaml>=6.0.3",
+    "rich>=14.2.0",
+    "sympy>=1.14.0",
+    "watchfiles>=1.1.1",
+    "discord-py",
 ]
-requires-python = ">=3.11"
-license = {text = "MIT"}
 
-[build-system]
-requires = ["pdm-pep517>=1.0.0"]
-build-backend = "pdm.pep517.api"
+[tool.uv.sources]
+discord-py = { git = "https://github.com/Rapptz/discord.py.git" }

@@ -24,13 +24,12 @@ import itertools
 
 from typing import Tuple
 from aiocache import Cache
-from jeyyapi import JeyyAPIClient
 
 from discord import Embed, Intents, AllowedMentions, MemberCacheFlags
 from discord.ext import commands, tasks
 from discord.ext.commands import AutoShardedBot
 
-from discord.errors import ExtensionAlreadyLoaded, ExtensionNotFound, ExtensionFailed, ExtensionNotLoaded
+from discord.ext.commands import ExtensionAlreadyLoaded, ExtensionNotFound, ExtensionFailed, ExtensionNotLoaded
 
 from config.ext import config
 
@@ -69,7 +68,6 @@ class Mai(AutoShardedBot):
         self.activities = itertools.cycle((discord.Activity(type=discord.ActivityType.watching, name="-help"), lambda: discord.Activity(type=discord.ActivityType.listening, name=f"{len(mai.all_commands)} Commands | {len(mai.users)} Users | {len(mai.guilds)} Servers")))
         
         self.uptime = datetime.datetime.utcnow()
-        self.jeyy_api: JeyyAPIClient = JeyyAPIClient()
         
         intents: Intents = discord.Intents.default()
         intents.members = True
